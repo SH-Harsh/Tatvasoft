@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .home_image {
@@ -216,13 +217,26 @@ img.Shape-1 {
 /* 2nd Sections */
 
 
-.content_Title {
-    text-align: center;
-    margin-top: 30px;
+
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+.Why-Helperland {
+    width: 100%;
+    height: 38px;
+    margin: 87px 0px 84px 0px;
     font-family: Roboto;
-    font-size: 25px;
-    font-weight: 500;
-    color: black;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4f4f4f;
 }
 
 .Img_Content_1 {
@@ -230,84 +244,121 @@ img.Shape-1 {
     margin-top: 35px;
 }
 
+
+
 .Experience-Vetted-Professionals {
+    width: 270px;
+    height: 59px;
+    margin: 38px 94px 39px 255px;
     font-family: Roboto;
-    margin-left: -36px;
     font-size: 30px;
     font-weight: bold;
-    letter-spacing: normal;
+    font-stretch: normal;
+    font-style: normal;
     line-height: normal;
+    letter-spacing: normal;
     text-align: center;
     color: #565656;
 }
+
 
 .dominate-the-industry-in-scale-and-scope-with-an-adaptable-ext {
-    margin-left: -80px;
+    width: 312px;
+    height: 64px;
+    margin: 37px 74px 156px 233px;
     font-family: Roboto;
     font-size: 17px;
-    margin-top: 10px;
     font-weight: normal;
+    font-stretch: normal;
     font-style: normal;
     line-height: 1.41;
     letter-spacing: normal;
     text-align: center;
     color: #565656;
 }
+
+.online-Payment {
+    width: 320px;
+    height: 320px;
+}
+
 
 .Secure-Online-Payment {
+    width: 314px;
+    height: 29px;
+    margin: 52px 64px 55px 12px;
     font-family: Roboto;
-    margin-left: -88px;
     font-size: 30px;
     font-weight: bold;
-    letter-spacing: normal;
+    font-stretch: normal;
+    font-style: normal;
     line-height: normal;
-    text-align: center;
+    letter-spacing: normal;
+    text-align: left;
     color: #565656;
 }
+
+
 
 .Payment-is-processed-securely-online-Customers-pay-safely-onli {
-    margin-left: -123px;
+    width: 286px;
+    height: 64px;
+    margin: 37px 76px 156px 22px;
     font-family: Roboto;
     font-size: 17px;
-    margin-top: 36px;
     font-weight: normal;
+    font-stretch: normal;
     font-style: normal;
     line-height: 1.41;
     letter-spacing: normal;
     text-align: center;
     color: #565656;
-    margin-right: 81px;
 }
+
+.customer-service {
+    width: 320px;
+    height: 319.5px;
+}
+
+
 
 .Dedicated-Customer-Service {
+    width: 274px;
+    height: 59px;
+    margin: 40px 129px 37px 42px;
     font-family: Roboto;
-    margin-left: -242px;
     font-size: 30px;
     font-weight: bold;
-    letter-spacing: normal;
+    font-stretch: normal;
+    font-style: normal;
     line-height: normal;
+    letter-spacing: normal;
     text-align: center;
     color: #565656;
 }
 
+
+
 .to-our-customers-and-are-guided-in-all-we-do-by-their-needs-Th {
-    margin-left: -187px;
+    width: 334px;
+    height: 64px;
+    margin: 37px 75px 68px 19px;
     font-family: Roboto;
     font-size: 17px;
-    margin-top: 3px;
     font-weight: normal;
+    font-stretch: normal;
     font-style: normal;
     line-height: 1.41;
     letter-spacing: normal;
     text-align: center;
-    color: rgb(86, 86, 86);
-    margin-right: 51px;
+    color: #565656;
 }
 
+
 .Lorem-ipsum-dolor-sit-amet-consectetur {
-    width: 376px;
+    width: 296px;
     height: 59px;
-    margin: 104px 27px 18px 47px;
+    margin: 71px 13px 18px 200px;
     font-family: Roboto;
     font-size: 30px;
     font-weight: bold;
@@ -319,8 +370,17 @@ img.Shape-1 {
     color: #4f4f4f;
 }
 
+.Rectangle-10-copy {
+    width: 922px;
+    height: 126px;
+    margin: 27px 0px 0px 0px;
+    padding: 1px 0px 0px 0px;
+    background-color: #fff;
+}
+
 .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Donec {
-    width: 100%;
+    width: 630px;
+    height: 186px;
     margin: 18px 97px 47px 47px;
     font-family: Roboto;
     font-size: 18px;
@@ -333,84 +393,146 @@ img.Shape-1 {
     color: #4f4f4f;
 }
 
-.image_3 {
+/* .image_3 {
     margin-left: 40px;
+} */
+
+.Ellipse-672-copy {
+    width: 240px;
+    height: 240px;
+    margin: 44px 163px 53px 0;
 }
+
+.-circles-Free-time {
+    width: 151px;
+    height: 151px;
+}
+
+.-Cicrles--Friends {
+    width: 201px;
+    height: 201px;
+}
+
+
+.dedicated-helper {
+    width: 319.5px;
+    height: 319.5px;
+    margin-left: 229px;
+}
+
+
 
 .group_21_img {
-    width: 70%;
-    height: auto;
-    margin: 5px 5px 5px 100px;
+    width: 320px;
+    height: 320px;
+    padding: 0.5px 0 0 0.5px;
+    object-fit: contain;
 }
+
+
 
 .group_23_img {
-    width: 70%;
-    height: auto;
-    margin: 10px 70px;
+    width: 320px;
+    height: 320px;
+    object-fit: contain;
 }
 
+
 .group_24_img {
-    margin: 10px 20px;
-    width: 70%;
-    height: auto;
+    width: 320px;
+    height: 320px;
+    padding: 0 0 0.5px;
+    object-fit: contain;
 }
 
 .group_25_img {
-    width: 50%;
-    height: auto;
-    margin: 110px 2px 5px 58px;
+    width: 240px;
+    height: 240px;
+    margin: 62px 54px 15px 71px;
+    object-fit: contain;
 }
 
 .group_26_img {
-    width: 30%;
-    height: auto;
-    margin: -416px 14px 46px 339px;
+    width: 151px;
+    height: 151px;
+    margin: -394px 54px 15px 291px;
+    object-fit: contain;
 }
 
 .group_27_img {
-    width: 38%;
-    height: auto;
-    margin: -159px 14px 39px 315px;
+    width: 201px;
+    height: 201px;
+    margin: -345px 54px 15px 277px;
+    object-fit: contain;
 }
-
 
 /* 4 Sections */
 
 .Our-Blog {
     width: 100%;
     height: 38px;
-    margin: 15px 0px 80px 0px;
+    margin: 15px 0px 66px 0px;
     font-family: Roboto;
     font-size: 40px;
     font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
     text-align: center;
     color: #4f4f4f;
 }
 
+
+.Rectangle-10-copy {
+    width: 697px;
+    height: 463px;
+    margin: 30px 0px 0px 197px;
+    padding: 1px 0px 0px 0px;
+    background-color: #fff;
+}
+
+img.Group-28 {
+    width: 357px;
+    height: 164px;
+    margin: 0 0 20px;
+    object-fit: contain;
+}
+
 .Lorem-ipsum-dolor-sit-amet {
-    width: 100%;
-    height: auto;
-    margin: 10px 5px 7px 0px;
+    width: 246px;
+    height: 19px;
+    margin: 20px 91px 7px 20px;
     font-family: Roboto;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
     color: #3d4046;
 }
 
 .January-28-2019 {
     width: 99px;
     height: 12px;
-    margin: 5px 23px 14px 0px;
+    margin: 7px 23px 14px 19px;
     font-family: Roboto;
     font-size: 13px;
     font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
     color: #a3a3a3;
 }
 
 .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed-fe {
-    width: 100%;
-    height: auto;
-    margin: 14px 10px 5px 2px;
+    width: 287px;
+    height: 59px;
+    margin: 14px 49px 27px 21px;
     font-family: Roboto;
     font-size: 16px;
     font-weight: normal;
@@ -422,31 +544,32 @@ img.Shape-1 {
     color: #565656;
 }
 
+
+
 .Read-the-Post {
-    width: 100%;
-    height: auto;
-    margin: 20px 5px 0 5px;
+    width: 110px;
+    height: 14px;
+    margin: 27px 11px 0 20px;
     font-family: Roboto;
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
     color: #4f4f4f;
 }
 
-.card_box_1 {
-    margin-left: 160px;
-    /* box-shadow: 5px 5px #3d4046; */
+.Shape-2 {
+    width: 29px;
+    height: 9px;
+    margin: -17px 138px 40px 129px;
 }
 
-.card_box_2 {
-    margin-left: 110px;
-}
-
-.card_box_3 {
-    margin-left: 20px;
-}
-
-.Blog {
+.blog_box {
+    padding: 10px;
     margin: 20px;
-    padding: auto;
 }
 
 
@@ -483,19 +606,19 @@ img.Shape-1 {
 }
 
 .Rounded-Rectangle-506-copy {
-    width: 80%;
-    height: auto;
+    width: 357px;
+    height: 370px;
     margin: 59px 43px 42px 83px;
     padding: 0 19px 0 0;
     border-radius: 4px;
     box-shadow: 0 0 30px 0 #e4ebf0;
-    background-color: var(--white);
+    background-color: #fff;
 }
 
 .Rounded-Rectangle-506-copy-2 {
-    width: 1%;
-    height: 340px;
-    margin: 15px 35px 0 0;
+    width: 3px;
+    height: 370px;
+    margin: 0 35px 0 0;
     border-radius: 1px;
     background-color: #1d7a8c;
 }
@@ -508,21 +631,31 @@ img.Shape-1 {
 .home_lawyer2_ourteam_2 img {
     width: 70px;
     height: 70px;
-    margin: 50px 18px 27px 35px;
+    margin: 43px 18px 27px 35px;
+    padding: 4px 0 0;
+    object-fit: contain;
+
 }
 
 .Lary-Watson {
-    width: 90px;
-    margin: 0px 10px 2px 120px;
+    width: 228px;
+    height: 18px;
+    margin: -10px 67px 8px 1px;
     font-family: Roboto;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
-    color: var(--greyish-brown);
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: right;
+    color: #4f4f4f;
 }
 
 .Manchester {
     width: 74px;
-    margin: 4px 10px 20px 110px;
+    height: 11px;
+    margin: 8px 103px 43px 108px;
     font-family: Roboto;
     font-size: 14px;
     font-weight: normal;
@@ -534,23 +667,39 @@ img.Shape-1 {
     color: #8e8e8e;
 }
 
+.Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed-fe-2 {
+    width: 288px;
+    height: 146px;
+    margin: 27px 11px 30px 36px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    text-align: left;
+    color: #565656;
+}
+
 .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed {
     width: 200px;
     height: 118px;
-    margin: 27px 11px 30px 0px;
+    margin: 27px 11px 10px 20px;
     font-family: Roboto;
     font-size: 16px;
     color: #565656;
 }
 
-.Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed-fe {
+/* .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed-fe {
     width: 288px;
     height: 120px;
     margin: 27px 11px 10px 36px;
     font-family: Roboto;
     font-size: 16px;
     color: #565656;
-}
+} */
+
 
 .Read-More {
     width: 85px;
@@ -570,22 +719,22 @@ img.Shape-1 {
 .Ellipse-649 {
     width: 48px;
     height: 48px;
-    margin: 40px 0px 29px 10px;
-    padding: 5px 14px 10px;
-    border-radius: 50%;
+    margin: 57px 83px 76px 70px;
+    padding: 8px 14px 20px;
     background-color: #525252;
+    border-radius: 50%;
 }
 
-img.Forma-arrow {
+.Forma-arrow {
     width: 20px;
     height: 10px;
     color: white;
-    background-color: var(--pale-grey);
+    background-color: #525252;
 }
 
 .GET-OUR-NEWSLETTER {
     width: 50%;
-    margin: 30px 0px 5px 200px;
+    margin: 30px 0px 5px 520px;
     font-family: Roboto;
     font-size: 14px;
     color: #353548;
@@ -599,37 +748,52 @@ img.Layer-598 {
     object-fit: contain;
 }
 
-.Rounded-Rectangle-649 {
-    width: 203px;
-    height: 40px;
-    margin: 5px 6px 43px 120px;
-    padding: 10px 96px 16px 33px;
-    border-radius: 20px;
-    border: solid 1px #565656;
-}
 
 .Your-Email {
-    width: 86px;
+    width: 80px;
+    height: 10px;
     font-family: Roboto;
     font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
     color: #565656;
 }
 
-.Rounded-Rectangle-649-copy {
+.Rounded-Rectangle-648 {
+    width: 216px;
+    height: 40px;
+    margin: 9px 11px 53px 421px;
+    padding: 14px 131px 16px 22px;
+    border-radius: 20px;
+    border: solid 1px #565656;
+    background-color: #f4f5f8;
+}
+
+.Rounded-Rectangle-648-copy {
     width: 88px;
     height: 40px;
-    margin: -83px 10px 10px 330px;
-    padding: 11px 21px 16px 23px;
+    margin: -92px 3px 53px 647px;
+    padding: 4px 21px 16px 23px;
     border-radius: 20px;
     background-color: #ff7b6d;
 }
 
 .Submit {
-    width: 19px;
+    width: 44px;
+    height: 11px;
     font-family: Roboto;
     font-size: 14px;
     font-weight: normal;
-    color: var(--white);
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.29;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
 }
 
 
@@ -643,8 +807,8 @@ img.Layer-598 {
 }
 
 .footer_navbar {
-    margin-top: -69px;
-    margin-left: 427px;
+    /* margin-top: 50px; */
+    margin: 50px 5px 0px;
     width: 100%
 }
 
@@ -652,17 +816,16 @@ img.Layer-598 {
     text-decoration: none;
     margin-top: 20px;
     color: #f4f5f8;
-    padding: 10px;
+    padding: 5px 10px;
 }
 
-.footer_navbar .footer_social_media {
-    margin-left: 62%;
-    margin-top: -31px;
+.footer_social_media {
+    margin: 50px 5px 0px;
 }
 
 .footer_Copyright {
     width: 104%;
-    height: 64px;
+    /* height: 64px; */
     margin-top: 3%;
     margin-left: -25px;
 }
@@ -697,7 +860,8 @@ img.Layer-598 {
 .logo_footer {
     width: 106px;
     height: 78px;
-    margin: 5px 14px 13px 2px;
+    margin: 27px 262px 26px 122px;
+    object-fit: contain;
 }
 
 

@@ -2,28 +2,46 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>FAQs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+
+    <!-- IMPORT BOOTSTRAP STYLES -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <!-- IMPORT BOOTSTRAP SCRIPTS-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+
 </head>
 
 <body>
 
-    <div class="navbar_faq">
-    <nav class="navbar navbar-expand-lg navbar-dark p-md-3">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo04"
-            aria-controls="navbarTogglerDemo04" aria-expanded="false" aria-label="Toggle navigation">
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #525252;">
+        <a class="navbar-brand" href="#"><img src="assets/white-logo-transparent-background-copy-4.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#"><img src="assets/white-logo-transparent-background-copy-4.png"></a>
-
-        <div class="collapse navbar-collapse navigation" id="navbarTogglerDemo04">
-            <div class="mx-auto"></div>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li  class="nav-item">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
                     <a class="nav-link navbar-border nav-item_faq" href="#">Book now</a>
                 </li>
                 <li class="nav-item">
@@ -47,146 +65,285 @@
             </ul>
         </div>
     </nav>
-    </div>
 
     <div class="faq_container">
         <img src="assets/group-16.png" class="faq_img" style="width:100%">
         <h1 class="faq_title">FAQs</h1>
-        <div class="Rectangle-5-copy-5">
+    </div>
+
+    <div>
+        <div style="text-align: center;">
+            <div class="Rectangle-5-copy-5"></div>
             <img src="assets/separator.png" class="separator_img">
             <div class="Rectangle-5-copy-6"></div>
         </div>
+
     </div>
 
-        <div class="faq_whether_content">
+    <div class="container">
+        <div class="Layer-0">
             <p class="Whether-you-are-Customer-or-Service-provider-We-have-tried-our">
-                Whether you are Customer or Service provider,
-                <p class="Whether-you-are-Customer-or-Service-provider-We-have-tried-our">We have tried our best to
-                    solve all your queries and questions. </p>
+                Whether you are Customer or Service provider,<br>
+                We have tried our best to solve all your queries and questions.
             </p>
         </div>
+    </div>
 
-
-        <div class=" faq_service">
-            <div class="Rectangle-21-copy-3">
-                <span class="For-Customer">
-                    FOR CUSTOMER
-                </span>
-
-                <div class="Rectangle-21">
-                    <span class="For-Service-Provider">
-                        For Service Provider
-                    </span>
+    <!-- Media query needed -->
+    <div class="container section_box">
+        <div class="flex-container">
+            <div>
+                <div>
+                    <div class="Rectangle-21-copy-3 border-faq">
+                        <span class="For-Customer">
+                            For Customer
+                        </span>
+                    </div>
                 </div>
             </div>
+            <div>
+                <div>
+                    <div class="Rectangle-21">
+                        <span class="For-Service-Provider">
+                            For Service Provider
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <div class="faqs_que">
+    <div class="container">
 
-                <!-- content paragraph 1 -->
+        <!-- 1st content -->
+        <div class="row">
+            <div class="col-2">
                 <img src="assets/down arrow.png" class="arrow">
-                <p class="faqs_q">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis
-                    mattis tellus ac ut non imperdiet velit?</p>
-                <p class="faqs_q1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id diam tincidunt,
-                    fringilla ante vitae, dapibus velit. Vivamus id tortor rhoncus, efficitur quam at, suscipit tortor.
-                    Integer fermentum convallis eros vel semper. Ut non imperdiet velit. Praesent eu dui vel lacus porta
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed-id">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id diam tincidunt, fringilla ante
+                    vitae, dapibus velit. Vivamus id tortor rhoncus, efficitur quam at, suscipit tortor. Integer
+                    fermentum convallis eros vel semper. Ut non imperdiet velit. Praesent eu dui vel lacus porta
                     eleifend eget quis dui. Integer tempus massa in gravida tincidunt. Fusce in libero tristique,
                     euismod nisi vel, luctus urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec
                     et placerat arcu. Suspendisse lacinia tristique massa. Etiam risus justo, scelerisque id arcu eu,
                     sodales tempor eros. Aliquam efficitur pretium urna, sit amet congue risus malesuada rutrum. Donec
                     id massa vel velit ullamcorper accumsan ut eget nisl. Fusce viverra commodo lacus, sit amet
-                    facilisis leo luctus dictum. </p>
-
-                <!-- content paragraph 2 -->
-                <img src="assets/side arrow.png" class="arrow">
-                <p class="faqs_q">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis
-                    mattis tellus ac ut non imperdiet velit?</p>
-
-
-                <!-- content paragraph 3 -->
-                <img src="assets/side arrow.png" class="arrow">
-                <p class="faqs_q">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis
-                    mattis tellus ac ut non imperdiet velit?</p>
-
-                <!-- content paragraph 4 -->
-                <img src="assets/side arrow.png" class="arrow">
-                <p class="faqs_q">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis
-                    mattis tellus ac ut non imperdiet velit?</p>
-
-                <!-- content paragraph 5 -->
-                <img src="assets/side arrow.png" class="arrow">
-                <p class="faqs_q">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis
-                    mattis tellus ac ut non imperdiet velit?</p>
-
-                <!-- content paragraph 6 -->
-                <img src="assets/side arrow.png" class="arrow">
-                <p class="faqs_q">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis
-                    mattis tellus ac ut non imperdiet velit?</p>
-
-                <!-- content paragraph 7 -->
-                <img src="assets/side arrow.png" class="arrow">
-                <p class="faqs_q">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis
-                    mattis tellus ac ut non imperdiet velit?</p>
-            </div>
-        </div>
-
-
-        <div class="newsletter">
-            <p class="GET-OUR-NEWSLETTER_faq">
-                GET OUR NEWSLETTER
-            </p>
-        </div>
-
-        <div>
-            <div class="Rounded-Rectangle-649_faq">
-                <p class="Your-Email_faq">
-                    Your Email
+                    facilisis leo luctus dictum.
                 </p>
             </div>
-
-            <div class="Rounded-Rectangle-649-copy_faq">
-                <p class="Submit_faq">
-                    Submit
-                </p>
-            </div>
-
         </div>
 
-        <footer class="footer_section_faq">
-            <div>
-                <img src="assets/white-logo-transparent-background-copy-4.png" class="logo_footer_faq">
-                <div class="footer_navbar">
-                    <a href="" class="me-4">
-                        HOME
-                    </a>
-                    <a href="" class="me-4">
-                        ABOUT
-                    </a>
-                    <a href="" class="me-4">
-                        TESTIMONIAL
-                    </a>
-                    <a href="" class="me-4">
-                        FAQS
-                    </a>
-                    <a href="" class="me-4">
-                        INSURANCE POLICY
-                    </a>
-                    <a href="" class="me-4">
-                        IMPRESSUM
-                    </a>
-                    <div class="footer_social_media">
-                        <img src="assets/Facebook.png" class="me-4">
-                        <img src="assets/insta-1.png">
-                    </div>
+        <!-- 2nd content -->
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/side arrow.png" class="arrow">
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+            </div>
+        </div>
+
+        <!-- 3nd content -->
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/side arrow.png" class="arrow">
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+            </div>
+        </div>
+
+        <!-- 4nd content -->
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/side arrow.png" class="arrow">
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+            </div>
+        </div>
+
+        <!-- 5nd content -->
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/side arrow.png" class="arrow">
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+            </div>
+        </div>
+
+        <!-- 6nd content -->
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/side arrow.png" class="arrow">
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+            </div>
+        </div>
+
+        <!-- 7nd content -->
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/side arrow.png" class="arrow">
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+            </div>
+        </div>
+
+        <!-- 8nd content -->
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/side arrow.png" class="arrow">
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+            </div>
+        </div>
+
+        <!-- 9nd content -->
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/side arrow.png" class="arrow">
+            </div>
+            <div class="col-10">
+                <p class="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Vestib">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus
+                    ac
+                    ut
+                    non imperdiet velit?
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <p class="GET-OUR-NEWSLETTER_faq">
+            GET OUR NEWSLETTER
+        </p>
+
+        <div class="flex-container">
+            <div style="flex-grow: 10"></div>
+            <div style="flex-grow: 1">
+                <div class="Rounded-Rectangle-649_faq" class="border_faq">
+                    <p class="Your-Email_faq">
+                        Your Email
+                    </p>
                 </div>
             </div>
-
-            <div class="footer_Copyright" style="background-color: #292929">
-                <p class="footer_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat nunc
-                    libero, ac malesuada ligula aliquam ac. <span style="color: #6eabef;;">Privacy Policy</span></p>
+            <div style="flex-grow: 1">
+                <div class="Rounded-Rectangle-649-copy_faq">
+                    <p class="Submit_faq">
+                        Submit
+                    </p>
+                </div>
             </div>
+            <div style="flex-grow: 10"></div>
+
+        </div>
+
+    </div>
 
 
-        </footer>
+    <footer class="footer_section_faq">
+        <div class="flex-container">
+            <div style="flex-grow: 1">
+                <div class="white_logo_transparent_background-copy-4">
+                    <img src="assets/white-logo-transparent-background-copy-4.png">
+                </div>
+            </div>
+            <div style="flex-grow: 4">
+                <div class="footer_navbar_faq">
+                    <a href="#">
+                        HOME
+                    </a>
+                    <a href="#">
+                        ABOUT
+                    </a>
+                    <a href="#">
+                        TESTIMONIAL
+                    </a>
+                    <a href="#">
+                        FAQS
+                    </a>
+                    <a href="#">
+                        INSURANCE POLICY
+                    </a>
+                    <a href="#">
+                        IMPRESSUM
+                    </a>
+                </div>
+            </div>
+            <div style="flex-grow: 1">
+                <div class="Forma-1_faq">
+                    <img src="assets/Facebook.png" class="social_media">
+                    <img src="assets/insta-1.png" class="social_media">
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%; padding: 0px 100px;">
+            <div class="Rectangle-12-copy-2" ></div>
+        </div>
+        
+        <div>
+            <p class="-Helperland-All-rights-reserved-Terms-and-Conditions">
+                ©2018 Helperland All rights reserved.Terms and Conditions | Privacy Policy
+            </p>
+        </div>
+        
+    </footer>
+
+
+
 </body>
 
 </html>

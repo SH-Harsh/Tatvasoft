@@ -1,0 +1,905 @@
+body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+
+}
+
+.flex-container-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.border {
+    border: 2px solid red;
+}
+
+#header {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+}
+
+.main {
+    position: relative;
+    background-image: url('assets/group-35_2021-11-23/group-35@3x.png');
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+.navbar-border {
+    border-radius: 20px;
+    border: solid 1px white;
+    padding: 5px 20px;
+    margin: 20px 10px;
+}
+
+.navbar_item {
+    margin: 20px 20px;
+}
+
+.navbar_item_img {
+    margin: 25px 5px;
+}
+
+img.white_logo_transparent_background_home {
+    width: 175px;
+    height: 130px;
+    margin: 0 18px 9px 0;
+    object-fit: contain;
+}
+
+.home_image {
+    background-image: url('assets/group-35_2021-11-23/group-35@3x.png');
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+}
+
+.first_content {
+    color: white;
+    /* margin-top: 220px; */
+    /* margin-left: 10px; */
+    height: 200px;
+    width: 70%;
+    position: absolute;
+    left: 2.6%;
+    top: 35.5%;
+}
+
+.Rounded-Rectangle-6-copy-4 {
+    width: 225px;
+    height: 54px;
+    margin: 16px auto 157px;
+    padding: 18px 33px 22px 31px;
+    opacity: 0.6;
+    border-radius: 27px;
+    background-color: #006072;
+    position: absolute;
+    top: 53.9%;
+    left: 42.8%;
+    right: 42.8%;
+    bottom: 42.3%;
+}
+
+.Lets-Book-a-Cleaner-copy {
+    width: 161px;
+    height: 14px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: right;
+    color: white;
+}
+
+.home_service_process {
+    position: absolute;
+    top: 64.8%;
+    left: 20%;
+    right: 19.5%;
+}
+
+
+img.Forma-1-copy {
+    width: 100%;
+    height: 55px;
+    margin: 40px auto 44px;
+    object-fit: contain;
+}
+
+.Enter-your-postcode {
+    width: 100%;
+    height: 19px;
+    margin: 35px auto 12px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+    color: white;
+}
+
+img.step-arrow1 {
+    width: 100%;
+    height: 23px;
+    margin: 65px auto 10px;
+    object-fit: contain;
+}
+
+img.Group-22 {
+    width: 100%;
+    height: 60px;
+    margin: 42px auto 35px;
+    object-fit: contain;
+}
+
+.Select-your-plan {
+    width: 100%;
+    height: 19px;
+    margin: 35px auto 43px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+    color: white;
+}
+
+img.step-arrow1-copy {
+    width: 100%;
+    height: 23px;
+    margin: 70px auto 52px;
+    object-fit: contain;
+}
+
+img.Forma-1 {
+    width: 100%;
+    height: 54px;
+    margin: 39px auto 40px;
+    object-fit: contain;
+}
+
+.Pay-securely-online {
+    width: 100%;
+    height: 19px;
+    margin: 35px auto 43px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--white);
+}
+
+.Enjoy-amazing-service {
+    width: 100%;
+    height: 19px;
+    margin: 35px auto 43px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--white);
+}
+
+img.Shape-1 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 1%;
+    left: 48%;
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+
+
+
+
+
+
+.Why-Helperland {
+    width: 100%;
+    height: 38px;
+    margin: 87px auto 84px;
+    font-family: Roboto;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4f4f4f;
+}
+
+.dedicated-helper {
+    width: 319.5px;
+    height: 319.5px;
+}
+
+.online-Payment {
+    width: 320px;
+    height: 320px;
+}
+
+.Ellipse-733 {
+    width: 321px;
+    height: 321px;
+    margin: 84px auto 38px;
+    padding: 0.5px;
+    background-color: white;
+}
+
+.group_21_img {
+    width: 320px;
+    height: 320px;
+    padding: 0.5px 0 0 0.5px;
+    object-fit: contain;
+}
+
+.Experience-Vetted-Professionals {
+    width: 270px;
+    height: 59px;
+    margin: 38px auto 39px;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #565656;
+}
+
+.dominate-the-industry-in-scale-and-scope-with-an-adaptable-ext {
+    width: 312px;
+    height: 64px;
+    margin: 37px auto 156px;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.41;
+    letter-spacing: normal;
+    text-align: center;
+    color: #565656;
+}
+
+.Ellipse-733-copy {
+    width: 321px;
+    height: 321px;
+    margin: 84px 78.5px 38px;
+    padding: 0.5px;
+    background-color: white;
+}
+
+.group_23_img {
+    width: 100%;
+    height: 320px;
+    object-fit: contain;
+}
+
+.Secure-Online-Payment {
+    width: 314px;
+    height: 29px;
+    margin: 52px auto 55px;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #565656;
+}
+
+.Payment-is-processed-securely-online-Customers-pay-safely-onli {
+    width: 286px;
+    height: 64px;
+    margin: 37px auto 156px;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.41;
+    letter-spacing: normal;
+    text-align: center;
+    color: #565656;
+}
+
+.customer-service {
+    width: 320px;
+    height: 319.5px;
+}
+
+.Ellipse-733-copy-2 {
+    width: 321px;
+    height: 321px;
+    margin: 84px auto 38px;
+    padding: 0.5px;
+    background-color: var(--white);
+}
+
+.group_24_img {
+    width: 320px;
+    height: 320px;
+    padding: 0 0 0.5px;
+    object-fit: contain;
+}
+
+.Dedicated-Customer-Service {
+    width: 274px;
+    height: 59px;
+    margin: 40px auto 37px;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #565656;
+}
+
+.to-our-customers-and-are-guided-in-all-we-do-by-their-needs-Th {
+    width: 334px;
+    height: 64px;
+    margin: 37px auto 156px;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.41;
+    letter-spacing: normal;
+    text-align: center;
+    color: #565656;
+}
+
+.Lorem-ipsum-dolor-sit-amet-consectetur {
+    width: 376px;
+    height: 59px;
+    margin: 104px 27px 18px 47px;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #4f4f4f;
+}
+
+.Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Donec {
+    width: 556px;
+    height: 186px;
+    margin: 18px 97px 47px 47px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--greyish-brown);
+}
+
+.group_36 {
+    padding: 80px 0 5px;
+}
+
+/* Blog Box  */
+
+.Our-Blog {
+    width: 100%;
+    height: 38px;
+    margin: 15px 0px 66px 0px;
+    font-family: Roboto;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4f4f4f;
+}
+
+
+.Rectangle-10-copy {
+    width: 697px;
+    height: 463px;
+    margin: 30px 0px 0px 197px;
+    padding: 1px 0px 0px 0px;
+    background-color: #fff;
+}
+
+img.Group-28 {
+    width: 357px;
+    height: 164px;
+    margin: 0 0 20px;
+    object-fit: contain;
+}
+
+.Lorem-ipsum-dolor-sit-amet {
+    width: 246px;
+    height: 19px;
+    margin: 20px 91px 7px 20px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3d4046;
+}
+
+.January-28-2019 {
+    width: 99px;
+    height: 12px;
+    margin: 7px 23px 14px 19px;
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #a3a3a3;
+}
+
+.Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed-fe {
+    width: 287px;
+    height: 59px;
+    margin: 14px 49px 27px 21px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    text-align: left;
+    color: #565656;
+}
+
+
+
+.Read-the-Post {
+    width: 110px;
+    height: 14px;
+    margin: 27px 11px 0 20px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #4f4f4f;
+}
+
+.Shape-2 {
+    width: 29px;
+    height: 9px;
+    margin: -17px 138px 40px 129px;
+}
+
+.blog_box {
+    padding: 10px;
+    margin: 20px;
+}
+
+
+/* What our Customer Say  */
+
+.What-Our-Customers-Say {
+    width: 100%;
+    height: 38px;
+    margin: 0px auto 59px;
+    padding-top: 65px;
+    font-family: Roboto;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4f4f4f;
+}
+
+.Rounded-Rectangle-506-copy {
+    width: 357px;
+    height: 370px;
+    margin: 59px 43px 42px 83px;
+    padding: 0 19px 0 0;
+    border-radius: 4px;
+    box-shadow: 0 0 30px 0 #e4ebf0;
+    background-color: white;
+}
+
+.Rounded-Rectangle-506-copy-2 {
+    width: 3px;
+    height: 370px;
+    margin: 0 35px 0 0;
+    border-radius: 1px;
+    background-color: #1d7a8c;
+}
+
+.home_lawyer2_ourteam_2 {
+    width: 70px;
+    height: 66px;
+}
+
+.home_lawyer2_ourteam_2 img {
+    width: 70px;
+    height: 70px;
+    margin: 43px 18px 27px 35px;
+    padding: 4px 0 0;
+    object-fit: contain;
+
+}
+
+.Lary-Watson {
+    width: 228px;
+    height: 18px;
+    margin: -10px 67px 8px 1px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: right;
+    color: #4f4f4f;
+}
+
+.Manchester {
+    width: 74px;
+    height: 11px;
+    margin: 8px 103px 43px 108px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.71;
+    letter-spacing: normal;
+    text-align: right;
+    color: #8e8e8e;
+}
+
+.Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed-fe-2 {
+    width: 288px;
+    height: 146px;
+    margin: 27px 11px 30px 36px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    text-align: left;
+    color: #565656;
+}
+
+.Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed {
+    width: 200px;
+    height: 118px;
+    margin: 27px 11px 10px 20px;
+    font-family: Roboto;
+    font-size: 16px;
+    color: #565656;
+}
+
+.Read-More {
+    width: 85px;
+    height: 14px;
+    margin: 30px 1px 40px 37px;
+    font-family: Roboto;
+    font-size: 18px;
+    text-align: left;
+    color: #565656;
+}
+
+.shape_2 {
+    margin: -56px 0px 0px 97px;
+}
+
+
+.Ellipse-649 {
+    width: 48px;
+    height: 48px;
+    margin: 57px 83px 76px 70px;
+    padding: 8px 14px 20px;
+    background-color: #525252;
+    border-radius: 50%;
+}
+
+.Forma-arrow {
+    width: 20px;
+    height: 10px;
+    color: white;
+    background-color: #525252;
+}
+
+.GET-OUR-NEWSLETTER {
+    width: 23%;
+    margin: 30px 0px 5px 520px;
+    font-family: Roboto;
+    font-size: 14px;
+    color: #353548;
+    font-weight: bold;
+}
+
+img.Layer-598 {
+    width: 52px;
+    height: 50px;
+    margin: 30px 15px 12px 420px;
+    object-fit: contain;
+}
+
+
+.Your-Email {
+    width: 80px;
+    height: 10px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+    color: #565656;
+}
+
+.Rounded-Rectangle-648 {
+    width: 216px;
+    height: 40px;
+    margin: 9px 11px 53px 421px;
+    padding: 14px 131px 16px 22px;
+    border-radius: 20px;
+    border: solid 1px #565656;
+    background-color: #f4f5f8;
+}
+
+.Rounded-Rectangle-648-copy {
+    width: 88px;
+    height: 40px;
+    margin: -92px 3px 53px 647px;
+    padding: 4px 21px 16px 23px;
+    border-radius: 20px;
+    background-color: #ff7b6d;
+}
+
+.Submit {
+    width: 44px;
+    height: 11px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.29;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+
+/* Footer Section  */
+
+.footer_section_faq {
+    background-color: black;
+    width: 100%;
+}
+
+.white_logo_transparent_background-copy-4 {
+    width: 106px;
+    height: 78px;
+    margin: 5px auto 26px auto;
+}
+
+.Forma-1_faq {
+    width: 100%;
+    height: 18px;
+    margin: 34px auto 52px auto;
+}
+
+.social_media {
+    margin: 5px 10px 10px;
+}
+
+
+.footer_navbar_faq {
+    display: row;
+    text-align: center;
+    margin: 30px 5px;
+}
+
+.footer_navbar_faq a {
+    text-decoration: none;
+    color: #f4f5f8;
+    padding: 10px;
+}
+
+.Rectangle-12-copy-2 {
+    width: 100%;
+    height: 1px;
+    margin: 26px auto 27px;
+    background-color: #424242;
+}
+
+.Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Ut-feu {
+    width: 100%;
+    height: auto;
+    margin: 25px auto 12px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.57;
+    letter-spacing: normal;
+    text-align: center;
+    color: #f1f1f1;
+    padding-bottom: 25px;
+}
+
+.Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Ut-feu .text-style-1 {
+    color: #6eabef;
+}
+
+.footer_but button {
+    width: 99px;
+    height: 40px;
+    float: right;
+    margin-right: 20px;
+    margin-top: -54px;
+    border-radius: 20px;
+    border: none;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    color: #4f4f4f;
+    background-color: #eed507;
+}
+
+
+@media screen and (max-width:952px) {
+    .GET-OUR-NEWSLETTER {
+        width: 71%;
+        margin: 30px auto 5px;
+    }
+
+    .Rounded-Rectangle-648 {
+        width: 60%;
+        height: auto;
+        margin: 9px auto 53px;
+    }
+
+    .Rounded-Rectangle-648-copy {
+        width: 40%;
+        height: auto;
+        margin: -37px auto 53px;
+    }
+
+    .Submit {
+        width: 50%;
+        height: auto;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.29;
+        letter-spacing: normal;
+        text-align: center;
+        color: #fff;
+    }
+
+    img.Layer-598 {
+        width: 100%;
+        height: 50px;
+        margin: 30px 15px 12px auto;
+        object-fit: contain;
+    }
+
+    .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Donec {
+        width: 100%;
+        height: 186px;
+        margin: 18px auto 47px;
+    }
+
+    .Lorem-ipsum-dolor-sit-amet-consectetur {
+        width: 100%;
+        height: auto;
+        margin: 104px auto 19px;
+    }
+
+    .step-arrow1-copy,.step-arrow1{
+        display: none;
+    }
+
+    .Rounded-Rectangle-6-copy-4 {
+        width: 35%;
+        height: 55px;
+        margin: 16px auto 91px;
+    }
+
+    .Lets-Book-a-Cleaner-copy {
+        width: 100%;
+    }
+
+    .h1, h1 {
+        font-size: 1rem;
+    }
+
+    .Ellipse-733-copy {
+        width: 100%;
+        height: 321px;
+        margin: 84px auto 38px;
+        padding: 8.5px;
+    }
+
+    .Secure-Online-Payment {
+        width: 80%;
+        height: auto;
+        margin: 52px auto 55px;
+    }
+
+    .Payment-is-processed-securely-online-Customers-pay-safely-onli {
+        width: 80%;
+        height: auto;
+        margin: 37px auto 156px;
+    }
+
+    .Rounded-Rectangle-506-copy {
+        width: 357px;
+        height: 370px;
+        margin: 59px auto 42px;
+    }
+}

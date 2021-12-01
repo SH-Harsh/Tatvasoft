@@ -223,6 +223,11 @@ img.Shape-1 {
     flex-flow: row wrap;
 }
 
+.flex-container-center {
+    justify-content: center;
+    align-items: center;
+}
+
 
 .Why-Helperland {
     width: 100%;
@@ -393,9 +398,6 @@ img.Shape-1 {
     color: #4f4f4f;
 }
 
-/* .image_3 {
-    margin-left: 40px;
-} */
 
 .Ellipse-672-copy {
     width: 240px;
@@ -587,13 +589,6 @@ img.Group-28 {
     margin: -56px 0px 0px 97px;
 }
 
-/* .message {
-    width: 35px;
-    height: 36px;
-    margin: 20px 0 4px 67px;
-    background-color: #dae5ec;
-} */
-
 
 .What-Our-Customers-Say {
     width: 100%;
@@ -691,14 +686,7 @@ img.Group-28 {
     color: #565656;
 }
 
-/* .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Sed-fe {
-    width: 288px;
-    height: 120px;
-    margin: 27px 11px 10px 36px;
-    font-family: Roboto;
-    font-size: 16px;
-    color: #565656;
-} */
+
 
 
 .Read-More {
@@ -733,7 +721,7 @@ img.Group-28 {
 }
 
 .GET-OUR-NEWSLETTER {
-    width: 50%;
+    width: 23%;
     margin: 30px 0px 5px 520px;
     font-family: Roboto;
     font-size: 14px;
@@ -807,7 +795,6 @@ img.Layer-598 {
 }
 
 .footer_navbar {
-    /* margin-top: 50px; */
     margin: 50px 5px 0px;
     width: 100%
 }
@@ -825,7 +812,6 @@ img.Layer-598 {
 
 .footer_Copyright {
     width: 104%;
-    /* height: 64px; */
     margin-top: 3%;
     margin-left: -25px;
 }
@@ -865,181 +851,52 @@ img.Layer-598 {
 }
 
 
+@media screen and (max-width:952px) {
+    .GET-OUR-NEWSLETTER {
+        width: 71%;
+        margin: 30px auto 5px;
+    }
+
+    .Rounded-Rectangle-648 {
+        width: 60%;
+        height: auto;
+        margin: 9px auto 53px;
+    }
+
+    .Rounded-Rectangle-648-copy {
+        width: 40%;
+        height: auto;
+        margin: -37px auto 53px;
+    }
+
+    .Submit {
+        width: 50%;
+        height: auto;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.29;
+        letter-spacing: normal;
+        text-align: center;
+        color: #fff;
+    }
+
+    img.Layer-598 {
+        width: 100%;
+        height: 50px;
+        margin: 30px 15px 12px auto;
+        object-fit: contain;
+    }
+
+}
 
 
 
 
 
 @media screen and (max-width: 767px) {
-
-    /* .image_3 {
-        margin-left: -69px;
-        width: 500px;
-    }
-
-    .card_box_1,
-    .card_box_2,
-    .card_box_3 {
-        margin: 10px 5px;
-    }
-
-    .Rounded-Rectangle-506-copy {
-        margin: 20px 10px;
-    }
-
-    .Ellipse-649 {
-        margin: 20px 148px;
-    }
-
-    .GET-OUR-NEWSLETTER {
-        margin: 30px 104px;
-    }
-
-    .Rounded-Rectangle-649 {
-        margin: 5px 6px 43px 32px;
-    }
-
-    .Rounded-Rectangle-649-copy {
-        margin: -83px 10px 10px 246px;
-    }
-
-    img.Layer-598 {
-        margin: 30px 15px 12px 153px;
-    }
-
-    .footer_navbar {
-        margin: 5px 2px;
-        background-color: #111;
-        width: 100%;
-    }
-
-    .footer_section {
-        background-color: #111;
-        height: 190px;
-        width: 100%;
-    }
-
-    .footer_Copyright {
-        width: 115%;
-        margin: 10px 0px 0px -24px;
-        height: 100px;
-    }
-
-    .footer_but button {
-        display: none;
-    }
-
-    .What-Our-Customers-Say {
-        font-size: 26px;
-    }
-
-    .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-Donec {
-        margin: 18px 10px 22px 0px;
-        font-size: 18px;
-        width: 100%;
-    }
-
-    .Lorem-ipsum-dolor-sit-amet-consectetur {
-        width: 100%;
-        margin: 104px 27px 18px -2px;
-        font-size: 26px;
-        font-weight: bold;
-    }
-
-    .Our-Blog {
-        margin: 15px 0px 80px -25px;
-    }
-
-
-    .Payment-is-processed-securely-online-Customers-pay-safely-onli {
-        margin-left: -57px;
-        width: 100%;
-    }
-
-    .Secure-Online-Payment {
-        margin-left: -63px;
-    }
-
-    .group_25_img {
-        width: 200px;
-        height: 200px;
-        margin: 19px 1px 1px 77px;
-    }
-
-    .group_26_img {
-        width: 131px;
-        height: 131px;
-        margin: -49px 1px 1px -11px;
-    }
-
-    .group_27_img {
-        width: 200px;
-        height: 200px;
-        margin: -82px 1px 1px 236px;
-    }
-
-    .Rounded-Rectangle-6-copy-4 {
-        width: 55%;
-        height: 54px;
-        margin: -65px 623px 10px 82px;
-        background-color: #006072;
-    }
-
-    .first_content h1 {
-        font-family: Roboto;
-        font-size: 40px;
-    }
-
-    .first_content p {
-        font-size: 12px;
-        margin-left: 18px;
-    }
-
-    .step-arrow1,
-    .step-arrow1-copy,
-    .step-arrow2 {
-        display: none;
-    }
-
-    .Enter-your-postcode {
-        margin: 5px 5px 5px 232px;
-    }
-
-    img.Forma-1-copy {
-        margin: 9px 5px 14px 269px;
-    }
-
-    .Select-your-plan {
-        margin: -55px 9px 30px -272px;
-    }
-
-    .Pay-securely-online {
-        margin: 15px 0px 30px 12px;
-    }
-
-    img.Forma-1 {
-        margin: -8px 10px 20px 30px;
-    }
-
-    img.Forma-2 {
-        margin: -178px 10px 76px 278px;
-    }
-
-    .Enjoy-amazing-service {
-        margin: -72px 0px 30px 238px;
-    }
-
-    img.Shape-1 {
-        margin: 24px 10px 10px -31px;
-    }
-
-    img.Group-22 {
-        margin: -161px 0 5px 30px;
-    }
-
-    .navbar-border {
-        border: none;
-    } */
 
     .flex-container {
         flex-direction: column;
@@ -1051,9 +908,7 @@ img.Layer-598 {
 
 @media screen and (max-width: 1477px) {
     .flex-container {
-        /* flex-direction: column; */
         justify-content: center;
-        /* text-align: center; */
     }
 
     .dedicated-helper {
@@ -1118,7 +973,6 @@ img.Layer-598 {
     }
 
     .Rounded-Rectangle-506-copy {
-        /* width: 70%; */
         margin: 5px 0px;
     }
 
@@ -1135,6 +989,12 @@ img.Layer-598 {
 
 
 /* FAQ Page Style */
+
+.white_logo_transparent_background {
+    width: 73px;
+    height: 54px;
+    margin: 0 10px 0 0;
+}
 
 .navbar_faq {
     background-color: #525252;
@@ -2003,7 +1863,7 @@ img.Layer-598 {
 }
 
 .user-details input {
-    margin: 10px;
+    margin: 5px 0px;
     padding: 5px;
 }
 
@@ -2019,24 +1879,25 @@ img.Layer-598 {
 .Rounded-Rectangle-2 {
     width: 299px;
     height: auto;
-    margin: 5px auto;
+    margin: 5px 0;
     padding: 5px 0px;
-    border: solid 1px #c8c8c8;
+    /* border: solid 1px #c8c8c8; */
     background-color: white;
 }
+
 
 .Rounded-Rectangle-2-copy-11 {
     width: 100%;
     height: 146px;
     margin: 5px auto;
-    padding: 5px 10px;
-    border: solid 1px #c8c8c8;
+    padding: 5px 0px;
+    /* border: solid 1px #c8c8c8; */
     background-color: var(--white);
 }
 
 .details {
     border: 2px solid black;
-    padding: 5px 0px;
+    padding: 5px 5px;
     background-color: #c8c8c8;
     color: #4f4f4f;
 }
@@ -2057,6 +1918,10 @@ img.Layer-598 {
         height: auto;
         margin: 23px auto 80px auto;
         font-size: 12px;
+    }
+
+    .Rounded-Rectangle-2 {
+        width: 100%;
     }
 
 }

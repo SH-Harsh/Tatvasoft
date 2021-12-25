@@ -1,0 +1,456 @@
+body {
+    overflow-x: hidden;
+}
+
+.border {
+    border: 2px solid black;
+}
+
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+
+.banner_section {
+    background-image: url("../assets/group-19.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    position: relative;
+    padding: 130px 0px 10px;
+    display: flex;
+    flex-flow: row wrap;
+    /* align-items: center; */
+}
+
+.navbar_button_border {
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    margin: 5px;
+}
+
+.navbar_button {
+    margin: 5px 10px;
+}
+
+nav .navbar-nav li a {
+    color: white !important;
+}
+
+.bgcolor {
+    background-color: #4f4f4f;
+    border-bottom: 1px solid lightgray;
+}
+
+.country-dropdown {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-top: 15px;
+}
+
+.dropdownT {
+    margin-top: 9px;
+    margin-left: 2px;
+}
+
+.Register_Now_Box {
+    width: 409px;
+    height: auto;
+    margin: auto;
+    padding: 24px 26px 19px 15px;
+    border-radius: 4px;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.15);
+    background-color: white;
+}
+
+.form {
+    margin: 10px;
+}
+
+.form_checkbox {
+    margin: 5px 5px 5px 15px;
+    font-size: 15px;
+}
+
+.Register-Now {
+    width: 100%;
+    height: 24px;
+    margin: 0 auto 25px;
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4f4f4f;
+}
+
+.get_started {
+    margin: 0px 100px;
+    width: 100%;
+}
+
+.get_started_btn {
+    border-radius: 20px;
+    background-color: #1d7a8c;
+    color: white;
+    padding: 5px 20px;
+}
+
+img.Shape-1 {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 30px 48%;
+}
+
+/* How it Works */
+
+.How-it-works {
+    width: 100%;
+    height: 31px;
+    margin: 48px auto 73px;
+    font-family: Roboto;
+    font-size: 40px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.45;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4f4f4f;
+}
+
+.hiw_para_heading {
+    width: 230px;
+    height: 29px;
+    margin: 74px 29px 16px 218px;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #4f4f4f;
+}
+
+.hiw_para {
+    width: 330px;
+    height: 42px;
+    margin: 13px 57px 48px 218px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--greyish-brown);
+}
+
+.Read_more {
+    width: 85px;
+    height: 14px;
+    margin: 48px 10px 53px 220px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--greyish-brown);
+}
+
+.order_1 {
+    order: 1;
+}
+
+.order_2 {
+    order: 2;
+}
+
+.shape_2 {
+    width: 29px;
+    height: 9px;
+    margin: -15px 54px 53px 99px;
+    display: inline-block;
+    background-color: var(--greyish-brown);
+}
+
+.hiw_img {
+    width: 260px;
+    height: 260px;
+    margin: 27px 11px 20px 72px;
+    object-fit: contain;
+}
+
+.hiw_para_heading_2 {
+    width: 276px;
+    height: 28px;
+    margin: 85px 277px 16px 24px;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--greyish-brown);
+}
+
+.hiw_para_2 {
+    width: 362px;
+    height: 42px;
+    margin: 16px 191px 48px 24px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--greyish-brown);
+}
+
+.Read_more_2 {
+    width: 85px;
+    height: 14px;
+    margin: 48px 10px 79px 26px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--greyish-brown);
+}
+
+.hiw_img_2 {
+    width: 260px;
+    height: 260px;
+    margin: 48px 3px 20px 189px;
+    object-fit: contain;
+}
+
+.GET-OUR-NEWSLETTER {
+    width: 100%;
+    height: 13px;
+    margin: 77px auto 20px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.22;
+    letter-spacing: normal;
+    text-align: center;
+    color: #353548;
+}
+
+.email_hiw {
+    background-color: #f4f5f8 !important;
+    border-radius: 20px !important;
+    margin-top: 7px;
+    margin-bottom: 54px;
+}
+
+.submit_hiw {
+    background-color: #ff7b6d;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    margin-bottom: 54px;
+}
+
+.email_box {
+    width: 100%;
+    margin: 10px auto;
+    padding: 0px 33%;
+}
+
+
+/* Footer  */
+
+footer {
+    background-color: black;
+    width: 100%;
+}
+
+.white_logo_transparent_background-copy-4 {
+    padding: 37px 15px 20px 122px;
+}
+
+.footer_option a {
+    text-decoration: none;
+    color: white;
+    padding: 65px auto 20px;
+    margin: 10px;
+}
+
+.footer_option_box {
+    padding: 65px 250px 20px;
+}
+
+.social_media_box {
+    padding: 61px 5px 20px;
+}
+
+.social_media {
+    margin: 0px 5px;
+}
+
+.Rectangle-12-copy-2 {
+    width: 100%;
+    height: 1px;
+    margin: 26px auto 27px;
+    background-color: #424242;
+}
+
+.-Helperland-All-rights-reserved-Terms-and-Conditions {
+    width: 100%;
+    height: 14px;
+    margin: 0px auto 0 auto;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.0;
+    letter-spacing: normal;
+    text-align: center;
+    color: #737381;
+    padding-bottom: 40px;
+}
+
+@media screen and (max-width: 1000px) {
+    .hiw_img {
+        width: 100%;
+        margin: 27px auto 20px;
+    }
+
+    .hiw_para_heading {
+        width: 100%;
+        height: 29px;
+        margin: 74px auto 16px;
+        text-align: center;
+    }
+
+    .hiw_para {
+        width: 100%;
+        height: 42px;
+        margin: 13px auto 48px;
+        text-align: center;
+    }
+
+    .Read_more {
+        width: 100%;
+        height: 14px;
+        margin: 48px auto 53px;
+        text-align: center;
+    }
+
+    .shape_2 {
+        width: 29px;
+        height: 9px;
+        margin: 5px 54px 6px 11px;
+    }
+
+    .Read_more {
+        width: 100%;
+        height: 14px;
+        margin: -33px auto 53px;
+        text-align: center;
+    }
+
+    .hiw_img_2 {
+        width: 100%;
+        height: 260px;
+        margin: 48px auto 20px;
+        object-fit: contain;
+    }
+
+    .hiw_para_heading_2 {
+        width: 100%;
+        height: 29px;
+        margin: 74px auto 16px;
+        text-align: center;
+    }
+
+    .hiw_para_2 {
+        width: 100%;
+        height: 42px;
+        margin: 13px auto 48px;
+        text-align: center;
+    }
+
+    .Read_more_2 {
+        width: 100%;
+        height: 14px;
+        margin: -33px auto 53px;
+        text-align: center;
+    }
+
+    .order_1 {
+        order: 2;
+    }
+
+    .order_2 {
+        order: 1;
+    }
+
+    .submit_hiw {
+        margin: 5px auto 20px;
+    }
+
+    .email_hiw {
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .Register_Now_Box {
+        width: 80%;
+        padding: 24px 37px 19px 4px;
+    }
+
+    .get_started {
+        margin: 5px 40px;
+    }
+
+}
+
+@media screen and (max-width:1430px) {
+    .flex-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer_option_box {
+        width: 100%;
+        padding: 65px 20% 20px;
+    }
+
+    .white_logo_transparent_background-copy-4 {
+        padding: 37px 0px 20px;
+    }
+
+}

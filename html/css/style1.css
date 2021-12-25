@@ -28,7 +28,7 @@ body {
 
 .main {
     position: relative;
-    background-image: url('assets/group-35_2021-11-23/group-35@3x.png');
+    background-image: url('../assets/group-35_2021-11-23/group-35@3x.png');
     min-height: 100vh;
     background-size: cover;
     background-position: center;

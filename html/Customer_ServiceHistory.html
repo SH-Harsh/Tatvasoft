@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service History</title>
+
+    <link rel="stylesheet" href="css/style2.css">
+
+
+    <!-- Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light navbar_bg">
+            <a class="navbar-brand" href="#"><img src="assets/white-logo-transparent-background-copy-4.png" width="73px"
+                    height="54px"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item space_nav">
+                        <a class="nav-link book_now" href="#">Book now</a>
+                    </li>
+                    <li class="nav-item space_nav">
+                        <a class="nav-link" href="#">Prices & Services</a>
+                    </li>
+                    <li class="nav-item space_nav">
+                        <a class="nav-link" href="#">Warranty</a>
+                    </li>
+                    <li class="nav-item space_nav">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item space_nav">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item space_notify">
+                        <a class="nav-link" href="#"><img src="assets/icon-notification.png"></a>
+                        <div class="notify_no">
+                            <span class="notification_no">2</span>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown space_user">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="assets/person_logo.png">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Harsh</a>
+                            <a class="dropdown-item" href="#">Ram</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+
+    <section class="welcome_user">
+        <p class="welcome">Welcome, <span style="font-weight: bold;">Gaurang!</span></p>
+    </section>
+
+
+    <!-- Service History  -->
+
+    <section style="margin-top: 31px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 left-menu">
+                    <div style="background-color: #1d7a8c; height: 100%;">
+                        <table class="menu_table">
+                            <tr>
+                                <td><a href="#">Dashboard</a></td>
+                            </tr>
+                            <tr class="active">
+                                <td><a href="#">Service History</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Service Schedule</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Favourite Pros</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Invoices</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Notification</a></td>
+                            </tr>
+                        </table>
+
+                        <div class="select_option">
+                            <div class="selector">
+                                <div id="selectField">
+                                    <p id="selectText">Service History</p>
+                                    <img src="assets/forma-2.png" alt="arrow" id="arrowIcon">
+                                </div>
+
+                                <ul id="list" class="hide">
+                                    <li class="option">Dashboard</li>
+                                    <li class="option">Service History</li>
+                                    <li class="option">Service Schedule</li>
+                                    <li class="option">Favourite Pros</li>
+                                    <li class="option">Invoices</li>
+                                    <li class="option">Notification</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-md-9" style="padding-inline: 0px;">
+
+
+                    <div class="history_section">
+                        <p class="service_history">Service History</p>
+
+                        <button type="button" class="export_btn">Export</button>
+                    </div>
+
+                    <div class="right_service_list_section">
+                        <table class="right_service_history">
+                            <tr>
+                                <th>
+                                    <p>Service Details &nbsp; <img src="assets/double_arrow.png"></p>
+                                </th>
+                                <th>
+                                    <p>Service Provider &nbsp; <img src="assets/double_arrow.png"></p>
+                                </th>
+                                <th>
+                                    <p>Payment &nbsp; <img src="assets/double_arrow.png"></p>
+                                </th>
+                                <th>
+                                    <p>Status &nbsp; <img src="assets/double_arrow.png"></p>
+                                </th>
+                                <th>
+                                    <p class="text-center">Rate SP</p>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status">
+                                        <p class="Completed">Completed</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status">
+                                        <p class="Completed">Completed</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status">
+                                        <p class="Completed">Completed</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status" style="background-color:#ff6b6b;">
+                                        <p class="Completed">Cancelled</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status">
+                                        <p class="Completed">Completed</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status" style="background-color:#ff6b6b;">
+                                        <p class="Completed">Cancelled</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status">
+                                        <p class="Completed">Completed</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status">
+                                        <p class="Completed">Completed</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status" style="background-color:#ff6b6b;">
+                                        <p class="Completed">Cancelled</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar.png"> 31/03/2018</p>
+                                    <p class="time">12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="assets/cap.png" class="cap_border">
+
+                                        <p>Lyum Watson</p>
+
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span>4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="euro_price"><img src="assets/euro-currency-symbol.png" class="euro_img">63
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="status" style="background-color:#ff6b6b;">
+                                        <p class="Completed">Cancelled</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="RateSp">Rate SP</button>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </div>
+
+                    <div class="pages">
+                        <p class="show">Show</p>
+
+                        <select name="entries" id="entries" class="entries">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10" selected>10</option>
+                        </select>
+
+                        <p class="show">entries</p>
+                        <p class="show"> Total Record: 55</p>
+
+                        <div class="pagination">
+                            <a href="#"><img src="assets/first-page.png"></a>
+                            <a href="#"><img src="assets/keyboard-right-arrow.png"></a>
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#"><img src="assets/keyboard-right-arrow.png"
+                                    style="transform: rotate(180deg);"></a>
+                            <a href="#"><img src="assets/first-page.png" style="transform: rotate(180deg);"></a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="row flex-container footer_size">
+            <div class="col-lg-2 col-sm-2">
+                <div class="white_logo_transparent_background-copy-4">
+                    <img src="assets/white-logo-transparent-background-copy-4.png">
+                </div>
+            </div>
+            <div class="col-lg-8 col-sm-8 footer_option_box">
+                <div class="footer_option">
+                    <a href="#">
+                        HOME
+                    </a>
+                    <a href="#">
+                        ABOUT
+                    </a>
+                    <a href="#">
+                        TESTIMONIAL
+                    </a>
+                    <a href="#">
+                        FAQS
+                    </a>
+                    <a href="#">
+                        INSURANCE POLICY
+                    </a>
+                    <a href="#">
+                        IMPRESSUM
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-2">
+                <div class="social_media_box">
+                    <img src="assets/Facebook.png" class="social_media">
+                    <img src="assets/insta-1.png" class="social_media">
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%; padding: 0px 100px;">
+            <div class="Rectangle-12-copy-2"></div>
+        </div>
+
+        <div>
+            <p class="-Helperland-All-rights-reserved-Terms-and-Conditions">
+                ©2018 Helperland All rights reserved.Terms and Conditions | Privacy Policy
+            </p>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+    <!-- Bootstrap js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
+
+    <script src="js/responsive.js"></script>
+
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 function changeBg(){
     var scrollValue = window.scrollY;
-    console.log(scrollValue);
+    // console.log(scrollValue);
 
     var navbar = document.getElementById("navbar");
 
@@ -12,3 +12,6 @@ function changeBg(){
 }
 
 window.addEventListener('scroll',changeBg);
+
+
+

@@ -17,7 +17,7 @@
 <body>
 
 
-    <header>
+    <!-- <header>
         <nav class="navbar navbar-expand-lg navbar-light navbar_bg">
             <a class="navbar-brand" href="#"><img src="assets/white-logo-transparent-background-copy-4.png" width="73px"
                     height="54px"></a>
@@ -60,279 +60,357 @@
             </div>
 
         </nav>
+    </header> -->
+
+
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="assets/white-logo-transparent-background-copy-4.png" width="73px" height="54px">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Prices & Services</a></li>
+                <li><a href="#">Warranty</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+                <li class="notifation_border"><a href="#"><img src="assets/icon-notification.png"
+                            style="margin-bottom: 20px;"></a>
+                    <div class="notify_no">
+                        <span class="notification_no">2</span>
+                    </div>
+                </li>
+                <li class="nav-item dropdown space_user">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/person_logo.png">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Harsh</a>
+                        <a class="dropdown-item" href="#">Ram</a>
+                    </div>
+                </li>
+
+            </ul>
+
+            <li class="notifation_border_mv"><a href="#"><img src="assets/icon-notification.png"
+                        style="margin-bottom: 20px;"></a>
+                <div class="notify_no">
+                    <span class="notification_no">2</span>
+                </div>
+            </li>
+
+            <div class="burger" onclick="openSideMenu()">
+                <img src="assets/menu.png" height="35px" width="45px">
+            </div>
+        </nav>
     </header>
 
-    <section class="welcome_user">
-        <p class="welcome">Welcome, <span style="font-weight: bold;">Sandip!</span></p>
-    </section>
+    <div class="side-nav" id="side-nav">
 
-    <!-- Upcoming Service  -->
+        <p class="side_menu_welcome">Welcome, <br> Sandip!</p>
 
-    <section style="margin-top: 31px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 left-menu">
-                    <div style="background-color: #1d7a8c; height: 100%;">
-                        <table class="menu_table">
-                            <tr>
-                                <td><a href="#">Dashboard</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">New Service Requests</a></td>
-                            </tr>
-                            <tr class="active">
-                                <td><a href="#">Upcoming Services</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Service Schedule</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Service History</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">My Ratings</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">Block Customer</a></td>
-                            </tr>
-                        </table>
+        <hr>
+
+        <a href="#">Dashboard</a>
+        <a href="#">New Service Requests</a>
+        <a href="#">Upcoming Services</a>
+        <a href="#">Service Schedule</a>
+        <a href="#">Service History</a>
+        <a href="#">My Ratings</a>
+        <a href="#">Block Customer</a>
+
+        <hr>
+
+        <a>Prices & Services</a>
+        <a>Warranty</a>
+        <a>Blog</a>
+        <a>Contact</a>
+
+        <hr>
+
+        <div class="social_media_box">
+            <img src="assets/Facebook.png" class="social_media">
+            <img src="assets/insta-1.png" class="social_media">
+        </div>
+
+    </div>
+
+    <section onclick="closeSideMenu()" id="background_body">
+
+        <section class="welcome_user">
+            <p class="welcome">Welcome, <span style="font-weight: bold;">Sandip!</span></p>
+        </section>
+
+        <!-- Upcoming Service  -->
+
+        <section style="margin-top: 31px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 left-menu">
+                        <div style="background-color: #1d7a8c; height: 100%;">
+                            <table class="menu_table">
+                                <tr>
+                                    <td><a href="#">Dashboard</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">New Service Requests</a></td>
+                                </tr>
+                                <tr class="active">
+                                    <td><a href="#">Upcoming Services</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">Service Schedule</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">Service History</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">My Ratings</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">Block Customer</a></td>
+                                </tr>
+                            </table>
 
 
-                        <div class="select_option">
+                            <!-- <div class="select_option">
 
-                            <div class="selector">
-                                <div id="selectField">
-                                    <p id="selectText">Upcoming Service </p>
-                                    <img src="assets/forma-2.png" alt="arrow" id="arrowIcon">
+                                <div class="selector">
+                                    <div id="selectField">
+                                        <p id="selectText">Upcoming Service </p>
+                                        <img src="assets/forma-2.png" alt="arrow" id="arrowIcon">
+                                    </div>
+
+                                    <ul id="list" class="hide">
+                                        <li class="option">Dashboard</li>
+                                        <li class="option">New Service Requests</li>
+                                        <li class="option">Upcoming Services</li>
+                                        <li class="option">Service Schedule</li>
+                                        <li class="option">Service History</li>
+                                        <li class="option">My Ratings</li>
+                                        <li class="option">Block Customer</li>
+                                    </ul>
                                 </div>
-
-                                <ul id="list" class="hide">
-                                    <li class="option">Dashboard</li>
-                                    <li class="option">New Service Requests</li>
-                                    <li class="option">Upcoming Services</li>
-                                    <li class="option">Service Schedule</li>
-                                    <li class="option">Service History</li>
-                                    <li class="option">My Ratings</li>
-                                    <li class="option">Block Customer</li>
-                                </ul>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9 right_service_list_section" style="padding-inline: 0px;">
-                    <table class="right_service_list">
-                        <tr>
-                            <th>
-                                <p>Service ID <img src="assets/double_arrow.png"></p>
-                            </th>
-                            <th>
-                                <p>Service date <img src="assets/double_arrow.png"></p>
-                            </th>
-                            <th>
-                                <p>Customer details <img src="assets/double_arrow.png"></p>
-                            </th>
-                            <th>
-                                <p>Distance <img src="assets/double_arrow.png"></p>
-                            </th>
-                            <th>
-                                <p class="text-center">Actions</p>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323436</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">15km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323437</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">10km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323438</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">15km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323439</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">15km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323440</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">10km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323441</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">25km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323442</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">15km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323443</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">05km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323444</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">15km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>323445</p>
-                            </td>
-                            <td>
-                                <p style="font-weight: 500;"><img src="assets/calendar2.png"> 09/04/2018</p>
-                                <p><img src="assets/clock.png"> 12:00 - 18:00</p>
-                            </td>
-                            <td>
-                                <p>David Bough</p>
-                                <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
-                            </td>
-                            <td>
-                                <p class="text-center">05km</p>
-                            </td>
-                            <td>
-                                <button type="button" class="Cancel_button">Cancel</button>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="col-md-9 right_service_list_section" style="padding-inline: 0px;">
+                        <table class="right_service_list">
+                            <tr>
+                                <th>
+                                    <p>Service ID <img src="assets/double_arrow.png"></p>
+                                </th>
+                                <th>
+                                    <p>Service date <img src="assets/double_arrow.png"></p>
+                                </th>
+                                <th>
+                                    <p>Customer details <img src="assets/double_arrow.png"></p>
+                                </th>
+                                <th>
+                                    <p>Distance <img src="assets/double_arrow.png"></p>
+                                </th>
+                                <th>
+                                    <p class="text-center">Actions</p>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323436</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">15km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323437</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">10km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323438</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">15km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323439</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">15km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323440</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">10km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323441</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">25km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323442</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">15km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323443</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">05km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323444</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">15km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>323445</p>
+                                </td>
+                                <td>
+                                    <p style="font-weight: 500;"><img src="assets/calendar2.png"> 09/04/2018</p>
+                                    <p><img src="assets/clock.png"> 12:00 - 18:00</p>
+                                </td>
+                                <td>
+                                    <p>David Bough</p>
+                                    <p><img src="assets/home.png">Musterstrabe 5,12345 Bonn</p>
+                                </td>
+                                <td>
+                                    <p class="text-center">05km</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="Cancel_button">Cancel</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
     </section>
+
 
 
 
@@ -383,9 +461,6 @@
             </p>
         </div>
     </footer>
-
-
-
 
 
     <!-- Bootstrap js -->

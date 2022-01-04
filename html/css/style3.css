@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+
+body {
+    overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-color {
+    background-color: #1fb6ff;
+}
+
+.helperland_text_logo {
+    color: white !important;
+    font-size: 37.5px !important;
+    font-weight: 500;
+}
+
+.text_nav a {
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.text_nav {
+    margin: 0px 18px 0px 7px;
+}
+
+.img-nav img {
+    margin-top: 3px;
+}
+
+
+/* Side Menu  */
+
+aside {
+    position: fixed;
+    top: 10;
+    left: 0;
+    /* left: -50px; */
+    width: 250px;
+    height: 1000px;
+    padding: 10px;
+    background: #171f36;
+    color: white;
+    transition: .3s;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.logo .menu-icon{
+    position: absolute;
+    right: -50px;
+    top: 0%;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 20px;
+    padding: 1px;
+    background: royalblue;
+    text-align: center;
+    cursor: pointer;
+}
+
+.bx-x{
+    display: none;
+}
+
+.side_menu li{
+    list-style: none;
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 20px auto;
+    text-transform: capitalize;
+    transition: 0.5s;
+}
+
+li a{
+    position: relative;
+    height: 30px;
+}
+
+li a i{
+    margin-right: 20px;
+    font-size: 20px;
+    width: 25px;
+    text-align: center;
+}
+
+li a span{
+    width: 105px;
+    overflow: hidden;
+    height: 25px;
+    transition: .5s;
+}
+
+.bxs-chevron-right{
+    position: absolute;
+    right: 0;
+    /* width: 0; */
+    transition: .5s;
+    overflow: hidden;
+}
+
+.sub-menu{
+    width: 80%;
+    margin: 0 0 0 25px;
+    overflow: hidden;
+    /* max-height: 0; */
+    transition: 0.5s;
+
+}
+
+.sub-menu li{
+    height: 25px;
+    padding: 5px 10px;
+    margin: 4px auto;
+    font-size: 15px;
+    font-weight: 300;
+}

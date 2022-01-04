@@ -3,11 +3,18 @@ function changeBg(){
     // console.log(scrollValue);
 
     var navbar = document.getElementById("navbar");
+    $('#navbar').css('background-color','transparent');
 
-    if(scrollValue < 150){
-        navbar.classList.remove('bgcolor');
-    }else{
+    if(scrollValue > 80){
         navbar.classList.add('bgcolor');
+        $('.company_logo').css('height', '54px');
+        $('.company_logo').css('width', '73px');
+        $('#navbar').css('background-color','#525252');
+    }else{
+        navbar.classList.remove('bgcolor');
+        $('.company_logo').css('height', '102px');
+        $('.company_logo').css('width', '138px');
+        $('#navbar').css('background-color','transparent');
     }
 }
 

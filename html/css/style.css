@@ -1904,6 +1904,28 @@ footer {
     background-color: #1d7a8c;
 }
 
+.submit_btn{
+    background-color: #1d7a8c;
+    border-radius: 23px;
+    padding: 8px 50px;
+    color: white;
+    margin: 15px 0px 80px;
+}
+
+.select_form{
+    width: 100%;
+    padding: 5px 5px;
+    margin: 0px 0px 15px;
+}
+
+.subject_opt{
+    border: 1px solid #c8c8c8;
+    color: #a0a0a0;
+}
+
+.form-row{
+    margin: 15px 0px;
+}
 
 @media screen and (max-width:500px) {
     .-Lorem-ipsum-text-100-Lorem-ipsum-AB {

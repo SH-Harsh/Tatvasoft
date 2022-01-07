@@ -1916,6 +1916,8 @@ footer {
     width: 100%;
     padding: 5px 5px;
     margin: 0px 0px 15px;
+    border: 1px solid #ced4da;
+    color: #8f8d8d;
 }
 
 .subject_opt{

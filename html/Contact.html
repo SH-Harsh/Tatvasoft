@@ -5,10 +5,6 @@
     <title>Contact</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
 
     <!-- IMPORT BOOTSTRAP STYLES -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -32,8 +28,8 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #525252;">
-        <a class="navbar-brand" href="#"><img src="assets/white-logo-transparent-background-copy-4.png"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #525252;padding: 0px;">
+        <a class="navbar-brand" href="#"><img src="assets/white-logo-transparent-background-copy-4.png" width="73px" height="54px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -111,51 +107,46 @@
 
             <div class="flex-container" style="justify-content: center; align-items: center;">
                 <form action="#">
-                    <div class="user-details" style="width: 100%;">
-
-                        <div class="flex-container">
-                            <div class="Rounded-Rectangle-2">
-                                <input type="text" placeholder="First Name" required style="width: 90%;">
-                            </div>
-                            <div class="Rounded-Rectangle-2">
-                                <input type="text" placeholder="Last Name" required style="width: 91%;">
-                            </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="First name" required>
                         </div>
-
-                        <div class="flex-container">
-                            <div class="Rounded-Rectangle-2">
-                                <span class="details">+49</span>
-                                <!-- <label for="mobile_number" class="border">+49</label> -->
-                                <input type="number" name="mobile_number" placeholder="Mobile number" required
-                                    style="width: 75%;">
-                            </div>
-                            <div class="Rounded-Rectangle-2">
-                                <input type="email" placeholder="Email Address" required style="width: 91%;">
-                            </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Last name" required>
                         </div>
-
-
-                        <div class="input_box_1">
-                            <input type="text" placeholder="Subject" required style="width: 96%;">
-                        </div>
-
-                        <div class="Rounded-Rectangle-2-copy-11">
-                            <!-- <input type="text" placeholder="Message"> -->
-                            <textarea placeholder="Message" style="width: 96%; height: inherit;"></textarea>
-                        </div>
-
-                        <!-- <div class="button">
-                            <input type="submit" value="Submit">
-                        </div> -->
-
-                        <div class="Rounded-Rectangle-2-copy-6">
-                            <span class="Submit">
-                                Submit
-                            </span>
-
-                        </div>
-
                     </div>
+                    <div class="form-row align-items-center">
+
+                        <div class="col-6">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">+49</div>
+                                </div>
+                                <input type="text" class="form-control" id="inlineFormInputGroup"
+                                    placeholder="Mobile_number" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <input type="email" class="form-control mb-2" id="inlineFormInput"
+                                placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <div style="padding: 0px 5px;">
+                        <select name="subject" class="select_form" required>
+                            <option value="" disabled selected hidden class="subject_opt">Subject</option>
+                            <option value="Service">Service</option>
+                            <option value="Complain">Complain</option>
+                            <option value="New Register">New Register</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="padding: 0px 5px;">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
+                            placeholder="Message" style="resize: none;"></textarea>
+                    </div>
+                    <div class="flex-container" style="justify-content: center;">
+                        <button type="submit" class="submit_btn">Submit</button>
+                    </div>
+
                 </form>
             </div>
 
@@ -164,10 +155,16 @@
 
     </section>
 
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14686.79219931298!2d72.5004358!3d23.0348564!3
+    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14686.79219931298!2d72.5004358!3d23.0348564!3
         m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xdc9d4dae36889fb9!2sTatvaSoft!5e0
         !3m2!1sen!2sin!4v1641144168403!5m2!1sen!2sin" width="100%" height="400" style="border:0;" allowfullscreen=""
-        loading="lazy"></iframe>
+        loading="lazy"></iframe> -->
+
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5050.5752519013!2d7.1323170000000005!3d50.733154000000006!3
+        m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bee13f0afebfb1%3A0x7caeb94f4c104
+        2fc!2sK%C3%B6nigswinterer%20Str.%20116%2C%2053227%20Bonn%2C%20Germany!5e0!3m2!1sen!2sus!4v1641284021876!5m2!1sen!2sus"
+        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
 
     <div class="container">

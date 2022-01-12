@@ -26,6 +26,9 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
 </head>
@@ -33,7 +36,7 @@
 <body>
 
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #525252;padding: 0;">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #525252;padding: 0;">
         <a class="navbar-brand" href="#"><img src="assets/white-logo-transparent-background-copy-4.png"
                 class="white_logo_transparent_background"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -58,14 +61,169 @@
                     <a class="nav-link navbar_item" href="#">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-border nav-item_faq" href="#">Login</a>
+                    <a class="nav-link navbar-border nav-item_faq" href="#" id="login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-border nav-item_faq" href="#">Become a Helper</a>
+                    <a class="nav-link navbar-border nav-item_faq" href="#" id="become_a_helper">Become a Helper</a>
                 </li>
             </ul>
         </div>
     </nav>
+
+    <!-- Login Modal  -->
+
+    <div class="bg-modal">
+        <div class="modal_login">
+            <p class="login">Login to your Account</p>
+            <div class="email_login">
+                <input type="text" name="name" placeholder="Email">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="email_login">
+                <input type="password" name="name" placeholder="Password">
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="remember_me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remembar Me</label>
+            </div>
+            <button type="button" class="login_btn">Login</button>
+            <div class="no_account">
+                <p><a id="forgot_password">Forgot Password?</a></p>
+                <p>Don't have a account ? <a id="create_acc"> Create an account</a></p>
+            </div>
+
+            <div class="modal_close">
+                <p>+</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal  -->
+    <div class="bg-modal-fp">
+        <div class="modal_fp">
+            <p class="login mt-2">Forgot Password</p>
+            <div class="email_login">
+                <input type="text" name="name" placeholder="Email">
+            </div>
+            <button type="button" class="login_btn">Send</button>
+            <div class="no_account">
+                <p><a id="login_fp">Login Now</a></p>
+            </div>
+            <div class="modal_close">
+                <p>+</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create a account Modal  -->
+
+    <div class="bg-modal-create">
+        <div class="modal-create">
+            <p class="login text-center mb-1">Create an account</p>
+
+            <div style="text-align: center;">
+                <div class="Rectangle-5-copy-5"></div>
+                <img src="assets/separator.png" class="separator_img">
+                <div class="Rectangle-5-copy-6"></div>
+            </div>
+
+            <form>
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="First name">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Last name">
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col">
+                        <input type="email" class="form-control" placeholder="Email Address">
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">+49</div>
+                            </div>
+                            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Mobile No">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <input type="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="col">
+                        <input type="password" class="form-control" placeholder="Confirm Password">
+                    </div>
+                </div>
+
+                <div class="remember_me ml-2 my-3">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">I have read the <span>privacy policy</span></label>
+                </div>
+
+                <div class="register_account">
+                    <button type="submit">Register</button>
+                </div>
+
+            </form>
+
+            <div class="already_reg">
+                <p>Already registered? <a id="login_create">Login Now</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Become a Helper Modal Section  -->
+
+    <div class="bg-modal-become-helper">
+        <div class="modal-become-helper">
+            <p class="login text-center mb-5">Register as Helper!</p>
+
+            <form action="#">
+                <input type="text" class="form-control mb-2" id="first_name_bh" placeholder="First given name">
+
+                <input type="text" class="form-control mb-2" id="surname_bh" placeholder="Surname">
+
+                <input type="email" class="form-control mb-2" id="email_bh" placeholder="Email Address">
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">+49</div>
+                    </div>
+                    <input type="number" class="form-control" id="phone_no_bh" placeholder="Phone Number">
+                </div>
+
+                <input type="password" class="form-control my-2" id="email_bh" placeholder="Password">
+
+                <input type="password" class="form-control mb-2" id="email_bh" placeholder="Repeat Password">
+
+                <div class="remember_me ml-2 my-3">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember" style="font-size: 14px;">I accept <span>terms and conditions</span> &
+                        <span>privacy policy</span></label>
+                </div>
+            </form>
+
+            <div class="getting_started">
+                <button type="submit">Getting Started <img src="assets/arrow-white.png"></button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div style="width: 100%; height: 70px;">
+
+    </div>
+
+
+
 
     <div class="faq_container">
         <img src="assets/group-16.png" class="faq_img" style="width:100%">
@@ -91,7 +249,7 @@
     </div>
 
     <!-- Media query needed -->
-    <div class="container section_box">
+    <!-- <div class="container section_box">
         <div class="flex-container">
             <div>
                 <div>
@@ -112,9 +270,33 @@
                 </div>
             </div>
         </div>
+    </div> -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-4 tab_box active tablinks" style="padding: 0;"
+                onclick="openService(event,'for_customer')">
+                <div class="tab_option" style="cursor: pointer;">
+                    <p>For Customer</p>
+                </div>
+            </div>
+            <div class="col-md-4 tab_box tablinks" style="padding: 0;" onclick="openService(event,'service_provider')">
+                <div class="tab_option" style="cursor: pointer;">
+                    <p>For Service Provider</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+        </div>
+
+
     </div>
 
-    <div class="container">
+    <div class="container tabcontent" id="for_customer">
 
         <!-- 1st content -->
         <div class="row">
@@ -265,6 +447,10 @@
 
     </div>
 
+    <div id="service_provider" class="tabcontent">
+
+    </div>
+
     <div class="container">
 
         <p class="GET-OUR-NEWSLETTER">
@@ -331,6 +517,26 @@
 
 
 
+    <script>
+        function openService(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            console.log(tabcontent.length);
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            console.log(tablinks);
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace("active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            console.log(evt);
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
+    <script src="js/admin.js"></script>
 
 </body>
 

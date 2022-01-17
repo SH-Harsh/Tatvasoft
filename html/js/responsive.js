@@ -181,4 +181,88 @@ function starmark(item) {
     }
 }
 
+// Accordian 
 
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    var panel = this.nextElementSibling;
+    console.log(panel);
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+
+// Change Image on Click Selected 
+
+function changeimg(img_src){
+    var element = document.getElementById(img_src);
+    var no = img_src.split("-");
+
+    var border_color = document.getElementById(no[0]);
+    border_color.classList.toggle("extra_service_border_click");
+
+    if(element.src.match(img_src)){
+        console.log("1");
+        element.src = "/assets/"+ no[0] +".png";
+    }
+    else{
+        console.log("2");
+        element.src = "/assets/" + img_src + ".png";
+    }
+}
+
+// Add Address
+
+$('.add_address').click(function () { 
+    $('.add_new_address').css('display', 'block');
+    $('.add_address').css('display', 'none');
+});
+
+$('#save_address_btn').click(function () { 
+    $('.add_new_address').css('display', 'none');
+    $('.add_address').css('display', 'block');
+});
+
+$('.cancel_btn').click(function () { 
+    $('.add_new_address').css('display', 'none');
+    $('.add_address').css('display', 'inline');
+});
+
+
+// Tabs Move to Next Tab 
+
+$('#check_availability').click(function () { 
+    $('#setup_service').css('display', 'none');
+    $('#schedule_plan').css('display', 'block');
+
+    $('#tab2').addClass('book_tab_click');
+    $('.arrow_rotate').removeClass('arrow_rotate');
+    $('#tab2 div').addClass('arrow_rotate');
+    
+});
+
+$('#continue_schedulePlan').click(function () { 
+    $('#schedule_plan').css('display', 'none');
+    $('#your_details').css('display', 'block');
+
+    $('#tab3').addClass('book_tab_click');
+    $('.arrow_rotate').removeClass('arrow_rotate');
+    $('#tab3 div').addClass('arrow_rotate');
+    
+});
+
+$('#continue_details').click(function () { 
+    $('#your_details').css('display', 'none');
+    $('#make_payment').css('display', 'block');
+
+    $('#tab4').addClass('book_tab_click');
+    $('.arrow_rotate').removeClass('arrow_rotate');
+    $('#tab4 div').addClass('arrow_rotate');
+  
+});

@@ -553,6 +553,27 @@ footer {
 /* Service Provider > Upcoming Service */
 
 
+.text-right_cancel{
+    text-align: right;
+}
+
+
+@media screen and (max-width: 800px) {
+    .right_service_list th{
+        display: none;
+    }
+
+    .right_service_list tr td{
+        display: block;
+    }
+
+    .text-right_cancel{
+        text-align: center;
+    }
+
+}
+
+
 /* Custom Navbar  */
 
 nav {
@@ -854,7 +875,7 @@ td a {
     }
 
     .right_service_list_section {
-        border: 1px solid #e1e1e1;
+        /* border: 1px solid #e1e1e1; */
         border-collapse: collapse;
     }
 
@@ -1100,6 +1121,22 @@ td a {
     .nav-links a {
         margin: 0px 3px;
     }
+
+    .right_service_history th{
+        display: none;
+    }
+
+    .right_service_history tr td{
+        display: block;
+    }
+
+    .RateSp{
+        padding: 1% 4%;
+    }
+
+    .euro_price{
+        text-align: left;
+    }
 }
 
 
@@ -1267,6 +1304,17 @@ td a {
     border-radius: 20px;
 }
 
+
+@media screen and (max-width:800px) {
+    .new_request_table th{
+        display: none;
+    }
+
+    .new_request_table tr td{
+        display: block;
+    }
+}
+
 /* Service Details Modal  */
 
 .date_service_details {
@@ -1417,6 +1465,18 @@ td a {
     margin-bottom: 5px;
 }
 
+
+@media screen and (max-width: 1000px) {
+
+    .dashboard_table th{
+        display: none;
+    }
+
+    .dashboard_table tr td{
+        display: block;
+    }
+    
+}
 
 /* Reschudule Modal  */
 
@@ -1612,6 +1672,16 @@ td a {
     margin: 0 auto -10px;
     transform: rotate(45deg);
     display: block;
+}
+
+.margin-top{
+    margin-top: 0px;
+}
+
+@media screen {
+    .margin-top{
+        margin-top: 40px;
+    }
 }
 
 /* Setup Service  */

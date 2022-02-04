@@ -1,3 +1,5 @@
+// Tab function 
+
 function openService(evt, cityName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -14,6 +16,8 @@ function openService(evt, cityName) {
     console.log(evt);
     evt.currentTarget.className += " active";
 }
+
+// Accordian
 
 function faqpara(para, arrow) {
     console.log("Enter the function")

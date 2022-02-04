@@ -85,7 +85,3 @@ window.addEventListener('scroll',changeBg);
 
 
 
-
-
-
-

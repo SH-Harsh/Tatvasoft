@@ -1,10 +1,29 @@
-<?php include "header.php" ?>
+<?php include "view/include/header.php" ?>
+
+<?php if (isset($_SESSION["contactus"])) { ?>
+
+    <div class="alert alert-primary alert-dismissible mb-0" role="alert">
+        <?= $_SESSION["contactus"] ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+<?php }
+unset($_SESSION["contactus"]);
+?>
+
 
 <!-- Custom Navbar  -->
-<?php include "navbar.php" ?>
+<?php include "view/include/navbar.php" ?>
 
 <!-- Controller  -->
-<?php include "../controllers/controller.php"  ?>
+<?php
+//  include "../controllers/controller.php" 
+?>
+
+
 
 <!-- Become a Helper Modal Section  -->
 
@@ -51,12 +70,12 @@
 <section onclick="closeSideMenu()" id="background_body">
 
     <div>
-        <img src="../assets/images/group-21_2.png" class="faq_img">
+        <img src="assets/images/group-21_2.png" class="faq_img">
         <h1 class="faq_title">Contact Us</h1>
 
         <div class="text-center">
             <div class="star_side_line"></div>
-            <img src="../assets/images/separator.png" class="separator_img">
+            <img src="assets/images/separator.png" class="separator_img">
             <div class="star_side_line"></div>
         </div>
     </div>
@@ -65,21 +84,21 @@
     <div class="container-fluid">
         <div class="flex-container flex-container-center">
             <div>
-                <img src="../assets/images/forma-1_2.png" class="forma-1_2">
+                <img src="assets/images/forma-1_2.png" class="forma-1_2">
 
                 <p class="contact_info">
                     1111 Lorem ipsum text 100, Lorem ipsum AB
                 </p>
             </div>
             <div>
-                <img src="../assets/images/phone-call.png" class="forma-1_2">
+                <img src="assets/images/phone-call.png" class="forma-1_2">
 
                 <p class="contact_info">
                     +49 (40) 123 56 7890<br>+49 (40) 123 56 7890
                 </p>
             </div>
             <div>
-                <img src="../assets/images/vector-smart-object.png" class="forma-1_2">
+                <img src="assets/images/vector-smart-object.png" class="forma-1_2">
 
                 <p class="contact_info">
                     info@helperland.com
@@ -97,7 +116,7 @@
 
 
             <div class="flex-container flex-container-center">
-                <form action="../controllers/controller.php" method="POST" enctype="multipart/form-data">
+                <form action="<?= "$base_url?function=contactus"   ?>" method="POST" onsubmit="return contactvalidation(this)" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="col">
                             <input type="text" class="form-control" placeholder="First name" name="first_name" required>
@@ -113,7 +132,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">+49</div>
                                 </div>
-                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Mobile_number" name="phone_no" required>
+                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Mobile_number" name="phone_no" required maxlength="10" pattern="[7-9]{1}[0-9]{9}" title="Enter valid 10 digit number" required>
                             </div>
                         </div>
                         <div class="col-6">
@@ -140,8 +159,6 @@
                     <div class="flex-container flex-container-center">
                         <button type="submit" class="submit_btn" name="contact_submit">Submit</button>
                     </div>
-
-
                 </form>
             </div>
 
@@ -174,4 +191,4 @@
 </section>
 
 <!-- Footer      -->
-<?php include "footer.php" ?>
+<?php include "view/include/footer.php" ?>

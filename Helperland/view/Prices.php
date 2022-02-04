@@ -1,10 +1,12 @@
-<?php include "header.php" ?>
+<?php include "include/header.php" ?>
 
 <!-- Custom Navbar  -->
-<?php include "navbar.php" ?>
+<?php include "include/navbar.php" ?>
 
 <!-- Controller  -->
-<?php include "../controllers/controller.php"  ?>
+<?php
+//  include "../controllers/controller.php" 
+?>
 
 <!-- Become a Helper Modal Section  -->
 
@@ -55,12 +57,12 @@
     <!-- Prices  -->
     <section>
         <div>
-            <img src="../assets/images/group-18.png" class="faq_img">
+            <img src="assets/images/group-18.png" class="faq_img">
             <h1 class="faq_title">Prices</h1>
 
             <div class="text-center">
                 <div class="star_side_line"></div>
-                <img src="../assets/images/separator.png" class="separator_img">
+                <img src="assets/images/separator.png" class="separator_img">
                 <div class="star_side_line"></div>
             </div>
         </div>
@@ -84,21 +86,21 @@
 
 
                 <div>
-                    <img src="../assets/images/forma-1_5.png" class="forma-1_5">
+                    <img src="assets/images/forma-1_5.png" class="forma-1_5">
                     <p class="Lower-prices">
                         Lower prices
                     </p>
                 </div>
 
                 <div>
-                    <img src="../assets/images/forma-1_5.png" class="forma-1_5">
+                    <img src="assets/images/forma-1_5.png" class="forma-1_5">
                     <p class="Lower-prices">
                         Easy online & secure payment
                     </p>
                 </div>
 
                 <div>
-                    <img src="../assets/images/forma-1_5.png" class="forma-1_5">
+                    <img src="assets/images/forma-1_5.png" class="forma-1_5">
                     <p class="Lower-prices">
                         Easy amendment
                     </p>
@@ -117,7 +119,7 @@
 
         <div class="text-center">
             <div class="star_side_line"></div>
-            <img src="../assets/images/separator.png" class="separator_img">
+            <img src="assets/images/separator.png" class="separator_img">
             <div class="star_side_line"></div>
         </div>
 
@@ -125,125 +127,125 @@
             <div class="flex-container flex-container-center">
 
                 <div>
-                    <img src="../assets/images/group-18_3.png" class="include_img">
+                    <img src="assets/images/group-18_3.png" class="include_img">
 
                     <p class="cleaning_heading">
                         Bedroom and Living Room
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Dust all accessible surfaces
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Wipe down all mirrors and glass fixtures
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Clean all floor surfaces
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Take out garbage and recycling
                         </span>
                     </p>
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Take out garbage and recycling
                         </span>
                     </p>
                 </div>
                 <div>
-                    <img src="../assets/images/group-18_2.png" class="include_img">
+                    <img src="assets/images/group-18_2.png" class="include_img">
 
                     <p class="cleaning_heading">
                         Bathrooms
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Wash and sanitize the toilet, shower, tub, sink
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Dust all accessible surfaces
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Wipe down all mirrors and glass fixtures
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Clean all floor surfaces
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Take out garbage and recycling
                         </span>
                     </p>
                 </div>
                 <div>
-                    <img src="../assets/images/group-18_4.png" class="include_img">
+                    <img src="assets/images/group-18_4.png" class="include_img">
 
                     <p class="cleaning_heading">
                         Kitchen
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Dust all accessible surfaces
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Empty sink and load up dishwasher
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Wipe down exterior of stove, oven and fridge
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Clean all floor surfaces
                         </span>
                     </p>
 
                     <p>
-                        <img src="../assets/images/included.png">
+                        <img src="assets/images/included.png">
                         <span class="cleaning_service">
                             Take out garbage and recycling
                         </span>
@@ -262,7 +264,7 @@
 
         <div class="text-center">
             <div class="star_side_line"></div>
-            <img src="../assets/images/separator.png" class="separator_img">
+            <img src="assets/images/separator.png" class="separator_img">
             <div class="star_side_line"></div>
         </div>
 
@@ -270,7 +272,7 @@
             <div class="flex-container flex-container-center">
                 <div>
                     <div class="Ellipse-667_2">
-                        <img src="../assets/images/forma-1_prices.png" class="forma-0_prices">
+                        <img src="assets/images/forma-1_prices.png" class="forma-0_prices">
                     </div>
 
                     <span class="extra_service_text">
@@ -283,7 +285,7 @@
                 </div>
                 <div>
                     <div class="Ellipse-667_2">
-                        <img src="../assets/images/forma_2_prices.png" class="forma-0_prices">
+                        <img src="assets/images/forma_2_prices.png" class="forma-0_prices">
                     </div>
 
                     <span class="extra_service_text">
@@ -296,7 +298,7 @@
                 </div>
                 <div>
                     <div class="Ellipse-667_2">
-                        <img src="../assets/images/forma-3_prices.png" class="forma-0_prices">
+                        <img src="assets/images/forma-3_prices.png" class="forma-0_prices">
                     </div>
 
                     <span class="extra_service_text">
@@ -309,7 +311,7 @@
                 </div>
                 <div>
                     <div class="Ellipse-667_2">
-                        <img src="../assets/images/forma-4_prices.png" class="forma-0_prices">
+                        <img src="assets/images/forma-4_prices.png" class="forma-0_prices">
                     </div>
 
                     <span class="extra_service_text">
@@ -322,7 +324,7 @@
                 </div>
                 <div>
                     <div class="Ellipse-667_2">
-                        <img src="../assets/images/forma-5_prices.png" class="forma-0_prices">
+                        <img src="assets/images/forma-5_prices.png" class="forma-0_prices">
                     </div>
 
                     <span class="extra_service_text">
@@ -346,7 +348,7 @@
 
         <div class="text-center">
             <div class="star_side_line"></div>
-            <img src="../assets/images/separator.png" class="separator_img">
+            <img src="assets/images/separator.png" class="separator_img">
             <div class="star_side_line"></div>
         </div>
 
@@ -375,7 +377,7 @@
                 </div>
 
                 <div class="why_helperland_prices_box">
-                    <img src="../assets/images/the-best-img-1.png" class="the-best-img-1">
+                    <img src="assets/images/the-best-img-1.png" class="the-best-img-1">
                 </div>
 
                 <div class="why_helperland_prices_box">
@@ -427,4 +429,4 @@
 </section>
 
 <!-- Footer      -->
-<?php include "footer.php" ?>
+<?php include "include/footer.php" ?>

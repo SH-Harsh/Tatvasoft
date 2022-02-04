@@ -1,10 +1,12 @@
-<?php include "header.php" ?>
+<?php include "include/header.php" ?>
 
 <!-- Custom Navbar  -->
-<?php include "navbar.php" ?>
+<?php include "include/navbar.php" ?>
 
 <!-- Controller  -->
-<?php include "../controllers/controller.php"  ?>
+<?php 
+// include "../controllers/controller.php"  
+?>
 
 <!-- Become a Helper Modal Section  -->
 
@@ -53,14 +55,14 @@
 
 <section onclick="closeSideMenu()" id="background_body">
     <div>
-        <img src="../assets/images/group-16.png" class="faq_img">
+        <img src="assets/images/group-16.png" class="faq_img">
         <h1 class="faq_title">FAQs</h1>
     </div>
 
     <div>
         <div class="text-center">
             <div class="star_side_line"></div>
-            <img src="../assets/images/separator.png" class="separator_img">
+            <img src="assets/images/separator.png" class="separator_img">
             <div class="star_side_line"></div>
         </div>
 
@@ -105,7 +107,7 @@
         <!-- 1st content -->
         <div class="row">
             <div class="col-2">
-                <img src="../assets/images/side arrow.png" class="arrow" id="arrow1">
+                <img src="assets/images/side arrow.png" class="arrow" id="arrow1">
             </div>
             <div class="col-10">
                 <p class="for_customer_heading" onclick='faqpara("faq_para_1","arrow1");'>
@@ -123,7 +125,7 @@
         <!-- 2nd content -->
         <div class="row">
             <div class="col-2">
-                <img src="../assets/images/side arrow.png" class="arrow" id="arrow2">
+                <img src="assets/images/side arrow.png" class="arrow" id="arrow2">
             </div>
             <div class="col-10">
                 <p class="for_customer_heading" onclick="faqpara('faq_para_2','arrow2')">
@@ -142,7 +144,7 @@
         <!-- 3nd content -->
         <div class="row">
             <div class="col-2">
-                <img src="../assets/images/side arrow.png" class="arrow" id="arrow3">
+                <img src="assets/images/side arrow.png" class="arrow" id="arrow3">
             </div>
             <div class="col-10">
                 <p class="for_customer_heading" onclick="faqpara('faq_para_3','arrow3')">
@@ -158,7 +160,7 @@
         <!-- 4nd content -->
         <div class="row">
             <div class="col-2">
-                <img src="../assets/images/side arrow.png" class="arrow" id="arrow4">
+                <img src="assets/images/side arrow.png" class="arrow" id="arrow4">
             </div>
             <div class="col-10">
                 <p class="for_customer_heading" onclick="faqpara('faq_para_4','arrow4')">
@@ -197,4 +199,4 @@
 </section>
 
 <!-- Footer      -->
-<?php include "footer.php" ?>
+<?php include "include/footer.php" ?>

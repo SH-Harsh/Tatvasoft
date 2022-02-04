@@ -175,18 +175,6 @@ function starmark(item) {
 }
 
 
-// Accordian
-
-// function faqpara(para, arrow){
-//     console.log("Enter the function")
-//     var element = document.getElementById(para);
-//     element.classList.toggle("height_toggle");
-
-//     var arrow_img = document.getElementById(arrow);
-//     arrow_img.classList.toggle("arrow_rotate");
-// }
-
-
 
 // Change Image on Click Selected 
 
@@ -256,38 +244,154 @@ $('#continue_details').click(function () {
 
 });
 
-
-// Tab function 
-
-// function openService(evt, cityName) {
-//     console.log("Enter fuction");
-//     var i, tabcontent, tablinks;
-//     tabcontent = document.getElementsByClassName("tabcontent");
-//     console.log(tabcontent.length);
-//     for (i = 0; i < tabcontent.length; i++) {
-//         tabcontent[i].style.display = "none";
-//     }
-//     tablinks = document.getElementsByClassName("tablinks");
-//     console.log(tablinks);
-//     for (i = 0; i < tablinks.length; i++) {
-//         tablinks[i].className = tablinks[i].className.replace("active", "");
-//     }
-//     document.getElementById(cityName).style.display = "block";
-//     console.log(evt);
-//     evt.currentTarget.className += " active";
-// }
-
 // Custom File Chosen 
 
 var readFile = document.getElementById("attachment");
 var custText = document.getElementById("file_name");
 
-readFile.addEventListener("change", function(){
-    if(readFile.value){
+// readFile.addEventListener('change', function () {
+//     if (readFile.value) {
+//         custText.innerHTML = readFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+//     } else {
+//         custText.innerHTML = "No file chosen,yet";
+//     }
+// });
+
+
+$(readFile).change(function () {
+    if (readFile.value) {
         custText.innerHTML = readFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-    }else{
+    } else {
         custText.innerHTML = "No file chosen,yet";
     }
 });
 
+// Email Validation 
 
+function emailvalidation(email) {
+    if (!String(email)
+        .toLowerCase()
+        .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )) {
+
+        alert("Please enter the email in correct format");
+        return false;
+    }
+    return true;
+}
+
+// Password Validation 
+function passwordvalidation(password) {
+    if (password.match(/^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$/)) {
+        return true;
+    } else {
+        alert("Password must be minimum eight characters, at least one letter, one number and one special character");
+        return false;
+    }
+}
+
+// Create Account Validation 
+
+function checkPassword(form) {
+    console.log(form);
+    password1 = form.password1.value.trim();
+    password2 = form.password2.value.trim();
+    email = form.email.value.trim().toLowerCase();
+    fname = form.fname.value.trim();
+    lname = form.lname.value.trim();
+
+    if (fname == "" || lname == "" || email == "" || password1 == "") {
+        alert("Please don't enter the blank value");
+        return false;
+    }
+
+    if (emailvalidation(email)) {
+        if (password1 != password2) {
+            alert("\nPassword did not match: Please try again...")
+            return false;
+        }
+
+        if (passwordvalidation(password1)) {
+            alert("Register Successfull, Please now login")
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
+// Login Validation 
+
+function loginValidation(form) {
+    email = form.login_email.value.trim().toLowerCase();
+    password = form.login_password.value.trim();
+    console.log("I am a validation");
+
+    if (email == "" || password == "") {
+        alert("Please don't enter the blank value");
+        return false;
+    }
+
+    if (emailvalidation(email)) {
+        return passwordvalidation(password);
+    }
+
+    return false;
+}
+
+//Change Password Validation  
+
+function changepassword(form) {
+    password1 = form.password.value.trim();
+    password2 = form.cpassword.value.trim();
+
+    if (password1 != password2) {
+        alert("Enter same password in both fields");
+        return false;
+    } else {
+        return passwordvalidation(password1);
+    }
+}
+
+// Contact Us Validation 
+
+function contactvalidation(form) {
+    fname = form.first_name.value.trim();
+    lname = form.last_name.value.trim();
+    phone_no = form.phone_no.value.trim();
+    email = form.email.value.trim().toLowerCase();
+    subject = form.subject.value;
+    message = form.message.value.trim();
+
+    if (fname == "" || lname == "" || phone_no == "" || email == "" || subject == "" || message == "") {
+        alert("Please enter all the values")
+        return false;
+    }
+
+    return emailvalidation(email);
+}
+
+//Login Error Function display
+
+function login_error() {
+    $(window).on('load', function () {
+        $('.bg-modal').css('display', 'flex');
+    });
+}
+
+//Forgot Passward Error function display
+
+function fpass_error() {
+    $(window).on('load', function () {
+        $('.bg-modal-fp').css('display', 'flex');
+    });
+}
+
+//Side Navbar login click
+
+$('#side_nav_login').click(function () {
+    $('.bg-modal').css('display', 'flex');
+    closeSideMenu();
+});

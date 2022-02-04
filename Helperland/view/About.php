@@ -1,10 +1,12 @@
-<?php include "header.php" ?>
+<?php include "include/header.php" ?>
 
 <!-- Custom Navbar  -->
-<?php include "navbar.php" ?>
+<?php include "include/navbar.php" ?>
 
 <!-- Controller  -->
-<?php include "../controllers/controller.php"  ?>
+<?php 
+// include "../controllers/controller.php"  
+?>
 
 <!-- Become a Helper Modal Section  -->
 
@@ -46,13 +48,13 @@
 
 <section onclick="closeSideMenu()" id="background_body">
     <div>
-        <img src="../assets/images/group-20.png" class="faq_img" style="width:100%">
+        <img src="assets/images/group-20.png" class="faq_img" style="width:100%">
         <h1 class="faq_title">A Few words about us</h1>
     </div>
 
     <div style="text-align: center;">
         <div class="star_side_line"></div>
-        <img src="../assets/images/separator.png" class="separator_img">
+        <img src="assets/images/separator.png" class="separator_img">
         <div class="star_side_line"></div>
     </div>
 
@@ -83,7 +85,7 @@
 
         <div style="text-align: center;">
             <div class="star_side_line"></div>
-            <img src="../assets/images/separator.png" class="separator_img">
+            <img src="assets/images/separator.png" class="separator_img">
             <div class="star_side_line"></div>
         </div>
 
@@ -128,6 +130,7 @@
             </form>
         </div>
     </div>
+</section>
 
-    <!-- Footer      -->
-    <?php include "footer.php" ?>
+<!-- Footer      -->
+<?php include "include/footer.php" ?>

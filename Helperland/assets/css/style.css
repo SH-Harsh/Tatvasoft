@@ -905,7 +905,10 @@ footer {
 }
 
 
-
+.background_transparent {
+    background-color: #4f4f4f;
+    opacity: 0.5;
+}
 
 
 

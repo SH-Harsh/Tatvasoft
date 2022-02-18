@@ -64,9 +64,10 @@ function changeBg(){
 
     if(scrollValue > 80){
         navbar.classList.add('bgcolor');
-        $('.logo img').css('height', '54px');
-        $('.logo img').css('width', '73px');
-        $('.nav_option ul li').css('margin', '10px 10px 0px');
+        $('.logo img').css('height', '74px');
+        $('.logo img').css('width', '100px');
+        $('.nav_option ul li').css('margin', '15px 10px 0px');
+        $('.arrow_down_nav').css('margin', '5px 20px 5px -22px');
         // $('#header').css('background-color','#525252');
         $('#header').css('background-color','rgba(82,82,82,0.9)');
     }else{

@@ -402,10 +402,11 @@
             </div>
         </div>
 
-        <div>
-            <p class="text-center"><a href="#" class="book_a_cleaner">Let's Book a Cleaner</a></p>
-        </div>
-
+        <?php if (!isset($_SESSION["usertype"]) || $_SESSION["usertype"] == 1) { ?>
+            <div>
+                <p class="text-center"><a href="#" class="book_a_cleaner">Let's Book a Cleaner</a></p>
+            </div>
+        <?php } ?>
 
         <div class="container">
             <p class="GET-OUR-NEWSLETTER">
@@ -425,7 +426,7 @@
         </div>
 
     </section>
-    
+
 </section>
 
 <!-- Footer      -->

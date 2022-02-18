@@ -49,10 +49,18 @@ $('.ok').click(function () {
 });
 
 $('.arrow_down_nav').click(function () {
-    $('.arrow_down_section').toggle('display', 'block');
+
+    //Toggle is not working properly and due to this it goes infinite error loop
+    // $('.arrow_down_section').toggle('display', 'block');
+
+    display1 = $('.arrow_down_section').css('display');
+    if(display1 == 'none'){
+        $('.arrow_down_section').css('display', 'block');
+    }else{
+        $('.arrow_down_section').css('display', 'none');
+    }
+    
 });
-
-
 
 
 //My Settings Customer Tabs
@@ -84,12 +92,12 @@ function display(id) {
     $('#My_settings_customer').css('display', 'none');
     $('#Service_history').css('display', 'none');
     $('#dashboard').css('display', 'none');
+    $('#upcoming_service_list').css('display', 'none');
 
     $('.active_left').removeClass('active_left');
 
     $(id).css('display', 'block');
 }
-
 
 $('#MySettings').click(function () {
 
@@ -101,12 +109,11 @@ $('#MySettings').click(function () {
 
 });
 
-function avatar_logo(event, className) {
-    var class_selected = document.getElementById('avatar_selected').classList;
-    class_selected.replace(class_selected[1], className);
+function change_avatar(src) {
+    $('#avatar_selected').attr('src', src);
 }
 
-$('.avatar').click(function () {
+$('.avatar_img').click(function () {
     $('.select').removeClass('select');
     $(this).addClass('select');
 });
@@ -148,6 +155,12 @@ $('.service_history_tab').click(function () {
     // $('.service_history_tab').addClass('active_left');
 })
 
+$('.upcoming_service').click(function () {
+    display("#upcoming_service_list");
+    $('#upcoming_service_list').css('display', 'table');
+    $('.upcoming_service').addClass('active_left');
+});
+
 
 // Date time picker 
 
@@ -186,12 +199,14 @@ function changeimg(img_src) {
     border_color.classList.toggle("extra_service_border_click");
 
     if (element.src.match(img_src)) {
-        console.log("1");
-        element.src = "assets/" + no[0] + ".png";
+        element.src = "assets/images/" + no[0] + ".png";
     } else {
-        console.log("2");
-        element.src = "assets/" + img_src + ".png";
+        element.src = "assets/images/" + img_src + ".png";
     }
+}
+
+function change_avatar(src) {
+    $('#avatar_selected').attr('src', src);
 }
 
 // Add Address
@@ -201,10 +216,12 @@ $('.add_address').click(function () {
     $('.add_address').css('display', 'none');
 });
 
-$('#save_address_btn').click(function () {
-    $('.add_new_address').css('display', 'none');
-    $('.add_address').css('display', 'block');
-});
+// Its commented because we used in js for that
+
+// $('#save_address_btn').click(function () {
+//     $('.add_new_address').css('display', 'none');
+//     $('.add_address').css('display', 'block');
+// });
 
 $('.cancel_btn').click(function () {
     $('.add_new_address').css('display', 'none');
@@ -214,35 +231,35 @@ $('.cancel_btn').click(function () {
 
 // Tabs Move to Next Tab 
 
-$('#check_availability').click(function () {
-    $('#setup_service').css('display', 'none');
-    $('#schedule_plan').css('display', 'block');
+// $('#check_availability').click(function () {
+//     $('#setup_service').css('display', 'none');
+//     $('#schedule_plan').css('display', 'block');
 
-    $('#tab2').addClass('book_tab_click');
-    $('.arrow_rotate').removeClass('arrow_rotate');
-    $('#tab2 div').addClass('arrow_rotate');
+//     $('#tab2').addClass('book_tab_click');
+//     $('.arrow_rotate').removeClass('arrow_rotate');
+//     $('#tab2 div').addClass('arrow_rotate');
 
-});
+// });
 
-$('#continue_schedulePlan').click(function () {
-    $('#schedule_plan').css('display', 'none');
-    $('#your_details').css('display', 'block');
+// $('#continue_schedulePlan').click(function () {
+//     $('#schedule_plan').css('display', 'none');
+//     $('#your_details').css('display', 'block');
 
-    $('#tab3').addClass('book_tab_click');
-    $('.arrow_rotate').removeClass('arrow_rotate');
-    $('#tab3 div').addClass('arrow_rotate');
+//     $('#tab3').addClass('book_tab_click');
+//     $('.arrow_rotate').removeClass('arrow_rotate');
+//     $('#tab3 div').addClass('arrow_rotate');
 
-});
+// });
 
-$('#continue_details').click(function () {
-    $('#your_details').css('display', 'none');
-    $('#make_payment').css('display', 'block');
+// $('#continue_details').click(function () {
+//     $('#your_details').css('display', 'none');
+//     $('#make_payment').css('display', 'block');
 
-    $('#tab4').addClass('book_tab_click');
-    $('.arrow_rotate').removeClass('arrow_rotate');
-    $('#tab4 div').addClass('arrow_rotate');
+//     $('#tab4').addClass('book_tab_click');
+//     $('.arrow_rotate').removeClass('arrow_rotate');
+//     $('#tab4 div').addClass('arrow_rotate');
 
-});
+// });
 
 // Custom File Chosen 
 
@@ -373,6 +390,83 @@ function contactvalidation(form) {
     return emailvalidation(email);
 }
 
+// Postal Code Validation
+
+function postalvalidation() {
+
+    $('#setup_service').css('display', 'none');
+    $('#schedule_plan').css('display', 'block');
+    $('#your_details').css('display', 'none');
+    $('#make_payment').css('display', 'none');
+
+    $('#tab2').addClass('book_tab_click');
+    $('#tab3').removeClass('book_tab_click');
+    $('#tab4').removeClass('book_tab_click');
+    $('.arrow_rotate').removeClass('arrow_rotate');
+    $('#tab2 div').addClass('arrow_rotate');
+
+}
+
+function schedulePlan() {
+
+    $('#setup_service').css('display', 'none');
+    $('#schedule_plan').css('display', 'none');
+    $('#your_details').css('display', 'block');
+    $('#make_payment').css('display', 'none');
+
+    $('#tab3').addClass('book_tab_click');
+    $('#tab4').removeClass('book_tab_click');
+    $('.arrow_rotate').removeClass('arrow_rotate');
+    $('#tab3 div').addClass('arrow_rotate');
+
+}
+
+function yoursdetails() {
+
+    $('#setup_service').css('display', 'none');
+    $('#schedule_plan').css('display', 'none');
+    $('#your_details').css('display', 'none');
+    $('#make_payment').css('display', 'block');
+
+    $('#tab4').addClass('book_tab_click');
+    $('.arrow_rotate').removeClass('arrow_rotate');
+    $('#tab4 div').addClass('arrow_rotate');
+
+}
+
+$('#tab1').click(function () {
+
+    $('#setup_service').css('display', 'block');
+    $('#schedule_plan').css('display', 'none');
+    $('#your_details').css('display', 'none');
+    $('#make_payment').css('display', 'none');
+
+    $('#tab2').removeClass('book_tab_click');
+    $('#tab3').removeClass('book_tab_click');
+    $('#tab4').removeClass('book_tab_click');
+    $('.arrow_rotate').removeClass('arrow_rotate');
+    $('#tab1 div').addClass('arrow_rotate');
+});
+
+
+$('#tab2').click(function () {
+    if ($('#tab2').is('.book_tab_click')) {
+        postalvalidation();
+    }
+});
+$('#tab3').click(function () {
+    if ($('#tab3').is('.book_tab_click')) {
+        schedulePlan();
+    }
+});
+
+
+// if($('#tab2').is('.book_tab_click')){   
+//     $('#tab2').click(function () { 
+//         postalvalidation();
+//     });
+// }
+
 //Login Error Function display
 
 function login_error() {
@@ -395,3 +489,145 @@ $('#side_nav_login').click(function () {
     $('.bg-modal').css('display', 'flex');
     closeSideMenu();
 });
+
+//Continue Without login
+
+$('#continue_withoutlogin').click(function () {
+    login_error();
+    console.log("I am here");
+    $('.bg-modal').css('display', 'flex');
+});
+
+// Book Extra Service Click 
+
+var service1 = document.getElementById("1_service");
+var service2 = document.getElementById("2_service");
+var service3 = document.getElementById("3_service");
+var service4 = document.getElementById("4_service");
+var service5 = document.getElementById("5_service");
+
+var totalpayment = 300;
+var totalhrs = 3;
+
+function addtimehrs() {
+    totalhrs = totalhrs + 0.5;
+    totalpayment = totalpayment + 50;
+    $('#totalpayment p span').html(totalpayment.toString().concat(" €"));
+    $('#totalservicetime p span').html(totalhrs.toString().concat(" Hrs"));
+}
+
+function subtracttimehrs() {
+    totalhrs = totalhrs - 0.5;
+    totalpayment = totalpayment - 50;
+    $('#totalpayment p span').html(totalpayment.toString().concat(" €"));
+    $('#totalservicetime p span').html(totalhrs.toString().concat(" Hrs"));
+}
+
+$('#service_duration').on('change', function () {
+
+    duration = this.value;
+    time_str = duration.split(" ");
+    time = parseInt(time_str[0]);
+    totalpayment = time * 100;
+    totalhrs = time;
+    $('#totalpayment p span').html(totalpayment.toString().concat(" €"));
+    $('#totalservicetime p span').html(totalhrs.toString().concat(" Hrs"));
+    $('#basic_hr p span').html(totalhrs.toString().concat(" Hrs"));
+
+
+    if (service1.checked) {
+        $('.inside_cabinet').css("display", "block");
+        addtimehrs();
+    }
+
+    if (service2.checked) {
+        $('.inside_fridge').css("display", "block");
+        addtimehrs();
+    }
+
+    if (service3.checked) {
+        $('.inside_oven').css("display", "block");
+        addtimehrs();
+    }
+
+    if (service4.checked) {
+        $('.laundry_wash').css("display", "block");
+        addtimehrs();
+    }
+
+    if (service5.checked) {
+        $('.inferior_window').css("display", "block");
+        addtimehrs();
+    }
+});
+
+
+$('#1_service').click(function () {
+
+    if (service1.checked) {
+        $('.inside_cabinet').css("display", "block");
+        addtimehrs();
+    } else {
+        $('.inside_cabinet').css("display", "none");
+        subtracttimehrs();
+    }
+});
+$('#2_service').click(function () {
+
+    if (service2.checked) {
+        $('.inside_fridge').css("display", "block");
+        addtimehrs();
+    } else {
+        $('.inside_fridge').css("display", "none");
+        subtracttimehrs();
+    }
+});
+$('#3_service').click(function () {
+
+    if (service3.checked) {
+        $('.inside_oven').css("display", "block");
+        addtimehrs();
+    } else {
+        $('.inside_oven').css("display", "none");
+        subtracttimehrs();
+    }
+});
+$('#4_service').click(function () {
+
+    if (service4.checked) {
+        $('.laundry_wash').css("display", "block");
+        addtimehrs();
+    } else {
+        $('.laundry_wash').css("display", "none");
+        subtracttimehrs();
+    }
+});
+$('#5_service').click(function () {
+
+    if (service5.checked) {
+        $('.inferior_window').css("display", "block");
+        addtimehrs();
+    } else {
+        $('.inferior_window').css("display", "none");
+        subtracttimehrs();
+    }
+});
+
+$('#service_time').change(function () {
+    time = $('#service_time').val();
+    $('#servicetime_ps').html(time);
+});
+
+$('#date_sr').change(function () {
+    date = $('#date_sr').val();
+    $('#date_ps').html(date);
+});
+
+// Logout Alert 
+
+function logoutalert() {
+    Swal.fire({
+        icon: 'success',
+        title: 'Logout Successfully'
+    })
+}

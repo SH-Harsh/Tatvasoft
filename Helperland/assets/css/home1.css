@@ -96,6 +96,97 @@ ul {
     height: 130px;
 }
 
+/* .notifation_border {
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+}
+
+.notifation_border_mv {
+    display: none;
+}
+
+.notification_no {
+    background-color: red;
+    padding: 4px 5px 5px;
+    margin: 5px 4px 1px -8px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+.notify_no {
+    margin: -52px 5px 5px 38px;
+    color: white;
+} */
+
+.notification_border{
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    padding: 10px 15px;
+    position: relative;
+}
+
+.notification_no {
+    background-color: red;
+    padding: 4px 5px 5px;
+    /* margin: 5px 4px 1px -8px; */
+    border-radius: 50%;
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.arrow_down_nav {
+    transform: rotate(180deg);
+    margin: 5px 20px 5px -15px;
+    cursor: pointer;
+}
+
+.arrow_down_section {
+    position: absolute;
+    width: 220px;
+    right: 15px;
+    background-color: white;
+    top: 50px;
+    /* padding: 5px 10px; */
+    z-index: 1;
+    display: none;
+    box-shadow: 10px 10px 5px grey;
+}
+
+.arrow_down_section a {
+    font-weight: 500;
+    margin-bottom: 0px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: black !important;
+    display: block;
+}
+
+.arrow_down_section h5 {
+    font-weight: 500;
+    padding: 5px 10px;
+}
+
+.arrow_down_section a:hover {
+    background-color: #7a7a7a;
+    color: white !important;
+    cursor: pointer;
+}
+
+.arrow_up{
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 15%;
+    transform: rotate(45deg);
+    margin-top: -12px;
+}
+
+
 .burger {
     padding: 0px 10px;
     display: none;

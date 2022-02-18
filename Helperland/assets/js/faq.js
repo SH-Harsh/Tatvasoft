@@ -22,8 +22,9 @@ function openService(evt, cityName) {
 function faqpara(para, arrow) {
     console.log("Enter the function")
     var element = document.getElementById(para);
+    console.log(element);
     element.classList.toggle("height_toggle");
 
     var arrow_img = document.getElementById(arrow);
-    arrow_img.classList.toggle("arrow_rotate");
+    arrow_img.classList.toggle("arrow_rotate_faq");
 }

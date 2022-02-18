@@ -68,7 +68,6 @@ if (isset($_SESSION["fp_error"])) {
         </script>";
 }
 unset($_SESSION["fp_error"]);
-
 ?>
 
 

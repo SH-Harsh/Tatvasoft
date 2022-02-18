@@ -50,6 +50,7 @@
 <script src="assets/js/admin.js"></script>
 <script src="assets/js/responsive.js"></script>
 
+
 <?php
 if (isset($_SESSION["login_error"])) {
     echo "<script>
@@ -71,6 +72,13 @@ if (isset($_SESSION["fp_email_sucess"])) {
         </script>";
 }
 unset($_SESSION["fp_email_sucess"]);
+
+if(isset($_SESSION["Logout"])){
+    echo "<script>
+            logoutalert();
+        </script>";
+}
+unset($_SESSION["Logout"]);
 ?>
 
 </body>

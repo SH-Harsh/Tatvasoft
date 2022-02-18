@@ -12,8 +12,8 @@ if (isset($_SESSION["error_message"])) {
 unset($_SESSION["error_message"]);
 ?>
 
-<?php 
-if(isset($_COOKIE["userid"])){
+<?php
+if (isset($_COOKIE["userid"])) {
     //Cookie is stored and now login and user id stored in this information.
 }
 ?>
@@ -79,9 +79,11 @@ if(isset($_COOKIE["userid"])){
                 friendly customer service</p>
         </div>
 
-        <div class="book_cleaner">
-            <a href="#">Let's Book a Cleaner</a>
-        </div>
+        <?php if (!isset($_SESSION["usertype"]) || $_SESSION["usertype"] == 1) { ?>
+            <div class="book_cleaner">
+                <a href="<?php echo "$base_url?function=bookService"  ?>">Let's Book a Cleaner</a>
+            </div>
+        <?php } ?>
 
         <div class="cleaner_check">
             <div class="container flex-container">

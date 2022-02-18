@@ -20,7 +20,9 @@ class EventModal
         $message = $contact['message'];
         $file_name = $contact['file_name'];
         $file_name_temp = $contact['file_name_temp'];
-        move_uploaded_file($file_name_temp, "../assets/user_attachment/$file_name");
+
+        $target_path = "D:\\Xampp\htdocs\HelperLand\assets\user_attachment\\$file_name";
+        move_uploaded_file($file_name_temp, $target_path);
 
         $name = "$first_name " . "$last_name";
 
@@ -77,14 +79,7 @@ class EventModal
             die("Query Failed" . mysqli_error($connection));
         } else {
             $row =  mysqli_fetch_assoc($result);
-            $userid = $row["UserId"];
-            echo $userid;
-            if (isset($row)) {
-                $_SESSION["userid"] = $userid;
-                setcookie("userid", "$userid", time() + (8600 * 30), "/");
-            } else {
-                $_SESSION["login_error"] = "Some values are improper";
-            }
+            return $row;
         }
     }
 
@@ -120,5 +115,208 @@ class EventModal
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
         }
+    }
+
+    // Postal Code Validation 
+
+    function ispostalcode($postalcode)
+    {
+
+        global $connection;
+        $qry = "SELECT * FROM `user` INNER JOIN useraddress ON user.UserId = useraddress.UserId 
+                WHERE user.IsRegisteredUser=0 AND useraddress.PostalCode = $postalcode";
+        $result = mysqli_query($connection, $qry);
+
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            $row =  mysqli_num_rows($result);
+            if ($row > 0) {
+                $city = mysqli_fetch_assoc($result);
+                return $city["City"];
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function insertservicerequest($servicerequest)
+    {
+
+        global $connection;
+        $userid = $servicerequest["userid"];
+        $serviceid = $servicerequest["serviceid"];
+        $service_start_date = $servicerequest["date"] . " " . $servicerequest["time"] . ":00";
+        $zipcode = $servicerequest["zipcode"];
+        $service_hr = $servicerequest["duration"];
+        $totalcost = $servicerequest["totalpayment"];
+        $subtotal = $totalcost;
+        $createddate = date("Y/m/d h:i:s");
+        $modifieddate = $createddate;
+        $pets = $servicerequest["pets"];
+        $charge_per_hr = $servicerequest["charge_per_hr"];
+        $totalextrahr = $servicerequest["totalextrahr"];
+        $comments = $servicerequest["comments"];
+
+        $qry = "INSERT INTO servicerequest (`ServiceRequestId`, `UserId`, `ServiceId`, `ServiceStartDate`, `ZipCode`, `ServiceFrequency`,
+                 `ServiceHourlyRate`, `ServiceHours`, `ExtraHours`, `SubTotal`, `Discount`, `TotalCost`, `Comments`, `PaymentTransactionRefNo`,
+                  `PaymentDue`, `JobStatus`, `ServiceProviderId`, `SPAcceptedDate`, `HasPets`, `Status`, `CreatedDate`, `ModifiedDate`,
+                   `ModifiedBy`, `RefundedAmount`, `Distance`, `HasIssue`, `PaymentDone`, `RecordVersion`)
+                    VALUES (NULL, $userid, $serviceid, '$service_start_date', $zipcode, NULL, $charge_per_hr, $service_hr, $totalextrahr,
+                     $subtotal, NULL, $totalcost, '$comments', NULL, '0', NULL, NULL, NULL, $pets, NULL, '$createddate', '$modifieddate', 
+                     NULL, NULL, 0, NULL, NULL, NULL);";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        }
+    }
+
+    function fetchservicerequestid($serviceid)
+    {
+
+        global $connection;
+
+        $qry = "SELECT *FROM servicerequest WHERE ServiceId = $serviceid";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            $row =  mysqli_fetch_assoc($result);
+            if (isset($row)) {
+                return $row["ServiceRequestId"];
+            }
+        }
+    }
+
+    function insertextraservice($servicerequest)
+    {
+
+        global $connection;
+        $servicerequestid  = $servicerequest["servicerequestid"];
+        $extraservice = $servicerequest["extraservice"];
+
+        foreach ($extraservice as $value) {
+            $qry = "INSERT INTO servicerequestextra (`ServiceRequestExtraId`, `ServiceRequestId`, `ServiceExtraId`)
+                    VALUES (NULL, $servicerequestid, '$value')";
+            $result = mysqli_query($connection, $qry);
+            if (!$result) {
+                die("Query Failed" . mysqli_error($connection));
+            }
+        }
+    }
+
+    function fetchuseraddress()
+    {
+        global $connection;
+        $userid = $_SESSION["userid"];
+
+        $qry = "SELECT *FROM useraddress WHERE UserId = $userid";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            return $result;
+        }
+    }
+
+    function insertuseraddress($useraddress)
+    {
+        global $connection;
+        $streetname = $useraddress["streetname"];
+        $houseno =  $useraddress["houseno"];
+        $postalcode = $useraddress["postalcode"];
+        $city = $useraddress["city"];
+        $phoneno = $useraddress["phoneno"];
+        $userid = $_SESSION["userid"];
+
+        $qry = "INSERT INTO useraddress (`AddressId`, `UserId`, `AddressLine1`, `AddressLine2`, `City`, `State`, `PostalCode`, `IsDefault`,
+             `IsDeleted`, `Mobile`, `Email`, `Type`) VALUES (NULL, $userid, '$houseno', '$streetname', '$city', 'Gujarat', 
+             $postalcode, '0', '0', $phoneno, NULL, NULL)";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        }
+    }
+
+    function addServiceRequestAddress($addressid)
+    {
+        global $connection;
+
+        $qry = "SELECT *FROM useraddress WHERE AddressId = $addressid";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            $row = mysqli_fetch_assoc($result);
+            $servicerequestid = $_SESSION["servicerequestid"];
+            $AddressLine1 = $row["AddressLine1"];
+            $AddressLine2 = $row["AddressLine2"];
+            $city = $row["City"];
+            $state = $row["State"];
+            $postalcode = $row["PostalCode"];
+            $mobile = $row["Mobile"];
+
+            // echo $AddressLine1;
+            // echo $city;
+            $qry1 = "INSERT INTO servicerequestaddress (`Id`, `ServiceRequestId`, `AddressLine1`, `AddressLine2`, `City`, `State`, `PostalCode`, 
+                                    `Mobile`, `Email`, `Type`)
+                         VALUES (NULL, $servicerequestid, '$AddressLine1','$AddressLine2', '$city', '$state', '$postalcode', '$mobile', NULL, 1)";
+            $result1 = mysqli_query($connection, $qry1);
+            if (!$result1) {
+                die("Query Failed" . mysqli_error($connection));
+            }
+        }
+    }
+
+    function fetchtargetServiceProvider($userid)
+    {
+        global $connection;
+
+        $targetuserid = [];
+        $qry = "SELECT TargetUserId  FROM favoriteandblocked WHERE UserId = $userid";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($targetuserid, $row["TargetUserId"]);
+            }
+        }
+        return $targetuserid;
+    }
+
+    function fetchServiceProviderName($id)
+    {
+        global $connection;
+
+        $qry = "SELECT FirstName,LastName FROM user where UserId = $id";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            $row = mysqli_fetch_assoc($result);
+            $fname = $row["FirstName"];
+            $lname = $row["LastName"];
+            $name = "$fname " . "$lname";
+            return $name;
+        }
+    }
+
+    function fetchserviceprovideremail($zipcode)
+    {
+        global $connection;
+
+        $serviceprovideremail = [];
+        $qry = "SELECT Email FROM user where ZipCode = $zipcode AND IsRegisteredUser = 0";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($serviceprovideremail, $row["Email"]);
+                echo $row["Email"];
+            }
+        }
+        return $serviceprovideremail;
     }
 }

@@ -58,6 +58,7 @@ if (isset($_SESSION["login_error"])) {
         </script>";
 }
 unset($_SESSION["login_error"]);
+// unset($_SESSION["fp_email_sucess"]);
 
 if (isset($_SESSION["fp_error"])) {
     echo "<script>

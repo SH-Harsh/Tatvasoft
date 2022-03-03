@@ -1,5 +1,5 @@
 <!-- Header  -->
-<?php include "include/header_service.php"  ?>
+<?php include "include/header.php"  ?>
 
 <!-- <header>
     <nav>
@@ -23,6 +23,7 @@
     </nav>
 </header> -->
 
+<!-- Navbar  -->
 <?php include "view/include/navbar.php" ?>
 
 <!-- Side Navbar  -->

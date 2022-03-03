@@ -42,6 +42,7 @@ function openSideMenu() {
 function closeSideMenu() {
     document.getElementById('side-nav').style.width = '0px';
     document.getElementById('background_body').classList.remove('background_transparent');
+    $('.arrow_down_section').css('display', 'none');
 }
 
 $('.ok').click(function () {
@@ -54,12 +55,12 @@ $('.arrow_down_nav').click(function () {
     // $('.arrow_down_section').toggle('display', 'block');
 
     display1 = $('.arrow_down_section').css('display');
-    if(display1 == 'none'){
+    if (display1 == 'none') {
         $('.arrow_down_section').css('display', 'block');
-    }else{
+    } else {
         $('.arrow_down_section').css('display', 'none');
     }
-    
+
 });
 
 
@@ -175,6 +176,7 @@ var count1;
 
 function starmark(item) {
     count1 = item.id[0];
+    console.log(count1);
     // sessionStorage.starRating = count;
     var subid = item.id.substring(1);
     console.log(subid);
@@ -186,6 +188,27 @@ function starmark(item) {
         }
     }
 }
+
+// $(".rateyo").rateYo().on("rateyo.change", function (e, data) {
+//     var rating = data.rating;
+//     $(this).parent().find('.score').text('score :'+ $(this).attr('data-rateyo-score'));
+//     $(this).parent().find('.result').text('rating :'+ rating);
+//     $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
+// });
+
+function avgrating() {
+    val1 = parseInt($('.rating_value').html());
+    val2 = parseInt($('.rating_value1').html());
+    val3 = parseInt($('.rating_value2').html());
+
+    average = (val1 + val2 + val3) / 3;
+    $('#average_rating_value').html(average.toFixed(1));
+
+    $("#average_rating").rateYo("option", "rating", average.toFixed(1)); //returns a jQuery Element
+}
+
+
+
 
 
 
@@ -631,3 +654,42 @@ function logoutalert() {
         title: 'Logout Successfully'
     })
 }
+
+// Rating 
+
+$("#rateYo").rateYo({
+    rating: 1,
+    starWidth: "20px",
+    ratedFill: "#FFA500",
+
+    onSet: function (rating, rateYoInstance) {
+        $('.rating_value').html(rating);
+        avgrating()
+    },
+});
+$("#rateYo1").rateYo({
+    rating: 1,
+    starWidth: "20px",
+    ratedFill: "#FFA500",
+
+    onSet: function (rating, rateYoInstance) {
+        $('.rating_value1').html(rating);
+        avgrating()
+    },
+});
+$("#rateYo2").rateYo({
+    rating: 1,
+    starWidth: "20px",
+    ratedFill: "#FFA500",
+
+    onSet: function (rating, rateYoInstance) {
+        $('.rating_value2').html(rating);
+        avgrating()
+    },
+});
+
+$("#average_rating").rateYo({
+    rating: 1,
+    starWidth: "20px",
+    ratedFill: "#FFA500",
+});

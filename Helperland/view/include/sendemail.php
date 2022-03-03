@@ -69,33 +69,33 @@ function sendMail($email, $subject, $body)
 
 
 //Service Provider Register
-if (isset($_POST['contact_submit'])) {
+// if (isset($_POST['contact_submit'])) {
 
-  $first_name = $_POST['first_name'];
-  $last_name = $_POST['last_name'];
-  $useremail = $_POST['email'];
-  $phone_no = $_POST['phone_no'];
-  $subject = $_POST['subject'];
-  $message = $_POST['message'];
-  $file_name = $_FILES['attachment']['name'];
+//   $first_name = $_POST['first_name'];
+//   $last_name = $_POST['last_name'];
+//   $useremail = $_POST['email'];
+//   $phone_no = $_POST['phone_no'];
+//   $subject = $_POST['subject'];
+//   $message = $_POST['message'];
+//   $file_name = $_FILES['attachment']['name'];
 
-  $name = "$first_name " . "$last_name";
+//   $name = "$first_name " . "$last_name";
 
-  $email = '181200107053@asoit.edu.in';
-  $subject = 'Helperland  Contact Us Details';
-  $body = "<h3>Name : $name <br>Email: $useremail <br>Phone No : $phone_no<br> Subject : $subject<br> Message : $message <br>
-            FIle Name : $file_name</h3>";
+//   $email = '181200107053@asoit.edu.in';
+//   $subject = 'Helperland  Contact Us Details';
+//   $body = "<h3>Name : $name <br>Email: $useremail <br>Phone No : $phone_no<br> Subject : $subject<br> Message : $message <br>
+//             FIle Name : $file_name</h3>";
   
 
-  sendMailwithAttachment($email, $subject, $body);
-}
+//   sendMailwithAttachment($email, $subject, $body);
+// }
 
 // Forgot Password Mail 
-if (isset($_POST["fp_send"])) {
-  $fp_email = $_POST["fp_email"];
+// if (isset($_POST["fp_send"])) {
+//   $fp_email = $_POST["fp_email"];
 
-  $subject = 'Change Password for Helperland';
-  $body = "http://localhost/helperland/index.php?function=forgotPassword&parameter=$userid";
+//   $subject = 'Change Password for Helperland';
+//   $body = "http://localhost/helperland/index.php?function=forgotPassword&parameter=$userid";
 
-  sendMail($fp_email, $subject, $body);
-}
+//   sendMail($fp_email, $subject, $body);
+// }

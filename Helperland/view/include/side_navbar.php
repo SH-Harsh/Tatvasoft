@@ -6,11 +6,11 @@
     <p class="mx-2 mb-0 mt-5">Warm Welcome</p>
     <p class="mx-2 mb-2"><?= $_SESSION["name"] ?></p>
 
-    <a href="#">overview</a>
+    <a href="<?= "$base_url?function=servicehistory&parameter=0"; ?>">overview</a>
     <a href="#">calendra view</a>
     <a href="#">My favorites</a>
     <a href="#">Bills</a>
-    <a href="#">My Setting</a>
+    <a href="<?= "$base_url?function=servicehistory&parameter=1"; ?>">My Setting</a>
     <a href="<?= "$base_url?function=logout"; ?>" id="Logout">Log out</a>
 
     <hr>

@@ -4,13 +4,15 @@
 
     <hr>
 
-    <a href="#">Dashboard</a>
+    <a href="#" class="dashboard_tab">Dashboard</a>
     <a href="#">New Service Requests</a>
     <a href="#" class="dashboard_tab">Upcoming Services</a>
     <a href="#">Service Schedule</a>
     <a href="#" class="service_history_tab">Service History</a>
     <a href="#">My Ratings</a>
     <a href="#" class="block_customer_tab">Block Customer</a>
+    <a href="<?= "$base_url?function=servicehistory&parameter=1"; ?>">My Settings</a>
+    <a href="<?= "$base_url?function=logout"; ?>" id="Logout">Log out</a>
 
     <hr>
 

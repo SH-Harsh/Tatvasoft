@@ -501,7 +501,7 @@
 
                         <hr>
 
-                        <div>
+                        <div class="serviceproviderid">
                             <button class="accept_btn float-right" id="continue_details">Continue</button>
                         </div>
 

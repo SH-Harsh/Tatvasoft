@@ -1302,3 +1302,9 @@ label span{
     }
 
 }
+
+/* Bgcolor  */
+.bgcolor {
+    background-color: #4f4f4f;
+    border-bottom: 1px solid lightgray;
+}

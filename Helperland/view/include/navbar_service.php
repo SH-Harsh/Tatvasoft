@@ -8,7 +8,10 @@
             </div>
         </a>
         <ul class="nav-links">
-            <li><a class="book_now" href="<?php echo "$base_url?function=bookService"  ?>">Book now</a></li>
+
+            <?php if (!isset($_SESSION["usertype"]) || $_SESSION["usertype"] == 1) { ?>
+                <li><a class="book_now" href="<?php echo "$base_url?function=bookService"  ?>">Book now</a></li>
+            <?php } ?>
             <li><a href="<?= "$base_url?function=prices_page"  ?>">Prices & Services</a></li>
             <li><a class="nav-link" href="#">Warranty</a></li>
             <li><a class="nav-link" href="#">Blog</a></li>
@@ -28,6 +31,7 @@
                     <h5>Welcome, <br> <?php $name = $_SESSION["name"];
                                         echo $name; ?></h5>
                     <hr>
+
                     <a>My Dashboard</a>
                     <a id="MySettings">My Settings</a>
                     <a href="<?= "$base_url?function=logout"; ?>" id="Logout">Logout</a>

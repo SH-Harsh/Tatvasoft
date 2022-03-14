@@ -84,7 +84,7 @@ function mysettings(evt, cityName) {
 // Display Tabs 
 
 function display(id) {
-    $('.right_service_list').css('display', 'none');
+    // $('.right_service_list').css('display', 'none');
     $('#new_service_request').css('display', 'none');
     $('#service_history').css('display', 'none');
     $('#block_customer').css('display', 'none');
@@ -158,7 +158,7 @@ $('.service_history_tab').click(function () {
 
 $('.upcoming_service').click(function () {
     display("#upcoming_service_list");
-    $('#upcoming_service_list').css('display', 'table');
+    $('#upcoming_service_list').css('display', 'block');
     $('.upcoming_service').addClass('active_left');
 });
 
@@ -693,3 +693,19 @@ $("#average_rating").rateYo({
     starWidth: "20px",
     ratedFill: "#FFA500",
 });
+
+//Sorting Option
+
+$('.sorting_click').click(function (e) { 
+    e.preventDefault();
+    
+    // $('.sorting_option').toggle('display','block');
+    
+    property =  $('.sorting_option').css('display');
+    if(property == 'none'){
+        $('.sorting_option').css('display', 'block');
+    }else{
+        $('.sorting_option').css('display', 'none');
+    }
+});
+

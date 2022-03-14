@@ -73,6 +73,9 @@
 <!-- Export to Excel Library  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
+<!-- Sweet Alert Libray  -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="assets/js/responsive.js"></script>
 <script src="assets/js/admin.js"></script>
 <script src="assets/js/faq.js"></script>
@@ -116,6 +119,7 @@ if (isset($_GET["parameter"]) && $_GET["parameter"] == 1) {
             $('.arrow_down_section').css('display', 'none');
             setting_set_details();
             setting_load_address();
+            setting_set_details_sp();
         </script>";
 }
 

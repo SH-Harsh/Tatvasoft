@@ -39,7 +39,7 @@ class EventController
 
          $name = "$first_name " . "$last_name";
 
-         $email = '181200107053@asoit.edu.in';
+         $email = 'whitedevil18120@gmail.com';
          $subject = 'Helperland  Contact Us Details';
          $body = "<h3>Name : $name <br>Email: $useremail <br>Phone No : $phone_no<br> Subject : $subject<br> Message : $message <br>
          FIle Name : $file_name</h3>";
@@ -154,14 +154,18 @@ class EventController
                $lname = $row["LastName"];
                $name = "$fname " . "$lname";
                $userid = $row["UserId"];
-               $usertype = $row["IsRegisteredUser"];
+               $usertype = $row["UserTypeId"];
+               $email = $user['email'];
+               $password = $user['password'];
                $_SESSION["userid"] = $userid;
                $_SESSION["name"] = $name;
                $_SESSION["usertype"] = $usertype;
 
                if (isset($_POST["remember"])) {
-                  setcookie("userid", "$userid", time() + (8600 * 30), "/");
-                  setcookie("name", "$name", time() + (8600 * 30), "/");
+                  // setcookie("userid", "$userid", time() + (8600 * 30), "/");
+                  // setcookie("name", "$name", time() + (8600 * 30), "/");
+                  setcookie("email", "$email", time() + (8600 * 30), "/");
+                  setcookie("password", "$password", time() + (8600 * 30), "/");
                }
             } else {
                $_SESSION["login_error"] = "Some values are improper";
@@ -208,7 +212,7 @@ class EventController
             $userid = $this->model->forgotpasswordfetch($email);
             if (!isset($_SESSION["fp_error"])) {
                //  Send Email  
-              // include "view/include/sendemail.php";
+               // include "view/include/sendemail.php";
                $fp_email = $_POST["fp_email"];
 
                $subject = 'Change Password for Helperland';
@@ -372,6 +376,12 @@ class EventController
       $servicerequest["comments"] = $_POST["comments"];
       $servicerequest["extraservice"] = $_POST["extraservice"];
 
+      if ($_POST["providerid"] != 0) {
+         $servicerequest["ServiceProviderId"] = $_POST["providerid"];
+      } else {
+         $servicerequest["ServiceProviderId"] = 0;
+      }
+
       if ($servicerequest["extraservice"][0]  != 0) {
          $servicerequest["extraservice"] = $_POST["extraservice"];
          $servicerequest["totalpayment"] = $servicerequest["charge_per_hr"] * $servicerequest["duration"] + count($servicerequest["extraservice"]) * $extra_service_cost;
@@ -396,7 +406,7 @@ class EventController
 
       // $_SESSION["schedulePlan"] = "Set";
 
-      echo $_SESSION["servicerequestid"];
+      // echo $_SESSION["servicerequestid"];
 
       $this->loadaddress();
 
@@ -447,6 +457,7 @@ class EventController
       $output = "";
       $userid = $_SESSION["userid"];
       $targetServiceProviderarr = $this->model->fetchtargetServiceProvider($userid);
+      // print_r($targetServiceProviderarr);
       foreach ($targetServiceProviderarr as $value) {
          $name = $this->model->fetchServiceProviderName($value);
          $output .= "<div class='block_box m-2' style='width: 200px; border:none'>
@@ -462,13 +473,22 @@ class EventController
 
    function sendEmailtoProvider()
    {
+      $userid = $_SESSION["userid"];
+
       // Email Service Pool 
       $serviceprovideremail =  $this->model->fetchserviceprovideremail($_SESSION["postalcode"]);
-      print_r($serviceprovideremail);
+
+      $blockedemail = $this->model->fetchblockedEmail($_SESSION["postalcode"], $userid);
+      // print_r($blockedemail);
+      // print_r($serviceprovideremail);
+
+      $finalemailarr = array_diff($serviceprovideremail, $blockedemail);
+
+      // print_r($finalemailarr);
 
       //  Send Email  
-      include "view/include/sendemail.php";
-      foreach ($serviceprovideremail as $emailtext) {
+      // include "view/include/sendemail.php";
+      foreach ($finalemailarr as $emailtext) {
          $email = $emailtext;
          $subject = 'One Service Request Arrived in your area';
          $body = 'Please login in helperland and check the service request';
@@ -520,7 +540,7 @@ class EventController
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
-         $starttime = date("g:i", strtotime($time));
+         $starttime = date("G:i", strtotime($time));
          $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
 
 
@@ -582,10 +602,9 @@ class EventController
       $time = $_POST["time"];
       $id = $_POST["serviceid"];
 
-      $datetime = $date . " " . $time . ":00";
+      $datetime =  date("Y/m/d G:i:s", strtotime($date . " " . $time . ":00"));
 
-      echo $date;
-      echo $time;
+      echo $datetime;
       $this->model->updatedatetimeservice($id, $datetime);
 
       $result = $this->model->getEmailOfServiceProvider($id);
@@ -595,7 +614,7 @@ class EventController
          $row = $this->model->getuserdetails($userid);
          $email = $row["Email"];
          $subject = 'Service Date Change';
-         $body = "Service Request ".$id." has been rescheduled by customer. New date and time are {".$date.",".$time."}";
+         $body = "Service Request " . $id . " has been rescheduled by customer. New date and time are {" . $date . "," . $time . "}";
          sendMail($email, $subject, $body);
       }
    }
@@ -665,7 +684,7 @@ class EventController
       $datetime_arr = explode(" ", $datetime);
       $servicedetails["date"] = $datetime_arr[0];
       $time = $datetime_arr[1];
-      $servicedetails["starttime"] = date("g:i", strtotime($time));
+      $servicedetails["starttime"] = date("G:i", strtotime($time));
       $servicedetails["endtime"] = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
 
       // Extra Service 
@@ -755,7 +774,7 @@ class EventController
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
-         $starttime = date("g:i", strtotime($time));
+         $starttime = date("G:i", strtotime($time));
          $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
 
          $output .= "<tr>
@@ -885,7 +904,7 @@ class EventController
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
-         $starttime = date("g:i", strtotime($time));
+         $starttime = date("G:i", strtotime($time));
          $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
 
          $output .= "<tr>
@@ -1101,5 +1120,918 @@ class EventController
       }
       $avg = $sum / $count;
       echo  number_format($avg, 1);
+   }
+
+   //Update details of Service Provider
+   function updatedetails_sp()
+   {
+      $provider["fname"] = $_POST["FirstName"];
+      $provider["lname"] = $_POST["LastName"];
+      $provider["email"] = $_POST["Email"];
+      $provider["phoneno"] = $_POST["PhoneNo"];
+      $provider["birthdate"] = $_POST["date"];
+      $provider["nationality"] = $_POST["Nationality"];
+      $provider["gender"] = $_POST["Gender"];
+      $provider["avatar_name"] = $_POST["logo_name"];
+      $provider["streetname"] = $_POST["streetName"];
+      $provider["houseno"] = $_POST["houseNo"];
+      $provider["postalcode"] = $_POST["postalcode"];
+      $provider["city"] = $_POST["city"];
+      $provider["userid"] = $_SESSION["userid"];
+
+      $this->model->updateServiceProviderDetails($provider);
+
+      $result = $this->model->IsInsertedAddress_SP($provider);
+
+      if ($result > 0) {
+         //Update Address
+         $this->model->updateAddress_sp($provider);
+      } else {
+         //Insert Address
+         $this->model->insertuseraddress($provider);
+      }
+
+      print_r($provider);
+   }
+
+   function setAdress_sp()
+   {
+      $provider["userid"] = $_SESSION["userid"];
+
+      $result = $this->model->IsInsertedAddress_SP($provider);
+
+      if ($result > 0) {
+         $result1 = $this->model->getAddress_SP($provider["userid"]);
+         echo json_encode($result1);
+      }
+   }
+
+   function loadServiceRequest_SP()
+   {
+      $output = "";
+
+      $userid = $_SESSION["userid"];
+      $result = $this->model->getAddress_SP($userid);
+      $pincode = $result["PostalCode"];
+
+      $parameterarr = explode("-", $_GET["parameter"]);
+      $offset = $parameterarr[0];
+      $limit = $parameterarr[1];
+      $pets = $parameterarr[2];
+
+      $output .= "<tr>
+                     <th>
+                        <p>Service ID <img src='assets/images/double_arrow.png'></p>
+                     </th>
+                     <th>
+                        <p>Service date</p>
+                     </th>
+                     <th>
+                        <p>Customer details </p>
+                     </th>
+                     <th>
+                        <p>Payment</p>
+                     </th>
+                     <th>
+                        <p>Time Conflict</p>
+                     </th>
+                     <th>
+                        <p class='text-center'>Actions</p>
+                     </th>
+               </tr>";
+
+
+
+      $result = $this->model->getnewservicerequest_sp($pincode, $pets, $offset, $limit);
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $servicerequestid = $row["ServiceRequestId"];
+         $serviceid = $row["ServiceId"];
+         $datetime = $row["ServiceStartDate"];
+         $payment = $row["TotalCost"];
+         $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+         $serviceproviderid = $row["ServiceProviderId"];
+
+         //Customer details
+         $customerid = $row["UserId"];
+         // $row1 = $this->model->getAddress_SP($customerid);
+         $row1 = $this->model->getAddress_SD($servicerequestid);
+         $customer_address = $row1["AddressLine1"] . ", " . $row1["AddressLine2"] . " " . $row1["City"] . " " . $row1["PostalCode"];
+
+         $row2 = $this->model->getuserdetails($customerid);
+
+         $fname = $row2["FirstName"];
+         $lname = $row2["LastName"];
+         $name = $fname . " " . $lname;
+
+         // Date & Time 
+         $datetime_arr = explode(" ", $datetime);
+         $date = $datetime_arr[0];
+         $time = $datetime_arr[1];
+         $starttime = date("G:i", strtotime($time));
+         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+
+         $output .= "<tr data-toggle='modal' data-target='#new_service_details' onclick='Accept_Service($servicerequestid)'>
+                        <td>
+                           <p>$serviceid</p>
+                        </td>
+                        <td>
+                           <p style='font-weight: 500;'><img src='assets/images/calendar2.png'>$date</p>
+                           <p><img src='assets/images/clock.png'> $starttime - $endtime</p>
+                        </td>
+                        <td>
+                           <p>$name</p>
+                           <p><img src='assets/images/home.png'>$customer_address</p>
+                        </td>
+                        <td>
+                           <p>$payment</p>
+                        </td>
+                        <td></td>
+                        <td>
+                           <p class='text-center'>
+                              <button type='button' class='accept_btn'>Accept</button>
+                           </p>
+                        </td>
+                  </tr>";
+      }
+
+      echo $output;
+   }
+
+   function setAcceptServiceModal()
+   {
+      $id = $_POST["id"];
+
+      $row = $this->model->getServiceRequests_SP_details($id);
+
+      $servicerequestid = $row["ServiceRequestId"];
+      $details["serviceid"] = $row["ServiceId"];
+      $datetime = $row["ServiceStartDate"];
+      $details["payment"] = $row["TotalCost"];
+      $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+      $details["totalhr"] = $totalhr;
+      $details["comment"] = $row["Comments"];
+      $details["HasPets"] = $row["HasPets"];
+
+      $serviceproviderid = $row["ServiceProviderId"];
+
+      //Customer details
+      $customerid = $row["UserId"];
+      // $row1 = $this->model->getAddress_SP($customerid);
+      $row1 = $this->model->getAddress_SD($servicerequestid);
+      $details["customer_address"] = $row1["AddressLine1"] . ", " . $row1["AddressLine2"] . " " . $row1["City"] . " " . $row1["PostalCode"];
+
+      $row2 = $this->model->getuserdetails($customerid);
+
+      $fname = $row2["FirstName"];
+      $lname = $row2["LastName"];
+      $details["name"] = $fname . " " . $lname;
+
+      // Date & Time 
+      $datetime_arr = explode(" ", $datetime);
+      $details["date"] = $datetime_arr[0];
+      $time = $datetime_arr[1];
+      $details["starttime"] = date("G:i", strtotime($time));
+      $details["endtime"] = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+
+      // Extra Service 
+      $servicedetails["ServiceExtraId"] = [];
+
+      $result1 = $this->model->getextraservicedeatils($servicerequestid);
+
+      if (mysqli_num_rows($result1) == 0) {
+         array_push($servicedetails["ServiceExtraId"], 0);
+      } else {
+         while ($row1 = mysqli_fetch_assoc($result1)) {
+            array_push($servicedetails["ServiceExtraId"], $row1["ServiceExtraId"]);
+         }
+      }
+
+
+      // Extra Service Name 
+      $details["ExtraService"] = [];
+      foreach ($servicedetails["ServiceExtraId"] as $value) {
+
+         if ($value == 1) {
+            array_push($details["ExtraService"], "Inside Cabinet");
+         } else if ($value == 2) {
+            array_push($details["ExtraService"], "Inside fridge");
+         } else if ($value == 3) {
+            array_push($details["ExtraService"], "Inside oven");
+         } else if ($value == 4) {
+            array_push($details["ExtraService"], "Inside fridge");
+         } else if ($value == 5) {
+            array_push($details["ExtraService"], "Laundry wash & dry");
+         } else {
+            array_push($details["ExtraService"], 0);
+         }
+      }
+
+
+      echo json_encode($details);
+   }
+
+   // New Service Request total entries for Sp 
+
+   function TotalEntriesNewServiceRequest()
+   {
+
+      $userid = $_SESSION["userid"];
+      $result = $this->model->getAddress_SP($userid);
+      $pincode = $result["PostalCode"];
+
+      $pets = $_GET["parameter"];
+
+      $no = $this->model->getnewservicerequestTotalEntries_sp($pincode, $pets);
+
+      echo $no;
+   }
+
+   function IsServiceProviderAssigned()
+   {
+      $serviceid = $_POST["id"];
+
+      $row =  $this->model->getUpcomingServiceDetails($serviceid);
+      $ServiceDateStart = $row["ServiceStartDate"];
+      $zipcode = $row["ZipCode"];
+      $userid = $_SESSION["userid"];
+
+      $currentdatetotalhrs = $row["ServiceHours"] + $row["ExtraHours"];
+      $ServiceDateEnd = date("Y-m-d H:i:s", strtotime("+$currentdatetotalhrs hours", strtotime($ServiceDateStart)));
+
+      $result = $this->model->AcceptServiceValidation($zipcode, $userid);
+
+      $onecount = 0;
+      $zerocount = 0;
+
+      if (mysqli_num_rows($result) > 0) {
+         while ($row1 = mysqli_fetch_assoc($result)) {
+            // echo $row1["ServiceStartDate"] . "    ";
+            $ServiceStartComp = $row1["ServiceStartDate"];
+            $totalhrs = $row1["ServiceHours"] + $row1["ExtraHours"];
+            $ServiceEndComp = date("Y-m-d H:i:s", strtotime("+$totalhrs hours", strtotime($ServiceStartComp)));
+
+            // echo $ServiceEndComp . "   ";
+
+            if (($ServiceDateStart < $ServiceStartComp && $ServiceDateEnd < $ServiceStartComp) || $ServiceDateStart > $ServiceEndComp) {
+               if (isset($row["ServiceProviderId"])) {
+                  $onecount++;
+               } else {
+                  $zerocount++;
+               }
+            } else {
+               $onecount++;
+            }
+         }
+      } else {
+         $zerocount++;
+      }
+
+      if ($onecount > 0) {
+         echo "1";
+      } else {
+         echo "0";
+      }
+
+      // if (isset($row["ServiceProviderId"])) {
+      //    echo "1";
+      // } else {
+      //    echo "0";
+      // }
+   }
+
+   function SetServiceProvider()
+   {
+      $serviceid = $_POST["id"];
+      $userid = $_SESSION["userid"];
+
+      $this->model->setServiceProviderId($serviceid, $userid);
+   }
+
+
+   //Upcoming Service
+   function loadUpcomingService_SP()
+   {
+
+      $userid = $_SESSION["userid"];
+      $parameterarr = explode("-", $_GET["parameter"]);
+      $offset = $parameterarr[0];
+      $limit = $parameterarr[1];
+
+      $output = "<tr>
+                     <th>
+                        <p>Service ID <img src='assets/images/double_arrow.png'></p>
+                     </th>
+                     <th>
+                        <p>Service date <img src='assets/images/double_arrow.png'></p>
+                     </th>
+                     <th>
+                        <p>Customer details <img src='assets/images/double_arrow.png'></p>
+                     </th>
+                     <th>
+                        <p>Payment</p>
+                     </th>
+                     <th>
+                        <p>Distance <img src='assets/images/double_arrow.png'></p>
+                     </th>
+                     <th>
+                        <p class='text-center'>Actions</p>
+                     </th>
+               </tr>";
+
+
+      $result = $this->model->getUpcomingService_Sp($userid, $offset, $limit);
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $servicerequestid = $row["ServiceRequestId"];
+         $serviceid = $row["ServiceId"];
+         $datetime = $row["ServiceStartDate"];
+         $payment = $row["TotalCost"];
+         $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+         $serviceproviderid = $row["ServiceProviderId"];
+
+         //Customer details
+         $customerid = $row["UserId"];
+         // $row1 = $this->model->getAddress_SP($customerid);
+         $row1 = $this->model->getAddress_SD($servicerequestid);
+         $customer_address = $row1["AddressLine1"] . ", " . $row1["AddressLine2"] . " " . $row1["City"] . " " . $row1["PostalCode"];
+
+         $row2 = $this->model->getuserdetails($customerid);
+
+         $fname = $row2["FirstName"];
+         $lname = $row2["LastName"];
+         $name = $fname . " " . $lname;
+
+         // Date & Time 
+         $datetime_arr = explode(" ", $datetime);
+         $date = $datetime_arr[0];
+         $time = $datetime_arr[1];
+         $starttime = date("G:i", strtotime($time));
+         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+
+         $output .= "<tr data-toggle='modal' data-target='#upcoming_service_details' onclick='SetUpcomingServiceModal($servicerequestid)'>
+                        <td>
+                           <p>$serviceid</p>
+                        </td>
+                        <td>
+                           <p style='font-weight: 500'><img src='assets/images/calendar2.png'>$date</p>
+                           <p><img src='assets/images/clock.png'> $starttime - $endtime</p>
+                        </td>
+                        <td>
+                           <p>$name</p>
+                           <p><img src='assets/images/home.png'>$customer_address</p>
+                        </td>
+                        <td>
+                           <p>$payment €</p>
+                        </td>
+                        <td>
+                           <p></p>
+                        </td>
+                        <td>
+                           <p class='text-right_cancel'>
+                              <button type='button' class='Cancel_button'>Cancel</button>
+                           </p>
+                        </td>
+                  </tr>";
+      }
+
+      echo $output;
+   }
+
+   function GetUpcomingServiceDetails()
+   {
+      $servicerequestId = $_POST["id"];
+
+      $row = $this->model->getUpcomingServiceDetails($servicerequestId);
+
+      $servicerequestid = $row["ServiceRequestId"];
+      $details["serviceRequestId"]  = $servicerequestid;
+      $details["serviceid"] = $row["ServiceId"];
+      $datetime = $row["ServiceStartDate"];
+      $details["payment"] = $row["TotalCost"];
+      $details["totalhr"] = $row["ServiceHours"] + $row["ExtraHours"];
+      $totalhr = $details["totalhr"];
+      $serviceproviderid = $row["ServiceProviderId"];
+      $details["comment"] = $row["Comments"];
+      $details["HasPets"] = $row["HasPets"];
+
+
+      //Customer details
+      $customerid = $row["UserId"];
+      // $row1 = $this->model->getAddress_SP($customerid);
+      $row1 = $this->model->getAddress_SD($servicerequestid);
+      $details["customer_address"] = $row1["AddressLine1"] . ", " . $row1["AddressLine2"] . " " . $row1["City"] . " " . $row1["PostalCode"];
+
+      $row2 = $this->model->getuserdetails($customerid);
+
+      $fname = $row2["FirstName"];
+      $lname = $row2["LastName"];
+      $details["name"] = $fname . " " . $lname;
+
+      // Date & Time 
+      $datetime_arr = explode(" ", $datetime);
+      $details["date"] = $datetime_arr[0];
+      $time = $datetime_arr[1];
+      $details["starttime"] = date("G:i", strtotime($time));
+      $details["endtime"] = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+
+      date_default_timezone_set('Asia/Calcutta');
+      $todayDate = date("Y/m/d G:i:s");
+      $datetime = date("Y/m/d h:i:s", strtotime($datetime));
+
+
+      $endtime_us = date("H:i:s", strtotime($details["endtime"]));
+      $datetime_end =  date("Y/m/d G:i:s", strtotime($details["date"] . " " . $endtime_us));
+
+      $details["endtime_check"] = $datetime_end;
+      $details["todayDate"] = $todayDate;
+
+      // echo $todayDate;
+      // $details["datetime"] = $datetime;
+      // $details["todayDate"] = $todayDate;
+
+      if ($todayDate > $datetime_end) {
+         $details["Complete"] = 1;
+      } else {
+         $details["Complete"] = 0;
+      }
+
+
+      // Extra Service 
+      $servicedetails["ServiceExtraId"] = [];
+
+      $result1 = $this->model->getextraservicedeatils($servicerequestid);
+
+      if (mysqli_num_rows($result1) == 0) {
+         array_push($servicedetails["ServiceExtraId"], 0);
+      } else {
+         while ($row1 = mysqli_fetch_assoc($result1)) {
+            array_push($servicedetails["ServiceExtraId"], $row1["ServiceExtraId"]);
+         }
+      }
+
+
+      // Extra Service Name 
+      $details["ExtraService"] = [];
+      foreach ($servicedetails["ServiceExtraId"] as $value) {
+
+         if ($value == 1) {
+            array_push($details["ExtraService"], "Inside Cabinet");
+         } else if ($value == 2) {
+            array_push($details["ExtraService"], "Inside fridge");
+         } else if ($value == 3) {
+            array_push($details["ExtraService"], "Inside oven");
+         } else if ($value == 4) {
+            array_push($details["ExtraService"], "Inside fridge");
+         } else if ($value == 5) {
+            array_push($details["ExtraService"], "Laundry wash & dry");
+         } else {
+            array_push($details["ExtraService"], 0);
+         }
+      }
+
+      echo json_encode($details);
+   }
+
+   function cancelServiceRequest()
+   {
+      $serviceRequestId = $_POST["id"];
+
+      $this->model->cancelServiceRequest_SP($serviceRequestId);
+   }
+
+   function completeServiceRequest()
+   {
+      $serviceRequestId = $_POST["id"];
+
+      $this->model->completeServiceRequest_SP($serviceRequestId);
+
+      //Insert in favorite table
+      $userid = $_SESSION["userid"];
+      $row = $this->model->getUpcomingServiceDetails($serviceRequestId);
+
+      $customerId = $row["UserId"];
+      $this->model->insertFavoriteBlock($userid, $customerId);
+   }
+
+   function TotalEntriesUpcomingService()
+   {
+      $userid = $_SESSION["userid"];
+
+      $no = $this->model->gettotalentries_us($userid);
+      echo $no;
+   }
+
+   //Service History of Service Provider
+
+   function loadServiceHistory_SP()
+   {
+      $userid = $_SESSION["userid"];
+      $parameterarr = explode("-", $_GET["parameter"]);
+      $offset = $parameterarr[0];
+      $limit = $parameterarr[1];
+
+      $output = "<tr class='table_heading'>
+                     <th>
+                        <p>Service ID</p>
+                     </th>
+                     <th>
+                        <p>Service date</p>
+                     </th>
+                     <th>
+                        <p>Customer details </p>
+                     </th>
+               </tr>";
+
+      $result = $this->model->getServiceHistory_SP($userid, $offset, $limit);
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $servicerequestid = $row["ServiceRequestId"];
+         $serviceid = $row["ServiceId"];
+         $datetime = $row["ServiceStartDate"];
+         $payment = $row["TotalCost"];
+         $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+         $serviceproviderid = $row["ServiceProviderId"];
+
+         //Customer details
+         $customerid = $row["UserId"];
+         // $row1 = $this->model->getAddress_SP($customerid);
+         $row1 = $this->model->getAddress_SD($servicerequestid);
+         $customer_address = $row1["AddressLine1"] . ", " . $row1["AddressLine2"] . " " . $row1["City"] . " " . $row1["PostalCode"];
+
+         $row2 = $this->model->getuserdetails($customerid);
+
+         $fname = $row2["FirstName"];
+         $lname = $row2["LastName"];
+         $name = $fname . " " . $lname;
+
+         // Date & Time 
+         $datetime_arr = explode(" ", $datetime);
+         $date = $datetime_arr[0];
+         $time = $datetime_arr[1];
+         $starttime = date("G:i", strtotime($time));
+         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+
+         $output .= "<tr data-toggle='modal' data-target='#service_history_details' onclick='SetServiceHistoryModal_SP($servicerequestid)'>
+                        <td>
+                           <p>$serviceid</p>
+                        </td>
+                        <td>
+                           <p style='font-weight: 500;'><img src='assets/images/calendar2.png'> $date</p>
+                           <p><img src='assets/images/clock.png'> $starttime - $endtime</p>
+                        </td>
+                        <td>
+                           <p>$name</p>
+                           <p><img src='assets/images/home.png'>$customer_address</p>
+                        </td>
+                  </tr>";
+      }
+
+      echo $output;
+   }
+
+   function TotalEntriesServiceHistory_Sp()
+   {
+      $userid = $_SESSION["userid"];
+
+      $no = $this->model->gettotalentriesServiceHistory_Sp($userid);
+      echo $no;
+   }
+
+   function fetchfullservicehistory_SP()
+   {
+      $userid = $_SESSION["userid"];
+
+      $output = "<tr class='table_heading'>
+                     <th>Service ID</th>
+                     <th>Service date</th>
+                     <th>Customer Name</th>
+                     <th>Customer Address</th>
+                     <th>Total Payment</th>
+               </tr>";
+
+      $result = $this->model->getServiceHistoryExport($userid);
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $servicerequestid = $row["ServiceRequestId"];
+         $serviceid = $row["ServiceId"];
+         $datetime = $row["ServiceStartDate"];
+         $payment = $row["TotalCost"];
+         $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+         $serviceproviderid = $row["ServiceProviderId"];
+
+         //Customer details
+         $customerid = $row["UserId"];
+         // $row1 = $this->model->getAddress_SP($customerid);
+         $row1 = $this->model->getAddress_SD($servicerequestid);
+         $customer_address = $row1["AddressLine1"] . ", " . $row1["AddressLine2"] . " " . $row1["City"] . " " . $row1["PostalCode"];
+
+         $row2 = $this->model->getuserdetails($customerid);
+
+         $fname = $row2["FirstName"];
+         $lname = $row2["LastName"];
+         $name = $fname . " " . $lname;
+
+         // Date & Time 
+         $datetime_arr = explode(" ", $datetime);
+         $date = $datetime_arr[0];
+         $time = $datetime_arr[1];
+         $starttime = date("G:i", strtotime($time));
+         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+
+         $output .= "<tr>
+                        <td>$serviceid</td>
+                        <td>$date $starttime - $endtime</td>
+                        <td>$name</td>
+                        <td>$customer_address</td>
+                        <td>$payment</td>
+                  </tr>";
+      }
+      echo $output;
+   }
+
+   function GetBlockedCustomerlist()
+   {
+      $userid = $_SESSION["userid"];
+
+      $result = $this->model->getServiceHistoryExport($userid);
+      $userarr = [];
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         if (!in_array($row["UserId"], $userarr)) {
+            array_push($userarr, $row["UserId"]);
+         }
+      }
+      // print_r($userarr);
+
+      $parameterarr = explode("-", $_GET["parameter"]);
+      $offset = $parameterarr[0];
+      $limit = $parameterarr[1];
+
+      $user_arr_range = array_slice($userarr, $offset, $limit);
+
+      $output = "";
+      foreach ($user_arr_range as $customerId) {
+         $row = $this->model->FavouriteBlockedCustomerDetails($customerId, $userid);
+         $IsBlocked = $row["IsBlocked"];
+         $customerName = $row["FirstName"] . " " . $row["LastName"];
+         $id = $row["Id"];
+         $favblock = $row["IsBlocked"];
+
+         $output .= "<div class='block_box'>
+                        <div class='block_logo'>
+                           <img src='assets/images/avatar-car.png'>
+                        </div>
+                        <p class='block_name'>$customerName</p>";
+
+         if ($IsBlocked == 0) {
+            $output .=     "<button class='Cancel_button favblock' id='$id-$favblock'>Block</button>
+                  </div>";
+         } else {
+            $output .=     "<button class='Cancel_button favblock' id='$id-$favblock'>UnBlock</button>
+                  </div>";
+         }
+      }
+      echo $output;
+   }
+
+   function GetBlockedCustomertotal()
+   {
+      $userid = $_SESSION["userid"];
+
+      $result = $this->model->getServiceHistoryExport($userid);
+      $userarr = [];
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         if (!in_array($row["UserId"], $userarr)) {
+            array_push($userarr, $row["UserId"]);
+         }
+      }
+
+      echo count($userarr);
+   }
+
+   function SetFavBlockedCustomerlist()
+   {
+      $id = $_POST["favouriteId"];
+      $id_arr = explode("-", $id);
+      $favblockid = (int)$id_arr[0];
+      $isBlocked = (int)$id_arr[1];
+
+      if ($isBlocked == 1) {
+         // $favvalue = $this->model->IsAlreadyAnotherBlocked($favblockid);
+
+         $this->model->favcustomer($favblockid);
+      } else {
+         // $blockvalue = $this->model->IsAlreadyAnotherBlocked($favblockid);
+
+         $this->model->blockcustomer($favblockid);
+      }
+   }
+
+   function Ratinglist_Sp()
+   {
+      $userid = $_SESSION["userid"];
+      $orderby = $_POST["orderby"];
+      $rating_select_val = (int) $_POST["rating"];
+
+      if ($rating_select_val == 6) {
+         $startRatingValue = 1;
+         $endRatingValue = 6;
+      } else {
+         $startRatingValue = $rating_select_val;
+         $endRatingValue = $startRatingValue + 1;
+      }
+
+      $offset = (int) $_POST["offset_val"];
+      $limit = (int)$_POST["limit_val"];
+
+      $result = $this->model->getRatinglist_Sp($userid, $orderby, $startRatingValue, $endRatingValue, $offset, $limit);
+
+      $output = "";
+
+      while ($row = mysqli_fetch_assoc($result)) {
+         $rating_comment = $row["Comments"];
+         $rating_value = $row["Ratings"];
+         $CustomerId = $row["RatingFrom"];
+         $servicerequestid = $row["ServiceRequestId"];
+
+         // $servicedetails =  $this->model->getUpcomingServiceDetails($servicerequestid);
+
+         $serviceid = $row["ServiceId"];
+         $datetime = $row["ServiceStartDate"];
+         $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+
+         // Date & Time 
+         $datetime_arr = explode(" ", $datetime);
+         $date = $datetime_arr[0];
+         $time = $datetime_arr[1];
+         $starttime = date("G:i", strtotime($time));
+         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+
+
+         // $userdetails = $this->model->getuserdetails($CustomerId);
+
+         $fname = $row["FirstName"];
+         $lname = $row["LastName"];
+         $name = $fname . " " . $lname;
+
+         $output .= "<div class='rating_box'>
+                        <div class='row'>
+                           <div class='col-md-3 rating_name'>
+                              <p>$serviceid</p>
+                              <p class='name'>$name</p>
+                           </div>
+                           <div class='col-md-5 rating_date'>
+                              <p style='font-weight: 500'><img src='assets/images/calendar2.png'> $date</p>
+                              <p><img src='assets/images/clock.png'> $starttime - $endtime</p>
+                           </div>
+                           <div class='col-md-4 rating_star'>
+                              <p>ratings</p>
+
+                              <span class='mr-4 ml-2 rating_value_Sp' id='$servicerequestid-ratingValueSp'>$rating_value</span>";
+
+         if ($rating_value > 3) {
+            $output .=           "<span>very good</span>";
+         } else {
+            $output .=           "<span>Not good</span>";
+         }
+
+
+         $output .= "         <span class='starrating_Sp' id='$servicerequestid-ratingSp'></span>
+                           </div>
+                        </div>
+
+                        <hr>
+
+                        <div class='comments'>
+                           <p class='comment_heading'>Customer Comments</p>
+                           <p>$rating_comment</p>
+                        </div>
+                  </div>";
+      }
+      echo $output;
+   }
+
+   function TotalRatinglist_Sp()
+   {
+      $userid = $_SESSION["userid"];
+      $orderby = $_POST["orderby"];
+      $rating_select_val = (int) $_POST["rating"];
+
+      if ($rating_select_val == 6) {
+         $startRatingValue = 1;
+         $endRatingValue = 6;
+      } else {
+         $startRatingValue = $rating_select_val;
+         $endRatingValue = $startRatingValue + 1;
+      }
+
+      $total_no = $this->model->totalRatinglist_Sp($userid, $startRatingValue, $endRatingValue);
+
+      echo $total_no;
+   }
+
+   function GetBlockedCustomerlisttotal()
+   {
+      $userid = $_SESSION["userid"];
+
+      $total = $this->model->getFavBlockCustomerListtotal($userid);
+      echo $total;
+   }
+
+   function GetBlockedCustomerlist_C()
+   {
+      $userid = $_SESSION["userid"];
+
+      $parameterarr = explode("-", $_GET["parameter"]);
+      $offset = $parameterarr[0];
+      $limit = $parameterarr[1];
+
+      $result = $this->model->getFavBlockCustomerList($userid, $offset, $limit);
+
+      $output = "";
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $serviceproviderid = $row["TargetUserId"];
+         $row1 = $this->model->getuserdetails($serviceproviderid);
+
+         $name = $row1["FirstName"] . " " . $row1["LastName"];
+         $logo = $row1["UserProfilePicture"];
+         $favblockId = $row["Id"];
+
+         $totalcleaning = $this->model->totalcleaningbyProvider($userid, $serviceproviderid);
+         $result2 = $this->model->averageratingSp($userid, $serviceproviderid);
+
+         $count = 0;
+         $sum = 0;
+         while ($row2 = mysqli_fetch_assoc($result2)) {
+            $sum += $row2["Ratings"];
+            $count++;
+         }
+
+         $avgrating = $sum / $count;
+
+         $output .= "<div class='block_box'>
+                        <div class='block_logo'>
+                           <img src='assets/images/$logo'>
+                        </div>
+                        <p class='block_name'>$name</p>
+
+                        <div style='width: 100%; display: flex; justify-content: center;'>
+                           
+                           <div class='rating_customer $avgrating-set_avg_rating'></div>
+                           <span class='ml-2 set_avg_rating'>$avgrating</span>
+                        </div>
+
+                        <p class='text-center'>$totalcleaning Cleanings</p>
+                        <div style='width: 100%; display: flex; justify-content: center;'>";
+
+         if ($row["IsFavorite"] == 1) {
+            $output .= "<button class='accept_btn' id='$favblockId-spfav' onclick='favouriteSp(id)'>Remove</button>";
+         } else {
+            $output .= "<button class='accept_btn' id='$favblockId-spfav' onclick='favouriteSp(id)'>Favorite</button>";
+         }
+
+         if ($row["IsBlocked"] == 1) {
+            $output .=  "<button class='Cancel_button ml-2' style='margin: 0;' id='$favblockId-spblock' onclick='BlockedSp(id)'>UnBlock</button>
+                        </div>
+                  </div>";
+         } else {
+            $output .=  "<button class='Cancel_button ml-2' style='margin: 0;' id='$favblockId-spblock' onclick='BlockedSp(id)'>Block</button>
+                        </div>
+                  </div>";
+         }
+      }
+
+      echo $output;
+   }
+
+   function favouriteblocked_C()
+   {
+      $favblockId = $_POST["favouriteId"];
+
+      $row = $this->model->setOrRemoveFav($favblockId);
+      if ($row["IsFavorite"] == 1) {
+         $this->model->setUnfavourite($favblockId);
+      } else {
+         $this->model->setfavourite($favblockId);
+      }
+   }
+
+   function favouriteblocked_C2()
+   {
+      $favblockId = $_POST["favouriteId"];
+
+      $row = $this->model->setOrRemoveFav($favblockId);
+      if ($row["IsBlocked"] == 1) {
+         $this->model->favcustomer($favblockId);
+      } else {
+         $this->model->blockcustomer($favblockId);
+      }
    }
 }

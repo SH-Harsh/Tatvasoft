@@ -1642,6 +1642,10 @@ label span {
     margin: 0 auto;
 }
 
+.select_btn_selected{
+    border: 4px solid #146371;
+}
+
 /* Block Customer  */
 
 .block_box {
@@ -1766,4 +1770,11 @@ label span {
 
 .request_id {
     font-size: 14px !important;
+}
+
+
+/* Bgcolor  */
+.bgcolor {
+    background-color: #4f4f4f;
+    border-bottom: 1px solid lightgray;
 }

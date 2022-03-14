@@ -4,6 +4,7 @@ $controller='Event';
 $function='home_page';
 $parameter='';
 $base_url = "http://localhost/helperland/";
+date_default_timezone_set('Asia/Calcutta');
 // session_start();
 
 if(isset($_GET['controller']) && $_GET['controller'] !=''){

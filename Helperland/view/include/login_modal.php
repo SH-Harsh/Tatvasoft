@@ -20,11 +20,13 @@
 
         <form onsubmit="return loginValidation(this)" method="POST" action="<?php echo "$base_url?function=login" ?>">
             <div class="email_login">
-                <input type="email" name="login_email" placeholder="Email" required>
+                <input type="email" name="login_email" placeholder="Email" required 
+                    value="<?php  if (isset($_COOKIE["email"])) { echo $_COOKIE["email"]; }?>">
                 <i class="fas fa-user"></i>
             </div>
             <div class="email_login">
-                <input type="password" name="login_password" placeholder="Password" required>
+                <input type="password" name="login_password" placeholder="Password" required 
+                value="<?php  if (isset($_COOKIE["password"])) { echo $_COOKIE["password"]; }?>">
                 <i class="fas fa-lock"></i>
             </div>
             <div class="remember_me">

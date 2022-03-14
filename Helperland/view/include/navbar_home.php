@@ -18,10 +18,10 @@
 
                 <?php
 
-                if (isset($_COOKIE["userid"])) {
-                    $_SESSION["userid"] = $_COOKIE["userid"];
-                    $_SESSION["name"] = $_COOKIE["name"];
-                }
+                // if (isset($_COOKIE["userid"])) {
+                //     $_SESSION["userid"] = $_COOKIE["userid"];
+                //     $_SESSION["name"] = $_COOKIE["name"];
+                // }
 
                 if (!isset($_SESSION["userid"])) {   ?>
 
@@ -52,8 +52,18 @@
                                                 echo $name; ?></h5>
                             </div>
                             <hr>
-                            <a href="<?= "$base_url?function=servicehistory&parameter=0"; ?>">My Dashboard</a>
-                            <a id="MySettings" href="<?= "$base_url?function=servicehistory&parameter=1"; ?>">My Settings</a>
+
+                            <?php if ($_SESSION["usertype"] == 1) { ?>
+
+                                <a href="<?= "$base_url?function=servicehistory&parameter=0"; ?>">My Dashboard</a>
+                                <a id="MySettings" href="<?= "$base_url?function=servicehistory&parameter=1"; ?>">My Settings</a>
+
+                            <?php } else { ?>
+
+                                <a href="<?= "$base_url?function=upcomingService"; ?>">My Dashboard</a>
+                                <a id="MySettings" href="<?= "$base_url?function=upcomingService&parameter=1"; ?>">My Settings</a>
+
+                            <?php } ?>
                             <a href="<?= "$base_url?function=logout"; ?>" id="Logout">Logout</a>
 
                             <div class="arrow_up">

@@ -1175,9 +1175,9 @@ td a {
 }
 
 .block_logo img {
-    background-color: #e1e1e1;
+    /* background-color: #e1e1e1; */
     border-radius: 50%;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .block_name {
@@ -1230,7 +1230,26 @@ td a {
     border: none;
     margin: 20px 5px;
     float: right;
+    position: relative;
+    cursor: pointer;
 }
+
+/* Sorting Option  */
+
+.sorting_option{
+    width: 200px;
+    background-color: #e5e5e5;
+    position: absolute;
+    top: 30px;
+    right: 5px;
+    color: #495057;
+    z-index: 10;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #495057;
+    display: none;
+}
+
 
 
 /* Dashboard Table in Customer Service History  */

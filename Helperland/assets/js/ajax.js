@@ -83,16 +83,44 @@ $('#save_address_btn').click(function (e) {
                 $('.add_address').css('display', 'block');
 
                 $('#user_address_aj').html(response);
+
+                $('#postalcode_yd').val(postalcode);
+                $('#city_yd').val(city);
             }
         });
     }
+});
 
+// $(".select_btn").on("click", function () {
+//     id = $(this).attr('id');
+//     console.log(id);
+// });
 
+$(document).on("click", ".select_btn", function (e) {
 
+    id = $(this).attr('id');
+
+    $('.serviceproviderid').attr('id',id);
+
+    checkclass = $(this).attr('class');
+
+    checkclass_str = checkclass.split(" ");
+    // console.log(checkclass_str[1]);
+
+    if(checkclass_str[1] == undefined){
+        $('.select_btn_selected').removeClass('select_btn_selected');
+        $(this).addClass('select_btn_selected');
+    }else{
+        $(this).removeClass('select_btn_selected');
+        $('.serviceproviderid').removeAttr('id');
+    }
+
+    // console.log($('.serviceproviderid').attr('id'));
 });
 
 $('#continue_details').click(function (e) {
     e.preventDefault();
+
 
     addressid = $("input:radio[name=address]:checked").attr('id');
 
@@ -142,6 +170,17 @@ $('#complete_booking').click(function (e) {
             extraservice.push(0);
         }
 
+        //Firstly Chosen Service Provider
+        idstr = $('.serviceproviderid').attr('id');
+        if(idstr != undefined){
+            id_arr = idstr.split('-');
+            ServiceProviderid = parseInt(id_arr[0]);
+        }else{
+            ServiceProviderid = 0;
+        }
+
+        console.log(ServiceProviderid);
+
         $.ajax({
             type: "POST",
             url: "http://localhost/helperland/index.php?function=schedule_plan",
@@ -151,7 +190,8 @@ $('#complete_booking').click(function (e) {
                 duration_sr: duration,
                 pets: pets,
                 comments: comments,
-                extraservice: extraservice
+                extraservice: extraservice,
+                providerid : ServiceProviderid
             },
             success: function (response) {
 
@@ -170,18 +210,20 @@ $('#complete_booking').click(function (e) {
                     success: function (response) {
                         $('.request_id').html("Service Request Id: ".concat(response));
                         $('#complete_booking_modal').modal('show');
+
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost/helperland/index.php?function=sendEmailtoProvider",
+                            success: function (response) {
+                                console.log(response);
+                            }
+                        });
                     }
                 });
             }
         });
 
-        $.ajax({
-            type: "POST",
-            url: "http://localhost/helperland/index.php?function=sendEmailtoProvider",
-            success: function (response) {
 
-            }
-        });
 
     }
 
@@ -695,6 +737,14 @@ $(document).ready(function () {
             $('#ExportServiceHistory').html(response);
         }
     });
+
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=fetchfullservicehistory_SP",
+        success: function (response) {
+            $('#export_serviceHistoryTable').html(response);
+            // console.log(response);
+        }
+    });
 });
 
 
@@ -705,12 +755,35 @@ $('#Export_table').click(function (e) {
     var fp = XLSX.utils.table_to_book(data, {
         sheet: 'Sheet1'
     });
+
     XLSX.write(fp, {
         bookType: 'xlsx',
         type: 'base64'
     });
     XLSX.writeFile(fp, 'Service History.xlsx');
 });
+
+// Export Service History Table
+
+
+
+
+$('#export_servicehistory').click(function (e) {
+    e.preventDefault();
+
+    let data = document.getElementById('export_serviceHistoryTable');
+    var fp = XLSX.utils.table_to_book(data, {
+        sheet: 'Sheet1'
+    });
+    XLSX.write(fp, {
+        bookType: 'xlsx',
+        type: 'base64'
+    });
+    XLSX.writeFile(fp, 'Service History SP.xlsx');
+});
+
+
+
 
 //Star Rating
 
@@ -782,7 +855,7 @@ function setting_set_details() {
         url: "http://localhost/helperland/index.php?function=getdetails",
         success: function (response) {
             var userdetails = JSON.parse(response);
-            console.log(userdetails);
+            // console.log(userdetails);
 
             $('#mysetting_fname').val(userdetails['FirstName']);
             $('#mysetting_lname').val(userdetails['LastName']);
@@ -793,11 +866,65 @@ function setting_set_details() {
     });
 }
 
+function setting_set_details_sp() {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=getdetails",
+        success: function (response) {
+            var userdetails = JSON.parse(response);
+            // console.log(userdetails);
+
+            $('#first_name_sp').val(userdetails['FirstName']);
+            $('#last_name_sp').val(userdetails['LastName']);
+            $('#email_sp').val(userdetails['Email']);
+            $('#phoneNo_sp').val(userdetails['Mobile']);
+            $('#avatar_selected').attr('src', 'assets/images/' + userdetails['UserProfilePicture']);
+
+            gender_val = parseInt(userdetails["Gender"]);
+            if (gender_val == 0) {
+                $("input[value='male']").attr('checked', 'checked');
+            } else if (gender_val == 1) {
+                $("input[value='Female']").attr('checked', 'checked');
+            } else {
+                $("input[value='not_to_say']").attr('checked', 'checked');
+            }
+
+            nationality_val = parseInt(userdetails["NationalityId"]);
+            $('#nationality_sp').val(nationality_val);
+
+            birthdate_arr = userdetails["DateOfBirth"].split(" ");
+            birthdate = birthdate_arr[0];
+            date_arr = birthdate.split("-");
+            // console.log(date_arr);
+            $('#date_sp').val(date_arr[2]);
+            $('#month_sp').val(date_arr[1]);
+            $('#year_sp').val(date_arr[0]);
+
+        }
+    });
+
+    //Set Address 
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=setAdress_sp",
+        success: function (response) {
+            var userdetails = JSON.parse(response);
+            // console.log(response);
+
+            $('#streetName_sp').val(userdetails["AddressLine2"]);
+            $('#houseno_sp').val(userdetails["AddressLine1"]);
+            $('#postalcode_sp').val(userdetails["PostalCode"]);
+            $('#city_sp').val(userdetails["City"]);
+
+        }
+    });
+}
+
 
 $('#MySettings').click(function () {
 
     setting_set_details();
     setting_load_address();
+    setting_set_details_sp();
 });
 
 $('#updatedetails_submit').click(function (e) {
@@ -884,6 +1011,7 @@ $('#setting_update_password').click(function (e) {
                         success: function (response) {
                             $('#update_password_error').html(" ");
                             $('#update_password_sucess').html("Password Updated");
+                            $('#password_change_form').trigger("reset");
                         }
                     });
                 } else {
@@ -961,7 +1089,7 @@ $('#submit_setting').click(function (e) {
         });
     }
 
-    
+
 });
 
 // Add New Address 
@@ -1026,5 +1154,1035 @@ $('#delete_address_setting').click(function (e) {
             setting_load_address();
         }
     });
+
+});
+
+
+
+
+// Upcoming Service For Service Provider 
+
+$('#save_details_sp').click(function (e) {
+    e.preventDefault();
+
+    src = $('#avatar_selected').attr('src');
+    avatar_name_arr = src.split('/');
+    avatar_name = avatar_name_arr[2];
+
+    fname = $('#first_name_sp').val().trim();
+    lname = $('#last_name_sp').val().trim();
+    email = $('#email_sp').val().trim();
+    phoneNo = $('#phoneNo_sp').val().trim();
+    date = $('#date_sp').val();
+    month = $('#month_sp').val();
+    year = $('#year_sp').val();
+    birthdate = year + "/" + month + "/" + date;
+    nationality = $('#nationality_sp').val();
+    gender_val = $("input[name='gender']:checked").val();
+    if (gender_val == 'male') {
+        gender = 0;
+    } else if (gender_val == 'Female') {
+        gender = 1;
+    } else {
+        gender = 2;
+    }
+
+
+    //Address
+    StreetName = $('#streetName_sp').val().trim();
+    HouseNo = $('#houseno_sp').val().trim();
+    PostalCode = $('#postalcode_sp').val().trim();
+    City = $('#city_sp').val().trim();
+
+    if (fname == "" || lname == "" || email == "" || phoneNo == "" || StreetName == "" || HouseNo == "" || PostalCode == "" || City == "") {
+        $('.save_details_error_sp').html("Please enter all details");
+        $('.save_details_sucess_sp').html("");
+    } else if (phoneNo.length != 10) {
+        $('.save_details_error_sp').html("Please enter correct mobile no");
+        $('.save_details_sucess_sp').html("");
+    } else if (PostalCode.length != 6) {
+        $('.save_details_error_sp').html("Please enter correct postal code");
+        $('.save_details_sucess_sp').html("");
+    } else if (!String(email)
+        .toLowerCase()
+        .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )) {
+        $('.save_details_error_sp').html("Please enter email in correct format");
+        $('.save_details_sucess_sp').html("");
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost/helperland/index.php?function=updatedetails_sp",
+            data: {
+                FirstName: fname,
+                LastName: lname,
+                Email: email,
+                PhoneNo: phoneNo,
+                date: birthdate,
+                Nationality: nationality,
+                Gender: gender,
+                logo_name: avatar_name,
+                streetName: StreetName,
+                houseNo: HouseNo,
+                postalcode: PostalCode,
+                city: City
+            },
+            success: function (response) {
+                $('.save_details_error_sp').html("");
+                $('.save_details_sucess_sp').html("Updated Successfully");
+            }
+        });
+    }
+});
+
+//New Service Request
+
+
+function totalentries_NewService_SP(pets) {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=TotalEntriesNewServiceRequest&parameter=" + pets,
+        success: function (response) {
+            $('#totalentries_accept').html("Total Record: " + response);
+        }
+    });
+}
+
+function totalentries_us() {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=TotalEntriesUpcomingService",
+        success: function (response) {
+            $('#totalentries_us').html("Total Record: " + response);
+        }
+    });
+}
+
+function totalServiceHistory_Sp() {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=TotalEntriesServiceHistory_Sp",
+        success: function (response) {
+            $('.totalentries_serhis').html("Total Record: " + response);
+        }
+    });
+}
+
+
+function loadNewServiceRequest_SP(offset, limit, pets) {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=loadServiceRequest_SP&parameter=" + offset + "-" + limit + "-" + pets,
+        success: function (response) {
+            // console.log(response);
+            $('#new_request_table_sp').html(response);
+        }
+    });
+    totalentries_NewService_SP(pets);
+}
+
+function loadUpcomingService(offset, limit) {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=loadUpcomingService_SP&parameter=" + offset + "-" + limit,
+        success: function (response) {
+            $('.right_service_list').html(response);
+            // console.log(response);
+        }
+    });
+    totalentries_us();
+}
+
+function loadServiceHistory_Sp(offset, limit) {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=loadServiceHistory_SP&parameter=" + offset + "-" + limit,
+        success: function (response) {
+            $('.serviceHistory').html(response);
+        }
+    });
+    totalServiceHistory_Sp();
+}
+
+$(document).ready(function () {
+    loadUpcomingService(0, 2);
+});
+
+
+$('.new_service_request').click(function (e) {
+    e.preventDefault();
+
+    loadNewServiceRequest_SP(0, 2, 0);
+});
+
+function Accept_Service(serviceproviderid) {
+    $.ajax({
+        method: "POST",
+        url: "http://localhost/helperland/index.php?function=setAcceptServiceModal",
+        data: {
+            id: serviceproviderid
+        },
+        success: function (response) {
+            details = JSON.parse(response);
+            // console.log(response);
+
+            $('#accept_service_sp').html(details["date"] + " " + details["starttime"] + "-" + details["endtime"]);
+            $('#duration_accept_sp').html("Duration: " + details["totalhr"]);
+            $('#serviceid_accept_sp').html("Service Id: " + details["serviceid"]);
+            $('#total_payment_accept_sp').html(details["payment"] + "€");
+            $('#customer_name_accept').html("Customer Name: " + details["name"]);
+            $('#customer_address_accept').html("Service Address: " + details["customer_address"]);
+
+            extras = "";
+            $.each(details["ExtraService"], function (indexInArray, service) {
+                extras += service + " "
+            });
+
+            $('#extras_accept_sp').html("Extras: " + extras);
+            $('#comment_accept_sp').html("Comments: " + details["comment"]);
+
+            if (details["HasPets"] == 0) {
+                $('#pets_accept_sp').html("<img  src='assets/images/not-included.png' style='width: 20px;height: 20px;'>  I don't have pets at home.");
+            } else {
+                $('#pets_accept_sp').html("<img  src='assets/images/included.png' style='width: 20px;height: 20px;'> I have pets at home.");
+            }
+
+            $('.accept_id').attr('id', serviceproviderid + "-accept_sp");
+        }
+    });
+}
+
+$('#entries_newService').change(function (e) {
+    e.preventDefault();
+
+    limit = $('#entries_newService').val();
+
+    if ($("#pet_home").prop('checked') == true) {
+        loadNewServiceRequest_SP(0, limit, 1);
+    } else {
+        loadNewServiceRequest_SP(0, limit, 0);
+    }
+
+    // loadNewServiceRequest_SP(0,limit,0);
+    $('#pageno').html(1);
+});
+
+function paginationno_newService(textno) {
+    limit = $('#entries_newService').val();
+
+    totalentriestext = $('#totalentries_accept').html();
+    totalentriesarr = totalentriestext.split(": ");
+    totalentries = parseInt(totalentriesarr[1]);
+
+    currentpageno = parseInt($('#pageno').html());
+
+    if ($("#pet_home").prop('checked') == true) {
+        pets = 1;
+    } else {
+        pets = 0;
+    }
+
+
+    maxpageno = Math.ceil(totalentries / limit);
+    if (textno == 'next') {
+        currentpageno += 1;
+
+        if (currentpageno <= maxpageno) {
+            $('#pageno').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadNewServiceRequest_SP(offset, limit, pets);
+        }
+    } else if (textno == 'back') {
+        currentpageno -= 1;
+
+        if (currentpageno > 0) {
+            $('#pageno').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadNewServiceRequest_SP(offset, limit, pets);
+        }
+    } else if (textno == 'max') {
+        $('#pageno').html(maxpageno);
+
+        offset = (currentpageno - 1) * limit;
+        loadNewServiceRequest_SP(offset, limit, pets);
+
+    } else if (textno == 'min') {
+        $('#pageno').html(1);
+
+        offset = (currentpageno - 1) * limit;
+        loadNewServiceRequest_SP(offset, limit, pets);
+    } else {
+        console.log("Error in Pagination");
+    }
+}
+
+$('#pet_home').change(function (e) {
+    e.preventDefault();
+
+    if ($("#pet_home").prop('checked') == true) {
+        loadNewServiceRequest_SP(0, 2, 1);
+    } else {
+        loadNewServiceRequest_SP(0, 2, 0);
+    }
+    $('#entries_newService').val(2);
+    $('#pageno').html(1);
+});
+
+$('.accept_id').click(function (e) {
+    e.preventDefault();
+
+    id = $('.accept_id').attr('id');
+    id_arr = id.split("-");
+    serviceid = parseInt(id_arr[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=IsServiceProviderAssigned",
+        data: {
+            id: serviceid
+        },
+        success: function (response) {
+            console.log(response);
+            if (parseInt(response) == 0) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost/helperland/index.php?function=SetServiceProvider",
+                    data: {
+                        id: serviceid
+                    },
+                    success: function (response) {
+                        loadNewServiceRequest_SP(0, 2, 0);
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something Already Taken This Service! Or You have a service at this time slot'
+                })
+                loadNewServiceRequest_SP(0, 2, 0);
+            }
+        }
+    });
+
+    $('#entries_newService').val(2);
+    $('#pageno').html(1);
+});
+
+//Set Upcoming Service Modal
+
+function SetUpcomingServiceModal(servicerequestid) {
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=GetUpcomingServiceDetails",
+        data: {
+            id: servicerequestid
+        },
+        success: function (response) {
+            var serviceDetails = JSON.parse(response);
+            // console.log(response);
+            console.log(serviceDetails);
+            $('#date_upcoming_service').html(serviceDetails["date"] + " " + serviceDetails["starttime"] + "-" + serviceDetails["endtime"]);
+            $('#duration_us').html("Duration: " + serviceDetails["totalhr"]);
+            $('#serviceid_us').html("Service Id: " + serviceDetails["serviceid"]);
+            $('#amount_us').html(serviceDetails["payment"] + "€");
+            $('#name_us').html("Customer Name: " + serviceDetails["name"]);
+            $('#address_us').html("Service Address: " + serviceDetails["customer_address"]);
+            $('#comment_us').html("Comments: " + serviceDetails["comment"]);
+
+            extraservice = "";
+            $.each(serviceDetails["ExtraService"], function (indexInArray, value) {
+                extraservice += value + ", ";
+            });
+            $('#extras_us').html("Extras: " + extraservice);
+
+            if (serviceDetails["HasPets"] == 0) {
+                $('#pets_us').html("<img  src='assets/images/not-included.png' style='width: 20px;height: 20px;'>  I don't have pets at home.");
+            } else {
+                $('#pets_us').html("<img  src='assets/images/included.png' style='width: 20px;height: 20px;'> I have pets at home.");
+            }
+
+            if (serviceDetails["Complete"] == 1) {
+                $('.complete_us').css('display', 'inline');
+                // $('.complete_us').html("<p> <i class='fas fa-check'></i> Complete</p>")
+            } else {
+                $('.complete_us').css('display', 'none');
+            }
+
+            $('.serviceRequestId_us').attr('id', serviceDetails["serviceRequestId"] + "_serviceRequestId-us");
+        }
+    });
+}
+
+$('#cancelService_us').click(function (e) {
+    e.preventDefault();
+
+    id = $('.serviceRequestId_us').attr('id');
+    idarr = id.split('_');
+    serviceRequestId = parseInt(idarr[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=cancelServiceRequest",
+        data: {
+            id: serviceRequestId
+        },
+        success: function (response) {
+            loadUpcomingService(0, 2);
+        }
+    });
+
+});
+
+$('#completeService_us').click(function (e) {
+    e.preventDefault();
+
+    id = $('.serviceRequestId_us').attr('id');
+    idarr = id.split('_');
+    serviceRequestId = parseInt(idarr[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=completeServiceRequest",
+        data: {
+            id: serviceRequestId
+        },
+        success: function (response) {
+            loadUpcomingService(0, 2);
+            console.log(response);
+        }
+    });
+
+});
+
+$('#entries_us').change(function (e) {
+    e.preventDefault();
+
+    limit = $('#entries_us').val();
+
+    loadUpcomingService(0, limit);
+    $('#pageno_us').html("1");
+});
+
+// Upcoming Service Pagination 
+
+function paginationno_us(textno) {
+    limit = $('#entries_us').val();
+
+    totalentriestext = $('#totalentries_us').html();
+    totalentriesarr = totalentriestext.split(": ");
+    totalentries = parseInt(totalentriesarr[1]);
+
+    currentpageno = parseInt($('#pageno_us').html());
+
+    maxpageno = Math.ceil(totalentries / limit);
+    if (textno == 'next') {
+        currentpageno += 1;
+
+        if (currentpageno <= maxpageno) {
+            $('#pageno_us').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadUpcomingService(offset, limit);
+        }
+    } else if (textno == 'back') {
+        currentpageno -= 1;
+
+        if (currentpageno > 0) {
+            $('#pageno_us').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadUpcomingService(offset, limit);
+        }
+    } else if (textno == 'max') {
+        $('#pageno_us').html(maxpageno);
+
+        offset = (currentpageno - 1) * limit;
+        loadUpcomingService(offset, limit);
+
+    } else if (textno == 'min') {
+        $('#pageno_us').html(1);
+
+        offset = (currentpageno - 1) * limit;
+        loadUpcomingService(offset, limit);
+    } else {
+        console.log("Error in Pagination");
+    }
+}
+
+$('.upcoming_service').click(function (e) {
+    e.preventDefault();
+    loadUpcomingService(0, 2);
+    $('#pageno_us').html("1");
+    $('#entries_us').val("2");
+
+});
+
+$('.service_history_tab').click(function (e) {
+    e.preventDefault();
+
+    loadServiceHistory_Sp(0, 2);
+});
+
+$('#entries_serhis').change(function (e) {
+    e.preventDefault();
+
+    limit = $('#entries_serhis').val();
+    loadServiceHistory_Sp(0, limit);
+
+});
+
+//Set Service History Modal
+
+function SetServiceHistoryModal_SP(servicerequestid) {
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=GetUpcomingServiceDetails",
+        data: {
+            id: servicerequestid
+        },
+        success: function (response) {
+            var serviceDetails = JSON.parse(response);
+            // console.log(response);
+            console.log(serviceDetails);
+            $('#date_serhis').html(serviceDetails["date"] + " " + serviceDetails["starttime"] + "-" + serviceDetails["endtime"]);
+            $('#duration_serhis').html("Duration: " + serviceDetails["totalhr"]);
+            $('#serviceid_serhis').html("Service Id: " + serviceDetails["serviceid"]);
+            $('#amount_serhis').html(serviceDetails["payment"] + "€");
+            $('#name_serhis').html("Customer Name: " + serviceDetails["name"]);
+            $('#address_serhis').html("Service Address: " + serviceDetails["customer_address"]);
+            $('#comment_serhis').html("Comments: " + serviceDetails["comment"]);
+
+            extraservice = "";
+            $.each(serviceDetails["ExtraService"], function (indexInArray, value) {
+                extraservice += value + ", ";
+            });
+            $('#extras_serhis').html("Extras: " + extraservice);
+
+            if (serviceDetails["HasPets"] == 0) {
+                $('#pets_serhis').html("<img  src='assets/images/not-included.png' style='width: 20px;height: 20px;'>  I don't have pets at home.");
+            } else {
+                $('#pets_serhis').html("<img  src='assets/images/included.png' style='width: 20px;height: 20px;'> I have pets at home.");
+            }
+
+        }
+    });
+}
+
+//Service History Pagination
+
+function ServiceHistoryPag_Sp(textno) {
+    limit = $('#entries_serhis').val();
+
+    totalentriestext = $('.totalentries_serhis').html();
+    totalentriesarr = totalentriestext.split(": ");
+    totalentries = parseInt(totalentriesarr[1]);
+
+    maxpageno = Math.ceil(totalentries / limit);
+    currentpageno = parseInt($('.pagejs .active').html());
+
+    if ($("#" + textno).length != 0) {
+        noarr = textno.split("-");
+        textno = parseInt(noarr[0]);
+    }
+
+    if ($.isNumeric(textno)) {
+
+        $('.pagejs .active').removeClass('active');
+
+        offset = (textno - 1) * limit;
+        loadServiceHistory_Sp(offset, limit);
+        $('#' + textno + '-pagination').addClass('active');
+    } else if (textno == "next") {
+
+        if ($('.pagejs .active').hasClass('max-pagination')) {
+
+
+            if (currentpageno < maxpageno) {
+                $('.max-pagination').html(currentpageno + 1);
+                $('.max-pagination').attr('id', (currentpageno + 1) + "-pagination");
+
+                $('.min-pagination').html(currentpageno - 2);
+                $('.min-pagination').attr('id', (currentpageno - 2) + "-pagination");
+
+                $('.mid1-pagination').html(currentpageno - 1);
+                $('.mid1-pagination').attr('id', (currentpageno - 1) + "-pagination");
+
+                $('.mid2-pagination').html(currentpageno);
+                $('.mid2-pagination').attr('id', (currentpageno) + "-pagination");
+
+                currentpageno = parseInt($('.pagejs .active').html());
+                currentpageno -= 1;
+            }
+        }
+
+        if (currentpageno < maxpageno) {
+
+            $('.pagejs .active').removeClass('active');
+            currentpageno += 1;
+            offset = (currentpageno - 1) * limit;
+            loadServiceHistory_Sp(offset, limit);
+            $('#' + currentpageno + '-pagination').addClass('active');
+        }
+
+
+    } else if (textno == "back") {
+
+        if ($('.pagejs .active').hasClass('min-pagination')) {
+            if (currentpageno > 1) {
+                console.log(currentpageno);
+
+                $('.min-pagination').html(currentpageno - 1);
+                $('.min-pagination').attr('id', (currentpageno - 1) + "-pagination");
+
+                $('.max-pagination').html(currentpageno + 2);
+                $('.max-pagination').attr('id', (currentpageno + 2) + "-pagination");
+
+                $('.mid1-pagination').html(currentpageno);
+                $('.mid1-pagination').attr('id', (currentpageno) + "-pagination");
+
+                $('.mid2-pagination').html(currentpageno + 1);
+                $('.mid2-pagination').attr('id', (currentpageno + 1) + "-pagination");
+            }
+        }
+
+
+        if (currentpageno > 1) {
+            $('.pagejs .active').removeClass('active');
+            currentpageno -= 1;
+            offset = (currentpageno - 1) * limit;
+            loadServiceHistory_Sp(offset, limit);
+            $('#' + currentpageno + '-pagination').addClass('active');
+        }
+    } else if (textno == "max") {
+
+        paginationmaxno = $('.max-pagination').html();
+
+        if (paginationmaxno < maxpageno && currentpageno <= maxpageno) {
+
+            console.log("Hello");
+            $('.min-pagination').html(maxpageno - 3);
+            $('.min-pagination').attr('id', (maxpageno - 3) + "-pagination");
+
+            $('.max-pagination').html(maxpageno);
+            $('.max-pagination').attr('id', (maxpageno) + "-pagination");
+
+            $('.mid1-pagination').html(maxpageno - 2);
+            $('.mid1-pagination').attr('id', (maxpageno - 2) + "-pagination");
+
+            $('.mid2-pagination').html(maxpageno - 1);
+            $('.mid2-pagination').attr('id', (maxpageno - 1) + "-pagination");
+
+        }
+
+        $('.pagejs .active').removeClass('active');
+        offset = (maxpageno - 1) * limit;
+        loadServiceHistory_Sp(offset, limit);
+        $('#' + maxpageno + '-pagination').addClass('active');
+
+    } else if (textno == "min") {
+
+        if (currentpageno > 1) {
+            $('.min-pagination').html("1");
+            $('.min-pagination').attr('id', 1 + "-pagination");
+
+            $('.max-pagination').html("4");
+            $('.max-pagination').attr('id', 4 + "-pagination");
+
+            $('.mid1-pagination').html("2");
+            $('.mid1-pagination').attr('id', 2 + "-pagination");
+
+            $('.mid2-pagination').html("3");
+            $('.mid2-pagination').attr('id', 3 + "-pagination");
+        }
+
+        $('.pagejs .active').removeClass('active');
+        offset = 0;
+        loadServiceHistory_Sp(offset, limit);
+        $('#1-pagination').addClass('active');
+
+    } else {
+        console.log("Pagination Error");
+    }
+}
+
+function totalentries_fb_Sp() {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=GetBlockedCustomertotal",
+        success: function (response) {
+            $('#totalentries_fb_Sp').html("Total Record: " + response);
+        }
+    });
+}
+
+function loadBlockedCustomer_SP(offset, limit) {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=GetBlockedCustomerlist&parameter=" + offset + "-" + limit,
+        success: function (response) {
+            // console.log(response);
+            $('#favorite_blocked_cust').html(response);
+        }
+    });
+
+    totalentries_fb_Sp();
+}
+
+function totalentries_favpros(){
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=GetBlockedCustomerlisttotal",
+        success: function (response) {
+            $('#totalRecord_favoritepros').html("Total Record: " + response);
+        }
+    });
+}
+
+function loadBlockedCustomer(offset,limit) {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=GetBlockedCustomerlist_C&parameter=" + offset + "-" + limit,
+        success: function (response) {
+            $('#blockfav_Sp').html(response);
+
+            //Rating in Customer
+
+            $('.rating_customer').rateYo({
+                rating: 1,
+                starWidth: "20px",
+                readOnly: true
+            });
+
+            $('.rating_customer').each(function () {
+                className = $(this).attr('class');
+                className_arr = className.split(' ');
+                rating_arr = className_arr[1].split('-');
+                avgrating = parseFloat(rating_arr[0]);
+                
+                $(this).rateYo("option", "rating", avgrating);
+            });
+        }
+    });
+
+    totalentries_favpros();
+}
+
+function favouriteSp(id) {
+    id_arr = id.split("-");
+
+    favblockid = parseInt(id_arr[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=favouriteblocked_C",
+        data: {
+            favouriteId: favblockid
+        },
+        success: function (response) {
+            loadBlockedCustomer(0,2);
+        }
+    });
+}
+
+function BlockedSp(id) {
+    id_arr = id.split("-");
+
+    favblockid = parseInt(id_arr[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=favouriteblocked_C2",
+        data: {
+            favouriteId: favblockid
+        },
+        success: function (response) {
+            loadBlockedCustomer(0,2);
+        }
+    });
+}
+
+
+// Block Customer of Service Provider
+
+$('.block_customer_tab').click(function (e) {
+    e.preventDefault();
+
+    loadBlockedCustomer_SP(0, 2);
+    loadBlockedCustomer(0,2);
+});
+
+$('#entries_favoritepros').change(function (e) { 
+    e.preventDefault();
+
+    $('#pageno_favoritepros').html("1");
+    limit = $('#entries_favoritepros').val();
+    offset = parseInt($('#pageno_favoritepros').html());
+
+
+    loadBlockedCustomer(offset-1,limit);
+
+    
+});
+
+function paginationno_favoritepros(textno) {
+    limit = $('#entries_favoritepros').val();
+
+    totalentriestext = $('#totalRecord_favoritepros').html();
+    totalentriesarr = totalentriestext.split(": ");
+    totalentries = parseInt(totalentriesarr[1]);
+
+    currentpageno = parseInt($('#pageno_favoritepros').html());
+
+    maxpageno = Math.ceil(totalentries / limit);
+    if (textno == 'next') {
+        currentpageno += 1;
+
+        if (currentpageno <= maxpageno) {
+            $('#pageno_favoritepros').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadBlockedCustomer(offset, limit);
+        }
+    } else if (textno == 'back') {
+        currentpageno -= 1;
+
+        if (currentpageno > 0) {
+            $('#pageno_favoritepros').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadBlockedCustomer(offset, limit);
+        }
+    } else if (textno == 'max') {
+        $('#pageno_favoritepros').html(maxpageno);
+
+        offset = (currentpageno - 1) * limit;
+        loadBlockedCustomer(offset, limit);
+
+    } else if (textno == 'min') {
+        $('#pageno_favoritepros').html(1);
+
+        offset = (currentpageno - 1) * limit;
+        loadBlockedCustomer(offset, limit);
+    } else {
+        console.log("Error in Pagination");
+    }
+}
+
+
+$(document).on("click", ".favblock", function (e) {
+
+    id = $(this).attr('id');
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=SetFavBlockedCustomerlist",
+        data: {
+            favouriteId: id
+        },
+        success: function (response) {
+            loadBlockedCustomer_SP(0, 2);
+            console.log(response);
+        }
+    });
+});
+
+$('#entries_fb_Sp').change(function (e) {
+    e.preventDefault();
+
+    limit = $('#entries_fb_Sp').val();
+    loadBlockedCustomer_SP(0, limit);
+    $('#pageno_fp_Sp').html("1");
+});
+
+
+
+function paginationno_favblock_Sp(textno) {
+    limit = $('#entries_fb_Sp').val();
+
+    totalentriestext = $('#totalentries_fb_Sp').html();
+    totalentriesarr = totalentriestext.split(": ");
+    totalentries = parseInt(totalentriesarr[1]);
+
+    currentpageno = parseInt($('#pageno_fp_Sp').html());
+
+    maxpageno = Math.ceil(totalentries / limit);
+    if (textno == 'next') {
+        currentpageno += 1;
+
+        if (currentpageno <= maxpageno) {
+            $('#pageno_fp_Sp').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadBlockedCustomer_SP(offset, limit);
+        }
+    } else if (textno == 'back') {
+        currentpageno -= 1;
+
+        if (currentpageno > 0) {
+            $('#pageno_fp_Sp').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadBlockedCustomer_SP(offset, limit);
+        }
+    } else if (textno == 'max') {
+        $('#pageno_fp_Sp').html(maxpageno);
+
+        offset = (currentpageno - 1) * limit;
+        loadBlockedCustomer_SP(offset, limit);
+
+    } else if (textno == 'min') {
+        $('#pageno_fp_Sp').html(1);
+
+        offset = (currentpageno - 1) * limit;
+        loadBlockedCustomer_SP(offset, limit);
+    } else {
+        console.log("Error in Pagination");
+    }
+}
+
+// Rating in Service Provider 
+
+
+function totalratings_SP() {
+
+    order = $("input[type=radio][name=rating_Sp]:checked").val();
+    rating_val = $('#star_value').val();
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=TotalRatinglist_Sp",
+        data: {
+            orderby: order,
+            rating: rating_val,
+        },
+        success: function (response) {
+            $('#totalentries_rating_Sp').html("Total Record: " + response);
+
+        }
+    });
+}
+
+
+function loadratings_SP(order, rating_val, offset, limit) {
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=Ratinglist_Sp",
+        data: {
+            orderby: order,
+            rating: rating_val,
+            offset_val: offset,
+            limit_val: limit
+        },
+        success: function (response) {
+            // console.log(response);
+            $('.rating_list').html(response);
+
+            $('.starrating_Sp').rateYo({
+                starWidth: "20px",
+                readOnly: true
+            });
+
+            $('.rating_value_Sp').each(function () {
+
+                id = $(this).attr('id');
+                rating_val = parseFloat($(this).html());
+                id_arr = id.split("-");
+                serviceRequestId = parseInt(id_arr[0]);
+
+                $('#' + serviceRequestId + '-ratingSp').rateYo("option", "rating", rating_val);
+            });
+        }
+    });
+
+    totalratings_SP()
+}
+
+$('.my_ratings_tab').click(function (e) {
+    e.preventDefault();
+
+    order = $("input[type=radio][name=rating_Sp]:checked").val();
+
+    rating_val = $('#star_value').val();
+    loadratings_SP(order, rating_val, 0, 2);
+
+});
+
+$("input[type=radio][name=rating_Sp]").change(function (e) {
+    e.preventDefault();
+
+    order = $(this).val();
+
+    rating_val = $('#star_value').val();
+    loadratings_SP(order, rating_val, 0, 2);
+
+    $('#entries_rating_Sp').val("2");
+    $('#pageno_rating_Sp').html("1");
+
+    $('.sorting_option').css('display', 'none');
+});
+
+$('#star_value').change(function (e) {
+    e.preventDefault();
+
+    order = $("input[type=radio][name=rating_Sp]:checked").val();
+
+    rating_val = $('#star_value').val();
+    loadratings_SP(order, rating_val, 0, 2);
+});
+
+function paginationno_rating_Sp(textno) {
+    limit = $('#entries_rating_Sp').val();
+
+    totalentriestext = $('#totalentries_rating_Sp').html();
+    totalentriesarr = totalentriestext.split(": ");
+    totalentries = parseInt(totalentriesarr[1]);
+
+    order = $("input[type=radio][name=rating_Sp]:checked").val();
+
+    rating_val = $('#star_value').val();
+
+    currentpageno = parseInt($('#pageno_rating_Sp').html());
+
+    maxpageno = Math.ceil(totalentries / limit);
+    if (textno == 'next') {
+        currentpageno += 1;
+
+        if (currentpageno <= maxpageno) {
+            $('#pageno_rating_Sp').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadratings_SP(order, rating_val, offset, limit);
+        }
+    } else if (textno == 'back') {
+        currentpageno -= 1;
+
+        if (currentpageno > 0) {
+            $('#pageno_rating_Sp').html(currentpageno);
+
+            offset = (currentpageno - 1) * limit;
+            loadratings_SP(order, rating_val, offset, limit);
+        }
+    } else if (textno == 'max') {
+        $('#pageno_rating_Sp').html(maxpageno);
+
+        offset = (currentpageno - 1) * limit;
+        loadratings_SP(order, rating_val, offset, limit);
+
+    } else if (textno == 'min') {
+        $('#pageno_rating_Sp').html(1);
+
+        offset = (currentpageno - 1) * limit;
+        loadratings_SP(order, rating_val, offset, limit);
+    } else {
+        console.log("Error in Pagination");
+    }
+}
+
+$('#entries_rating_Sp').change(function (e) {
+    e.preventDefault();
+
+    limit = $('#entries_rating_Sp').val();
+    order = $("input[type=radio][name=rating_Sp]:checked").val();
+
+    rating_val = $('#star_value').val();
+    loadratings_SP(order, rating_val, 0, limit);
+
+    $('#pageno_rating_Sp').html("1");
 
 });

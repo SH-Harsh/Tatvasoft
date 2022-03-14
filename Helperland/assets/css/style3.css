@@ -487,3 +487,9 @@ label{
     border-radius: 20px;
     color: #f1faee;
 }
+
+/* Bgcolor  */
+.bgcolor {
+    background-color: #4f4f4f;
+    border-bottom: 1px solid lightgray;
+}

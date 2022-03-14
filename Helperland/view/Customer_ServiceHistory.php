@@ -897,7 +897,7 @@
 
                         <!-- Change Password  -->
                         <div id="change_pass" class="tabcontent">
-                            <form>
+                            <form id="password_change_form">
                                 <div class="form-group">
                                     <label for="old_password">Old Password</label>
                                     <input type="password" class="form-control" id="old_password" placeholder="Current Password" style="width: 200px;">
@@ -921,7 +921,7 @@
 
                     <!-- Favorite Pros  -->
                     <section id="block_customer" style="display:none">
-                        <div class="d-flex flex-wrap">
+                        <div class="d-flex flex-wrap" id="blockfav_Sp">
                             <div class="block_box">
                                 <div class="block_logo">
                                     <img src="assets/images/cap.png">
@@ -929,12 +929,9 @@
                                 <p class="block_name">Guarang Patel</p>
 
                                 <div style="width: 100%; display: flex; justify-content: center;">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="ml-2" style="margin-top: -5px;">4</span>
+                                    
+                                    <div class="rating_customer"></div>
+                                    <span class="ml-2">4</span>
                                 </div>
 
                                 <p class="text-center">1 Cleanings</p>
@@ -973,9 +970,9 @@
                         <div class="pages">
                             <p class="show">Show</p>
 
-                            <select name="entries" id="entries" class="entries">
+                            <select name="entries" id="entries_favoritepros" class="entries">
                                 <option value="1">1</option>
-                                <option value="2">2</option>
+                                <option value="2" selected>2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
@@ -983,18 +980,18 @@
                                 <option value="7">7</option>
                                 <option value="8">8</option>
                                 <option value="9">9</option>
-                                <option value="10" selected>10</option>
+                                <option value="10">10</option>
                             </select>
 
                             <p class="show">entries</p>
-                            <p class="show"> Total Record: 2</p>
+                            <p class="show" id="totalRecord_favoritepros"> Total Record: 50</p>
 
                             <div class="pagination">
-                                <a href="#"><img src="assets/images/first-page.png"></a>
-                                <a href="#"><img src="assets/images/keyboard-right-arrow.png"></a>
-                                <a href="#" class="active">1</a>
-                                <a href="#"><img src="assets/images/keyboard-right-arrow.png" style="transform: rotate(180deg);"></a>
-                                <a href="#"><img src="assets/images/first-page.png" style="transform: rotate(180deg);"></a>
+                                <a onclick="paginationno_favoritepros('min')"><img src="assets/images/first-page.png"></a>
+                                <a onclick="paginationno_favoritepros('back')"><img src="assets/images/keyboard-right-arrow.png"></a>
+                                <a class="active" id="pageno_favoritepros">1</a>
+                                <a onclick="paginationno_favoritepros('next')"><img src="assets/images/keyboard-right-arrow.png" style="transform: rotate(180deg);"></a>
+                                <a onclick="paginationno_favoritepros('max')"><img src="assets/images/first-page.png" style="transform: rotate(180deg);"></a>
                             </div>
                         </div>
                     </section>

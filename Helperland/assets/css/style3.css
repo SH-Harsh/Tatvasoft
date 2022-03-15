@@ -230,7 +230,7 @@ ul li {
     background-color: #67b644;
     padding: 0px 5px;
     margin: 0px auto;
-    width: 60px;
+    width: 90%;
 }
 
 .status .active {
@@ -243,10 +243,22 @@ ul li {
     background-color: #ff6b6b;
     padding: 0px 5px;
     margin: 0px auto;
-    width: 60px;
+    width: 90%;
 }
 
 .status_inactive p {
+    color: white;
+    margin: auto;
+}
+
+.status_upcoming {
+    background-color: brown;
+    padding: 0px 5px;
+    margin: 0px auto;
+    width: 90%;
+}
+
+.status_upcoming p {
     color: white;
     margin: auto;
 }
@@ -348,6 +360,15 @@ ul li {
     margin-right: 5px;
 }
 
+.cap_border_admin {
+    border: 1px solid #aaa;
+    border-radius: 50%;
+    float: left;
+    margin-right: 5px;
+    width: 45px;
+    height: 45px;
+}
+
 .checked {
     color: #ecb91c;
 }
@@ -383,6 +404,7 @@ ul li {
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 
 .modal-content_not{
@@ -492,4 +514,8 @@ label{
 .bgcolor {
     background-color: #4f4f4f;
     border-bottom: 1px solid lightgray;
+}
+
+.rating_admin{
+    margin-left: 48px;
 }

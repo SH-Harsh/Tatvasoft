@@ -1212,4 +1212,17 @@ class EventModal
             return $result;
         }
     }
+
+    function fetchAllServiceRequestDetails($condition){
+        global $connection;
+
+        $qry = "SELECT S.Status,S.ServiceRequestId,S.ServiceId,S.ServiceStartDate,S.TotalCost,S.ServiceHours,S.ExtraHours,
+                   S.ServiceProviderId,S.UserId,U.Email  FROM servicerequest S LEFT JOIN user U on S.UserId = U.UserId WHERE $condition;";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        }else{
+            return $result;
+        }
+    }
 }

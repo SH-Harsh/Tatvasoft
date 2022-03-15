@@ -1,13 +1,13 @@
-<?php include "../view/include/admin_header.php" ?>
+<?php include "view/include/admin_header.php" ?>
 
 <!-- Navigation bar  -->
-<?php include "include/admin_navigation.php" ?>
+<?php include "view/include/admin_navigation.php" ?>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2 left_menu_box">
             <div>
-                <a href="AdminServiceRequest.php">
+                <a href="http://localhost/helperland/?function=adminServiceRequest">
                     <p class="left_menu">Service Requests</p>
                 </a>
             </div>
@@ -21,7 +21,7 @@
             <div>
                 <p class="user_manage">User Management</p>
                 <button type="button" class="new_user_btn">
-                    <img src="../assets/images/add.png">
+                    <img src="assets/images/add.png">
                     <span class="add_user">Add New User</span>
                 </button>
             </div>
@@ -63,7 +63,7 @@
                     <div class="form-group mr-2 mt-2" style="width: 150px;">
                         <div class='input-group date' id='datetimepicker1' class="date">
                             <span class="input-group-addon calendra_box">
-                                <span class="calendra_img"> <img src="../assets/images/admin-calendar-blue.png"></span>
+                                <span class="calendra_img"> <img src="assets/images/admin-calendar-blue.png"></span>
                             </span>
                             <input type='text' class="form-control" placeholder="From date" />
                         </div>
@@ -72,7 +72,7 @@
                     <div class="form-group mr-2 mt-2" style="width: 140px;">
                         <div class='input-group date' id='datetimepicker2' class="date">
                             <span class="input-group-addon calendra_box">
-                                <span class="calendra_img"> <img src="../assets/images/admin-calendar-blue.png"></span>
+                                <span class="calendra_img"> <img src="assets/images/admin-calendar-blue.png"></span>
                             </span>
                             <input type='text' class="form-control" placeholder="To date" />
                         </div>
@@ -112,7 +112,7 @@
                         <td>Inquiry Manager</td>
                         <td class="status_box">
                             <p>
-                                <img src="../assets/images/calendar2.png">
+                                <img src="assets/images/calendar2.png">
                                 <span>13/03/2020</span>
                             </p>
                         </td>
@@ -127,7 +127,7 @@
                         <td>
                             <div class="btn-group">
                                 <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
+                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!-- Dropdown menu links -->
@@ -143,7 +143,7 @@
                         <td></td>
                         <td class="status_box">
                             <p>
-                                <img src="../assets/images/calendar2.png">
+                                <img src="assets/images/calendar2.png">
                                 <span>13/03/2020</span>
                             </p>
                         </td>
@@ -158,7 +158,7 @@
                         <td>
                             <div class="btn-group">
                                 <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
+                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!-- Dropdown menu links -->
@@ -174,7 +174,7 @@
                         <td>Inquiry Manager</td>
                         <td class="status_box">
                             <p>
-                                <img src="../assets/images/calendar2.png">
+                                <img src="assets/images/calendar2.png">
                                 <span>13/03/2020</span>
                             </p>
                         </td>
@@ -189,7 +189,7 @@
                         <td>
                             <div class="btn-group">
                                 <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
+                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!-- Dropdown menu links -->
@@ -205,7 +205,7 @@
                         <td>Content Manager</td>
                         <td class="status_box">
                             <p>
-                                <img src="../assets/images/calendar2.png">
+                                <img src="assets/images/calendar2.png">
                                 <span>13/03/2020</span>
                             </p>
                         </td>
@@ -220,7 +220,7 @@
                         <td>
                             <div class="btn-group">
                                 <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
+                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!-- Dropdown menu links -->
@@ -236,7 +236,7 @@
                         <td></td>
                         <td class="status_box">
                             <p>
-                                <img src="../assets/images/calendar2.png">
+                                <img src="assets/images/calendar2.png">
                                 <span>13/03/2020</span>
                             </p>
                         </td>
@@ -251,7 +251,7 @@
                         <td>
                             <div class="btn-group">
                                 <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
+                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!-- Dropdown menu links -->
@@ -267,7 +267,7 @@
                         <td>Finance Manager</td>
                         <td class="status_box">
                             <p>
-                                <img src="../assets/images/calendar2.png">
+                                <img src="assets/images/calendar2.png">
                                 <span>13/03/2020</span>
                             </p>
                         </td>
@@ -282,7 +282,7 @@
                         <td>
                             <div class="btn-group">
                                 <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
+                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!-- Dropdown menu links -->
@@ -298,7 +298,7 @@
                         <td></td>
                         <td class="status_box">
                             <p>
-                                <img src="../assets/images/calendar2.png">
+                                <img src="assets/images/calendar2.png">
                                 <span>13/03/2020</span>
                             </p>
                         </td>
@@ -313,7 +313,7 @@
                         <td>
                             <div class="btn-group">
                                 <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
+                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!-- Dropdown menu links -->
@@ -329,7 +329,7 @@
                         <td>Inquiry Manager</td>
                         <td class="status_box">
                             <p>
-                                <img src="../assets/images/calendar2.png">
+                                <img src="assets/images/calendar2.png">
                                 <span>13/03/2020</span>
                             </p>
                         </td>
@@ -344,7 +344,7 @@
                         <td>
                             <div class="btn-group">
                                 <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
+                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <!-- Dropdown menu links -->
@@ -377,13 +377,13 @@
                     <p class="show" style="margin-left: 5px;">Entries</p>
 
                     <div class="pagination">
-                        <a href="#"><img src="../assets/images/first-page.png"></a>
+                        <a href="#"><img src="assets/images/first-page.png"></a>
                         <a href="#" class="active">1</a>
                         <a href="#">2</a>
                         <a href="#">3</a>
                         <a href="#">4</a>
                         <a href="#">5</a>
-                        <a href="#"><img src="../assets/images/first-page.png" style="transform: rotate(180deg);"></a>
+                        <a href="#"><img src="assets/images/first-page.png" style="transform: rotate(180deg);"></a>
                     </div>
                 </div>
             </div>
@@ -396,4 +396,4 @@
 </div>
 
 
-<?php include "../view/include/admin_footer.php"  ?>
+<?php include "view/include/admin_footer.php"  ?>

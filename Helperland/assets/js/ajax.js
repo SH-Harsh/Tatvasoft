@@ -100,17 +100,17 @@ $(document).on("click", ".select_btn", function (e) {
 
     id = $(this).attr('id');
 
-    $('.serviceproviderid').attr('id',id);
+    $('.serviceproviderid').attr('id', id);
 
     checkclass = $(this).attr('class');
 
     checkclass_str = checkclass.split(" ");
     // console.log(checkclass_str[1]);
 
-    if(checkclass_str[1] == undefined){
+    if (checkclass_str[1] == undefined) {
         $('.select_btn_selected').removeClass('select_btn_selected');
         $(this).addClass('select_btn_selected');
-    }else{
+    } else {
         $(this).removeClass('select_btn_selected');
         $('.serviceproviderid').removeAttr('id');
     }
@@ -172,10 +172,10 @@ $('#complete_booking').click(function (e) {
 
         //Firstly Chosen Service Provider
         idstr = $('.serviceproviderid').attr('id');
-        if(idstr != undefined){
+        if (idstr != undefined) {
             id_arr = idstr.split('-');
             ServiceProviderid = parseInt(id_arr[0]);
-        }else{
+        } else {
             ServiceProviderid = 0;
         }
 
@@ -191,7 +191,7 @@ $('#complete_booking').click(function (e) {
                 pets: pets,
                 comments: comments,
                 extraservice: extraservice,
-                providerid : ServiceProviderid
+                providerid: ServiceProviderid
             },
             success: function (response) {
 
@@ -1826,7 +1826,7 @@ function loadBlockedCustomer_SP(offset, limit) {
     totalentries_fb_Sp();
 }
 
-function totalentries_favpros(){
+function totalentries_favpros() {
     $.ajax({
         url: "http://localhost/helperland/index.php?function=GetBlockedCustomerlisttotal",
         success: function (response) {
@@ -1835,7 +1835,7 @@ function totalentries_favpros(){
     });
 }
 
-function loadBlockedCustomer(offset,limit) {
+function loadBlockedCustomer(offset, limit) {
     $.ajax({
         url: "http://localhost/helperland/index.php?function=GetBlockedCustomerlist_C&parameter=" + offset + "-" + limit,
         success: function (response) {
@@ -1854,7 +1854,7 @@ function loadBlockedCustomer(offset,limit) {
                 className_arr = className.split(' ');
                 rating_arr = className_arr[1].split('-');
                 avgrating = parseFloat(rating_arr[0]);
-                
+
                 $(this).rateYo("option", "rating", avgrating);
             });
         }
@@ -1875,7 +1875,7 @@ function favouriteSp(id) {
             favouriteId: favblockid
         },
         success: function (response) {
-            loadBlockedCustomer(0,2);
+            loadBlockedCustomer(0, 2);
         }
     });
 }
@@ -1892,7 +1892,7 @@ function BlockedSp(id) {
             favouriteId: favblockid
         },
         success: function (response) {
-            loadBlockedCustomer(0,2);
+            loadBlockedCustomer(0, 2);
         }
     });
 }
@@ -1904,10 +1904,10 @@ $('.block_customer_tab').click(function (e) {
     e.preventDefault();
 
     loadBlockedCustomer_SP(0, 2);
-    loadBlockedCustomer(0,2);
+    loadBlockedCustomer(0, 2);
 });
 
-$('#entries_favoritepros').change(function (e) { 
+$('#entries_favoritepros').change(function (e) {
     e.preventDefault();
 
     $('#pageno_favoritepros').html("1");
@@ -1915,9 +1915,9 @@ $('#entries_favoritepros').change(function (e) {
     offset = parseInt($('#pageno_favoritepros').html());
 
 
-    loadBlockedCustomer(offset-1,limit);
+    loadBlockedCustomer(offset - 1, limit);
 
-    
+
 });
 
 function paginationno_favoritepros(textno) {
@@ -2186,3 +2186,4 @@ $('#entries_rating_Sp').change(function (e) {
     $('#pageno_rating_Sp').html("1");
 
 });
+

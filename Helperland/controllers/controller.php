@@ -106,6 +106,16 @@ class EventController
       include "view/ServiceProvider_UpcomingService.php";
    }
 
+   function adminServiceRequest()
+   {
+      include "view/AdminServiceRequest.php";
+   }
+
+   function adminUserManagement()
+   {
+      include "view/AdminUserManagement.php";
+   }
+
    function insertaccountdetails()
    {
       if (isset($_POST["register"]) || isset($_POST["provider_register"])) {
@@ -172,8 +182,11 @@ class EventController
             }
          }
 
-
-         header("Location: http://localhost/helperland/");
+         if ($usertype == 2) {
+            header("Location: http://localhost/helperland/?function=adminServiceRequest");
+         } else {
+            header("Location: http://localhost/helperland/");
+         }
       }
    }
 
@@ -2033,5 +2046,221 @@ class EventController
       } else {
          $this->model->blockcustomer($favblockId);
       }
+   }
+
+   //Admin Section
+   function loadServiceRequestAdmin()
+   {
+      $condition = $_POST["condition"];
+
+      $output = "<tr class='table_heading service_req_heading'>
+                  <th>Service ID</th>
+                  <th>Service date</th>
+                  <th>Customer Details</th>
+                  <th>Service Provider</th>
+                  <th>Net Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+            </tr>";
+
+      $result = $this->model->fetchAllServiceRequestDetails($condition);
+
+      $userlist = [];
+      $helperslist = [];
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $servicerequestid = $row["ServiceRequestId"];
+         $serviceid = $row["ServiceId"];
+         $datetime = $row["ServiceStartDate"];
+         $payment = $row["TotalCost"];
+         $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+         $serviceproviderid = $row["ServiceProviderId"];
+         $status = $row["Status"];
+
+         //Customer details
+         $customerid = $row["UserId"];
+         // $row1 = $this->model->getAddress_SP($customerid);
+         $row1 = $this->model->getAddress_SD($servicerequestid);
+         $customer_address = $row1["AddressLine1"] . ", " . $row1["AddressLine2"] . " " . $row1["City"] . " " . $row1["PostalCode"];
+
+         $row2 = $this->model->getuserdetails($customerid);
+
+         $fname = $row2["FirstName"];
+         $lname = $row2["LastName"];
+         $name = $fname . " " . $lname;
+
+         array_push($userlist, $name);
+
+         //Service Provider Details
+
+
+         // Date & Time 
+         $datetime_arr = explode(" ", $datetime);
+         $date = $datetime_arr[0];
+         $time = $datetime_arr[1];
+         $starttime = date("G:i", strtotime($time));
+         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+
+
+         $output .= "<tr class='table_row service_req_row'>
+                        <td>$serviceid</td>
+                        <td>
+                           <p style='font-weight: 500'><img src='assets/images/calendar2.png'> $date</p>
+                           <p><img src='assets/images/clock.png'> $starttime - $endtime</p>
+                        </td>
+                        <td>
+                           <p>$name</p>
+                           <p><img src='assets/images/home.png'>$customer_address</p>
+                        </td>";
+
+         if (isset($serviceproviderid)) {
+
+            $row3 = $this->model->getuserdetails($serviceproviderid);
+            $fnameSP = $row3["FirstName"];
+            $lnameSP = $row3["LastName"];
+            $nameSP = $fnameSP . " " . $lnameSP;
+            $avatar = $row3["UserProfilePicture"];
+
+            array_push($helperslist, $nameSP);
+
+            $output .=  "<td>
+                           <div>
+                              <img src='assets/images/$avatar' class='cap_border_admin'>
+
+                              <p class='ml-5'>$nameSP</p>";
+
+            $result_rating = $this->model->getAverageRating($servicerequestid);
+
+            if (isset($result_rating)) {
+
+               $rating = mysqli_fetch_assoc($result_rating);
+               $rating_value = $rating["Ratings"];
+
+               $output .=                  "<div class='rating_admin $rating_value'></div>
+                               <p class='text-center'>$rating_value</p> 
+                           </div>
+                        </td>";
+            } else {
+               $output .=  "</div>
+                        </td>";
+            }
+         } else {
+            $output .= "<td></td>";
+         }
+
+
+
+         $output .=  "<td>
+                           <p class='net_amount'>$payment €</p>
+                        </td>
+                        <td class='text-center status_box'>";
+
+
+         if ($status == 1) {
+            $output .=   "<div class='status'>
+                              <p class='active'>Complete</p>
+                           </div>";
+         } elseif ($status == 0) {
+            $output .=   "<div class='status_upcoming'>
+                              <p class='active'>New</p>
+                           </div>";
+         } else {
+            $output .=   "<div class='status_inactive'>
+                              <p class='active'>Cancel</p>
+                           </div>";
+         }
+
+
+         $output .=  "</td>
+                        <td>
+                           <div class='btn-group menu_option_dot'>
+                              <div data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                    <img src='assets/images/show-more-button-with-three-dots.png' width='20px' height='20px'>
+                              </div>
+                              <div class='dropdown-menu dropdown-menu-right'>
+                                    <!-- Dropdown menu links -->
+                                    <a class='dropdown-item edit_reschedule' onclick='ServiceDetails()'>Edit and Reschedule</a>
+                                    <a class='dropdown-item'>Refund</a>
+                                    <a class='dropdown-item'>Cancel</a>
+                                    <a class='dropdown-item'>Change SP</a>
+                                    <a class='dropdown-item'>Escale</a>
+                                    <a class='dropdown-item'>History Log</a>
+                                    <a class='dropdown-item'>Download Invoice</a>
+                              </div>
+                           </div>
+                        </td>
+                  </tr>";
+      }
+
+      echo $output;
+
+      $userlist_unique = array_unique($userlist);
+      $helperslist_unique = array_unique($helperslist);
+   }
+
+   function loadCustomerOptionAdmin()
+   {
+      $output = "<option value='user_name' disabled selected>Select Customer</option>";
+      $condition = 'S.Status >= 0';
+
+      $result = $this->model->fetchAllServiceRequestDetails($condition);
+
+      $userlist = [];
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $customerid = $row["UserId"];
+         $row2 = $this->model->getuserdetails($customerid);
+
+         $fname = $row2["FirstName"];
+         $lname = $row2["LastName"];
+         $name = $fname . " " . $lname;
+
+         // array_push($userlist, $name);
+         $userlist[$customerid] = $name;
+      }
+
+      $userlist_unique = array_unique($userlist);
+
+      foreach($userlist_unique as $key => $value){
+         $output .= "<option value='$key'>$value</option>";
+      }
+
+      echo $output;
+   }
+
+   function loadHelpersOptionAdmin(){
+      $output = "<option value='user_type' disabled selected>Select Service Provider</option>";
+      $condition = 'S.Status >= 0';
+
+      $result = $this->model->fetchAllServiceRequestDetails($condition);
+
+      $helperslist = [];
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $serviceproviderid = $row["ServiceProviderId"];
+
+         if (isset($serviceproviderid)) {
+
+            $row3 = $this->model->getuserdetails($serviceproviderid);
+            $fnameSP = $row3["FirstName"];
+            $lnameSP = $row3["LastName"];
+            $nameSP = $fnameSP . " " . $lnameSP;
+
+            // array_push($helperslist, $nameSP);
+            $helperslist[$serviceproviderid] = $nameSP;
+         }
+      }
+
+      $helperslist_unique = array_unique($helperslist);
+
+      foreach($helperslist_unique as $key => $value){
+         $output .= "<option value='$key'>$value</option>";
+      }
+
+      echo $output;
+
    }
 }

@@ -11,7 +11,9 @@ $(function () {
 });
 
 $(function () {
-    $('#datetimepicker3').datepicker();
+    $('#datetimepicker3').datepicker({
+        format: "yyyy-mm-dd",
+    });
 });
 
 $('.edit_reschedule').click(function () {
@@ -221,14 +223,191 @@ $('.Search').click(function (e) {
 
 });
 
-function ServiceDetails(){
-    $('.bg-modal').css('display', 'flex');
+function ServiceDetails(id) {
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=loadEditServiceModalAdmin",
+        data: {
+            servicerequestid: id
+        },
+        success: function (response) {
+            details = JSON.parse(response);
+
+            $('#edittime_modal').val(details["starttime"]);
+            $('#editdate_modal').val(details["date"]);
+            $('#streetname_editmodal').val(details["Address2"]);
+            $('#houseno_editmodal').val(details["Address1"]);
+            $('#zipcode_editmodal').val(details["zipcode"]);
+            $('#city_editmodal').val(details["City"]);
+
+            //For further checking
+            $('#time_check_editmodal').val(details["starttime"]);
+            $('#date_check_editmodal').val(details["date"]);
+
+            $('.requestid_editModal').attr('id', details["id"] + "-editModalId");
+
+            $('.bg-modal').css('display', 'flex');
+        }
+    });
 }
 
+function updateServiceRequestAddress(id) {
+
+    streetname = $('#streetname_editmodal').val();
+    houseno = $('#houseno_editmodal').val();
+    zipcode = $('#zipcode_editmodal').val();
+    city = $('#city_editmodal').val();
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=updateServiceAddress_Modal",
+        data: {
+            streetName: streetname,
+            houseNo: houseno,
+            Zipcode: zipcode,
+            City: city,
+            serviceid: id
+        },
+        success: function (response) {
+
+            $('.bg-modal').css('display', 'none');
+            $('.bg-modal-fp').css('display', 'none');
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Updated Successfully',
+            })
+        }
+    });
+
+}
+
+function sendMailbyAdmin(id,reason){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=SendMailbyAdminEdit",
+        data: {
+            servicerequestid : id,
+            body : reason
+        },
+        success: function (response) {
+            console.log(response);
+        }
+    });
+}
+
+$('#update_editmodal').click(function (e) {
+    e.preventDefault();
+
+    id = $('.requestid_editModal').attr('id');
+    idarr = id.split("-");
+    servicerequestid = parseInt(idarr[0]);
+
+    date1 = $('#editdate_modal').val();
+    time1 = $('#edittime_modal').val();
+
+    $reason = $('#reason_editmodal').val();
+
+
+
+    timecheck = $('#time_check_editmodal').val();
+    datecheck = $('#date_check_editmodal').val();
+
+    if (date1 == datecheck && time1 == timecheck) {
+        updateServiceRequestAddress(servicerequestid);
+        loadadminServiceRequest('S.Status >= 0');
+        sendMailbyAdmin(servicerequestid,$reason);
+        $('#editModalForm').trigger('reset');
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost/helperland/index.php?function=isserviceavailable",
+            data: {
+                date: date1,
+                time: time1,
+                serviceid: servicerequestid
+            },
+            success: function (response) {
+                console.log(response);
+                if (response == 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost/helperland/index.php?function=setdatetimeservice",
+                        data: {
+                            date: date1,
+                            time: time1,
+                            serviceid: servicerequestid
+                        },
+                        success: function (response) {
+
+                            updateServiceRequestAddress(servicerequestid);
+                            loadadminServiceRequest('S.Status >= 0');
+                            sendMailbyAdmin(servicerequestid,$reason);
+
+                            $('#editModalForm').trigger('reset');
+                        }
+                    });
+                } else {
+                    // $('#reschudele_error').css('display', 'block');
+                    $('.bg-modal').css('display', 'none');
+                    $('.bg-modal-fp').css('display', 'none');
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Already Service is there'
+                    })
+                }
+            }
+        });
+
+    }
+
+
+
+});
 
 
 
 
+
+
+
+// Admin User Management
+
+function loadAdminUserManagement() {
+    $.ajax({
+        // type: "method",
+        url: "http://localhost/helperland/index.php?function=loadUserManagAdmin",
+        // data: "data",
+        success: function (response) {
+            $('#AdminUserManagementtable').html(response);
+        }
+    });
+}
+
+$(document).ready(function () {
+    loadAdminUserManagement();
+});
+
+function UserActiveStatus(userstatus){
+    idarr = userstatus.split("/");
+    userid = parseInt(idarr[0]);
+    isActive = parseInt(idarr[1]);
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=ChangeActiveStatus",
+        data: {
+           Userid : userid,
+           ActiveStatus : isActive 
+        },
+        success: function (response) {
+            loadAdminUserManagement();
+        }
+    });
+}
 
 
 

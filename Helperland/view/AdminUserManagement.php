@@ -96,7 +96,7 @@
             <!-- Right Table  -->
             <div class="right_table">
 
-                <table style="width:100%;">
+                <table style="width:100%;" id="AdminUserManagementtable">
                     <tr class="table_heading">
                         <th>UserName</th>
                         <th>Role</th>

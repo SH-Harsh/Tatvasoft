@@ -9,6 +9,9 @@
 <!-- RateYo  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 
+<!-- Sweet Alert  -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script type="text/javascript" src="assets/js/admin.js"></script>
 
 

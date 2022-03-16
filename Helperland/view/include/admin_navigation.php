@@ -1,3 +1,5 @@
+<?php  $base_url = "http://localhost/helperland/"; ?>
+
 <header>
     <nav style="display: flex;">
         <div class="logo">
@@ -9,10 +11,13 @@
                     <img src="assets/images/person_logo.png" alt="person_logo" class="person_logo">
                 </li>
                 <li>
-                    <p class="person_name">James Smith</p>
+                    <p class="person_name"><?php echo $_SESSION["name"] ?></p>
                 </li>
                 <li>
-                    <img src="assets/images/logout.png" alt="logout" class="person_logo" style="margin-top: 20px;">
+                    <a href="<?= "$base_url?function=logout"; ?>">
+                        <img src="assets/images/logout.png" alt="logout" class="person_logo" style="margin-top: 20px;">
+                    </a>
+
                 </li>
             </ul>
         </div>

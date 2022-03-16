@@ -706,7 +706,7 @@
     <div class="modal-content_not">
         <p class="edit_service">Edit Service Requests</p>
 
-        <form action="#">
+        <form action="#" id="editModalForm">
 
             <div class="row">
                 <div class="col-sm-6">
@@ -715,17 +715,25 @@
                         <span class="input-group-addon calendra_box">
                             <span class="calendra_img"> <img src="assets/images/admin-calendar-blue.png"></span>
                         </span>
-                        <input type='text' class="form-control" name="date" placeholder="From date" />
+                        <input type='text' class="form-control" name="date" id="editdate_modal" placeholder="From date" />
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="time">Time</label>
                     <div class="mt-2 ml-2">
-                        <select name="time" id="time" class="time">
+                        <select name="time" id="edittime_modal" class="time">
                             <option value="user_type" disabled selected>Select Time</option>
-                            <option value="Harsh">10:00</option>
-                            <option value="Tatvasoft">12:00</option>
-                            <option value="Sparsh">2:00</option>
+                            <option value="8:00">8:00</option>
+                            <option value="9:00">9:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
                         </select>
                     </div>
                 </div>
@@ -737,22 +745,22 @@
             <div class="row">
                 <div class="col-sm-6 modal_form_address">
                     <label for="street_name">Street Name</label><br>
-                    <input type="text" name="street_name" placeholder="Enter your street name">
+                    <input type="text" name="street_name" id="streetname_editmodal" placeholder="Enter your street name">
                 </div>
                 <div class="col-sm-6 modal_form_address">
                     <label for="house_no">House No</label><br>
-                    <input type="text" name="house_no" placeholder="Enter your house no">
+                    <input type="text" name="house_no" id="houseno_editmodal" placeholder="Enter your house no">
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-6 modal_form_address">
                     <label for="postal_code">Postal_code</label><br>
-                    <input type="number" name="postal_code" placeholder="Enter your postal code">
+                    <input type="number" name="postal_code" id="zipcode_editmodal" placeholder="Enter your postal code">
                 </div>
                 <div class="col-sm-6 modal_form_address">
                     <label for="city">City</label><br>
-                    <select name="city" id="city">
+                    <select name="city" id="city_editmodal">
                         <option value="city" selected disabled>Enter your city</option>
                         <option value="Ahmedabad">Ahmedabad</option>
                         <option value="Vadodara">Vadodara</option>
@@ -761,7 +769,7 @@
                 </div>
             </div>
 
-            <p class="service_address">Invoice Address</p>
+            <!-- <p class="service_address">Invoice Address</p>
 
             <div class="row">
                 <div class="col-sm-6 modal_form_address">
@@ -788,18 +796,27 @@
                         <option value="Surat">Surat</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
 
             <div>
                 <label for="reschedule">Why do you want to reschedule a service request?</label>
-                <textarea name="reschedule" id="" rows="2" placeholder="Why do you want to reschedule a service request?" class="modal_textarea"></textarea>
+                <textarea name="reschedule" id="reason_editmodal" rows="4" placeholder="Why do you want to reschedule a service request?" class="modal_textarea"></textarea>
             </div>
-            <div>
+            <!-- <div>
                 <label for="reschedule">Why do you want to reschedule a service request?</label>
                 <textarea name="reschedule" id="" rows="2" placeholder="Why do you want to reschedule a service request?" class="modal_textarea"></textarea>
+            </div> -->
+
+            <!-- Hide input :- used for checking condition  -->
+            <div style="display: none;">
+                <input type="text" id="date_check_editmodal">
+                <input type="text" id="time_check_editmodal">
             </div>
 
-            <button type="button" class="modal_btn">Update</button>
+            <div class="requestid_editModal">
+                <button type="button" class="modal_btn" id="update_editmodal">Update</button>
+            </div>
+
 
             <p class="modal_close">+</p>
 

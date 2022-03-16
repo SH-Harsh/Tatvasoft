@@ -52,13 +52,16 @@ class EventModal
         $phone_no = $user['phone_no'];
         $password = $user['password1'];
         $usertype = $user['isUser'];
+        $isActive = $user['isActive'];
+
+        $date = date("Y/m/d H:i:s");
 
         $qry = "INSERT INTO `user` (`UserId`, `FirstName`, `LastName`, `Email`, `Password`, `Mobile`, `UserTypeId`, 
                 `Gender`, `DateOfBirth`, `UserProfilePicture`, `IsRegisteredUser`, `PaymentGatewayUserRef`, `ZipCode`, `WorksWithPets`,
                 `LanguageId`, `NationalityId`, `CreatedDate`, `ModifiedDate`, `ModifiedBy`, `IsApproved`, `IsActive`, 
                 `IsDeleted`, `Status`, `IsOnline`, `BankTokenId`, `TaxNo`)
                  VALUES (NULL, '$fname', '$lname', '$email', '$password', '$phone_no', '$usertype', NULL, NULL, 'avatar-ship.png', 
-                 '0', NULL, NULL, '0', NULL, '1', '', '', '', '0', '0', '0', NULL, '0', NULL, NULL);";
+                 '0', NULL, NULL, '0', NULL, '1', '$date', '', '', '0', $isActive, '0', NULL, '0', NULL, NULL);";
 
         $result = mysqli_query($connection, $qry);
         if (!$result) {
@@ -160,7 +163,7 @@ class EventModal
         $providerId = $servicerequest["ServiceProviderId"];
         echo $providerId;
 
-        if($providerId == 0){
+        if ($providerId == 0) {
             $qry = "INSERT INTO servicerequest (`ServiceRequestId`, `UserId`, `ServiceId`, `ServiceStartDate`, `ZipCode`, `ServiceFrequency`,
                  `ServiceHourlyRate`, `ServiceHours`, `ExtraHours`, `SubTotal`, `Discount`, `TotalCost`, `Comments`, `PaymentTransactionRefNo`,
                   `PaymentDue`, `JobStatus`, `ServiceProviderId`, `SPAcceptedDate`, `HasPets`, `Status`, `CreatedDate`, `ModifiedDate`,
@@ -168,7 +171,7 @@ class EventModal
                     VALUES (NULL, $userid, $serviceid, '$service_start_date', $zipcode, NULL, $charge_per_hr, $service_hr, $totalextrahr,
                      $subtotal, NULL, $totalcost, '$comments', NULL, '0', NULL, NULL, NULL, $pets, 0, '$createddate', '$modifieddate', 
                      NULL, NULL, 0, NULL, NULL, NULL);";
-        }else{
+        } else {
             $qry = "INSERT INTO servicerequest (`ServiceRequestId`, `UserId`, `ServiceId`, `ServiceStartDate`, `ZipCode`, `ServiceFrequency`,
                  `ServiceHourlyRate`, `ServiceHours`, `ExtraHours`, `SubTotal`, `Discount`, `TotalCost`, `Comments`, `PaymentTransactionRefNo`,
                   `PaymentDue`, `JobStatus`, `ServiceProviderId`, `SPAcceptedDate`, `HasPets`, `Status`, `CreatedDate`, `ModifiedDate`,
@@ -178,11 +181,11 @@ class EventModal
                      NULL, NULL, 0, NULL, NULL, NULL);";
         }
 
-        
+
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             echo "Query Successfully Run";
         }
     }
@@ -321,7 +324,7 @@ class EventModal
             }
         }
 
-        $validserviceprovider = array_diff($allproviderid,$blockuserid);
+        $validserviceprovider = array_diff($allproviderid, $blockuserid);
         return $validserviceprovider;
     }
 
@@ -360,7 +363,8 @@ class EventModal
         return $serviceprovideremail;
     }
 
-    function fetchblockedEmail($zipcode,$userid){
+    function fetchblockedEmail($zipcode, $userid)
+    {
         global $connection;
 
         $providerblockemail = [];
@@ -1039,7 +1043,8 @@ class EventModal
         }
     }
 
-    function FavouriteBlockedCustomerDetails($customerId,$userid){
+    function FavouriteBlockedCustomerDetails($customerId, $userid)
+    {
         global $connection;
 
         $qry = "SELECT *FROM user u INNER JOIN favoriteandblocked f ON u.UserId = f.TargetUserId WHERE f.UserId = $userid 
@@ -1053,7 +1058,8 @@ class EventModal
         }
     }
 
-    function blockcustomer($favblockid){
+    function blockcustomer($favblockid)
+    {
         global $connection;
 
         $qry = "UPDATE favoriteandblocked SET IsBlocked = 1 WHERE Id = $favblockid";
@@ -1062,8 +1068,9 @@ class EventModal
             die("Query Failed" . mysqli_error($connection));
         }
     }
-    
-    function favcustomer($favblockid){
+
+    function favcustomer($favblockid)
+    {
         global $connection;
 
         $qry = "UPDATE favoriteandblocked SET IsBlocked = 0 WHERE Id = $favblockid";
@@ -1088,7 +1095,8 @@ class EventModal
     //     }
     // }
 
-    function getRatinglist_Sp($userid,$categoryName,$startRatingValue,$endRatingValue, $offset,$limit){
+    function getRatinglist_Sp($userid, $categoryName, $startRatingValue, $endRatingValue, $offset, $limit)
+    {
         global $connection;
 
         $qry = "SELECT R.Comments,R.Ratings,R.RatingFrom,R.ServiceRequestId,S.ServiceId,S.ServiceStartDate,S.ServiceHours,S.ExtraHours,
@@ -1098,12 +1106,13 @@ class EventModal
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             return $result;
         }
     }
 
-    function totalRatinglist_Sp($userid, $startRatingValue, $endRatingValue){
+    function totalRatinglist_Sp($userid, $startRatingValue, $endRatingValue)
+    {
         global $connection;
 
         $qry = "SELECT R.Comments,R.Ratings,R.RatingFrom,R.ServiceRequestId,S.ServiceId,S.ServiceStartDate,S.ServiceHours,S.ExtraHours,
@@ -1113,63 +1122,68 @@ class EventModal
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             return  mysqli_num_rows($result);
         }
     }
 
-    function AcceptServiceValidation($zipcode, $userid){
+    function AcceptServiceValidation($zipcode, $userid)
+    {
         global $connection;
 
         $qry = "SELECT *FROM servicerequest WHERE ZipCode = $zipcode AND `Status` = 0 AND ServiceProviderId = $userid";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             return $result;
         }
     }
 
-    function getFavBlockCustomerList($userid,$offset,$limit){
+    function getFavBlockCustomerList($userid, $offset, $limit)
+    {
         global $connection;
 
         $qry = "SELECT *FROM favoriteandblocked WHERE UserId = $userid LIMIT $offset,$limit";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             return $result;
         }
     }
 
-    function getFavBlockCustomerListtotal($userid){
+    function getFavBlockCustomerListtotal($userid)
+    {
         global $connection;
 
         $qry = "SELECT *FROM favoriteandblocked WHERE UserId = $userid";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             return mysqli_num_rows($result);
         }
     }
 
-    
 
-    function setOrRemoveFav($favblockId){
+
+    function setOrRemoveFav($favblockId)
+    {
         global $connection;
 
         $qry = "SELECT *FROM favoriteandblocked WHERE Id = $favblockId";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             $row = mysqli_fetch_assoc($result);
             return $row;
         }
     }
 
-    function setUnfavourite($favblockId){
+    function setUnfavourite($favblockId)
+    {
         global $connection;
 
         $qry = "UPDATE favoriteandblocked SET IsFavorite = 0 WHERE Id = $favblockId";
@@ -1179,7 +1193,8 @@ class EventModal
         }
     }
 
-    function setfavourite($favblockId){
+    function setfavourite($favblockId)
+    {
         global $connection;
 
         $qry = "UPDATE favoriteandblocked SET IsFavorite = 1 WHERE Id = $favblockId";
@@ -1189,31 +1204,34 @@ class EventModal
         }
     }
 
-    function totalcleaningbyProvider($userid,$serviceproviderid){
+    function totalcleaningbyProvider($userid, $serviceproviderid)
+    {
         global $connection;
 
         $qry = "SELECT *FROM servicerequest WHERE UserId = $userid AND ServiceProviderId = $serviceproviderid AND `Status` = 1";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             return mysqli_num_rows($result);
         }
     }
 
-    function averageratingSp($userid,$serviceproviderid){
+    function averageratingSp($userid, $serviceproviderid)
+    {
         global $connection;
 
         $qry = "SELECT *FROM rating WHERE RatingFrom = $userid AND RatingTo = $serviceproviderid";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             return $result;
         }
     }
 
-    function fetchAllServiceRequestDetails($condition){
+    function fetchAllServiceRequestDetails($condition)
+    {
         global $connection;
 
         $qry = "SELECT S.Status,S.ServiceRequestId,S.ServiceId,S.ServiceStartDate,S.TotalCost,S.ServiceHours,S.ExtraHours,
@@ -1221,8 +1239,49 @@ class EventModal
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
-        }else{
+        } else {
             return $result;
+        }
+    }
+
+    function getAllUserDetails()
+    {
+        global $connection;
+
+        $qry = "SELECT *FROM user WHERE UserTypeId = 0 OR UserTypeId = 1";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            return $result;
+        }
+    }
+
+    function updateServiceAddress($address)
+    {
+        $streetName = $_POST["streetName"];
+        $houseNo = $_POST["houseNo"];
+        $zipcode = $_POST["Zipcode"];
+        $city = $_POST["City"];
+        $id = $_POST["serviceid"];
+
+        global $connection;
+
+        $qry = "UPDATE servicerequestaddress SET AddressLine1 = '$houseNo',AddressLine2 = '$streetName',City = '$city'
+                    ,PostalCode = '$zipcode' WHERE ServiceRequestId = $id";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        }
+    }
+
+    function UpdateActiveStatus($userid, $activestatus){
+        global $connection;
+
+        $qry = "UPDATE user SET IsActive = $activestatus WHERE UserId = $userid";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
         }
     }
 }

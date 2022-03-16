@@ -127,8 +127,10 @@ class EventController
 
          if (isset($_POST["register"])) {
             $user["isUser"] = 1;
+            $user["isActive"] = 1;
          } else {
             $user["isUser"] = 0;
+            $user["isActive"] = 0;
          }
 
 
@@ -2178,10 +2180,14 @@ class EventController
                               <div data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                     <img src='assets/images/show-more-button-with-three-dots.png' width='20px' height='20px'>
                               </div>
-                              <div class='dropdown-menu dropdown-menu-right'>
-                                    <!-- Dropdown menu links -->
-                                    <a class='dropdown-item edit_reschedule' onclick='ServiceDetails()'>Edit and Reschedule</a>
-                                    <a class='dropdown-item'>Refund</a>
+                              <div class='dropdown-menu dropdown-menu-right'>";
+
+         if ($status == 0) {
+            $output .=     "<!-- Dropdown menu links -->
+                        <a class='dropdown-item edit_reschedule' onclick='ServiceDetails($servicerequestid)'>Edit and Reschedule</a>";
+         }
+
+         $output .=                 "<a class='dropdown-item'>Refund</a>
                                     <a class='dropdown-item'>Cancel</a>
                                     <a class='dropdown-item'>Change SP</a>
                                     <a class='dropdown-item'>Escale</a>
@@ -2223,14 +2229,15 @@ class EventController
 
       $userlist_unique = array_unique($userlist);
 
-      foreach($userlist_unique as $key => $value){
+      foreach ($userlist_unique as $key => $value) {
          $output .= "<option value='$key'>$value</option>";
       }
 
       echo $output;
    }
 
-   function loadHelpersOptionAdmin(){
+   function loadHelpersOptionAdmin()
+   {
       $output = "<option value='user_type' disabled selected>Select Service Provider</option>";
       $condition = 'S.Status >= 0';
 
@@ -2256,11 +2263,170 @@ class EventController
 
       $helperslist_unique = array_unique($helperslist);
 
-      foreach($helperslist_unique as $key => $value){
+      foreach ($helperslist_unique as $key => $value) {
          $output .= "<option value='$key'>$value</option>";
       }
 
       echo $output;
+   }
 
+   function loadEditServiceModalAdmin()
+   {
+      $serviceRequestId = $_POST["servicerequestid"];
+
+      $row = $this->model->getUpcomingServiceDetails($serviceRequestId);
+
+      $datetime = $row["ServiceStartDate"];
+
+      $datetime_arr = explode(" ", $datetime);
+      $editmodal["date"] = $datetime_arr[0];
+      $time = $datetime_arr[1];
+      $editmodal["starttime"] = date("G:i", strtotime($time));
+
+      $row1 = $this->model->getAddress_SD($serviceRequestId);
+      $editmodal["Address1"] = $row1["AddressLine1"];
+      $editmodal["Address2"] = $row1["AddressLine2"];
+      $editmodal["City"] = $row1["City"];
+      $editmodal["zipcode"] = $row1["PostalCode"];
+      $editmodal["id"] = $serviceRequestId;
+
+      echo json_encode($editmodal);
+   }
+
+
+
+
+   //Admin User Management
+
+   function loadUserManagAdmin()
+   {
+
+      $output = "<tr class='table_heading'>
+                     <th>UserName</th>
+                     <th>Role</th>
+                     <th>Date of Registration</th>
+                     <th>User Type</th>
+                     <th>Phone</th>
+                     <th>Postal Code</th>
+                     <th>Status</th>
+                     <th>Action</th>
+               </tr>";
+
+      $result = $this->model->getAllUserDetails();
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $name = $row["FirstName"] . " " . $row["LastName"];
+         $phoneno = $row["Mobile"];
+         $zipcode = $row["ZipCode"];
+         $usertype = $row["UserTypeId"];
+         $isActive = $row["IsActive"];
+         $userid = $row["UserId"];
+
+         //Date 
+         $datetime = $row["CreatedDate"];
+         $datetimearr = explode(" ",$datetime);
+         $date = $datetimearr[0];
+
+         $output .= "<tr class='table_row'>
+                        <td>$name</td>
+                        <td></td>
+                        <td class='status_box'>
+                           <p>
+                              <img src='assets/images/calendar2.png'>
+                              <span>$date</span>
+                           </p>
+                        </td>";
+
+         if ($usertype == 1) {
+            $output .=     "<td>Customer</td>";
+         } else {
+            $output .=     "<td>Service Provider</td>";
+         }
+
+
+
+         $output .= "   <td>$phoneno</td>
+                        <td>$zipcode</td>
+                        <td>";
+
+         if ($isActive == 1) {
+            $output .=       "<div class='status'>
+                              <p class='active'>Active</p>
+                           </div>";
+         } else {
+            $output .=       "<div class='status_inactive'>
+                                 <p class='active'>Inactive</p>
+                           </div>";
+         }
+
+
+
+         $output .=       "</td>
+                        <td>
+                           <div class='btn-group'>
+                              <div data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                    <img src='assets/images/show-more-button-with-three-dots.png' width='20px' height='20px'>
+                              </div>
+                              <div class='dropdown-menu dropdown-menu-right'>
+                                    <!-- Dropdown menu links -->
+                                    <a class='dropdown-item'>Edit</a>";
+
+         if ($isActive == 1) {
+            $output .=              "<a class='dropdown-item' id='$userid/0/changestatus' onclick='UserActiveStatus(id)'>Deactive</a>";
+         } else {
+            $output .=              "<a class='dropdown-item' id='$userid/1/changestatus' onclick='UserActiveStatus(id)'>Active</a>";
+         }
+
+
+
+         $output .=                 "<a class='dropdown-item'>Service History</a>
+                              </div>
+                           </div>
+                        </td>
+                  </tr>";
+      }
+
+      echo $output;
+   }
+
+   function updateServiceAddress_Modal()
+   {
+      $address["streetName"] = $_POST["streetName"];
+      $address["houseNo"] = $_POST["houseNo"];
+      $address["zipcode"] = $_POST["Zipcode"];
+      $address["city"] = $_POST["City"];
+      $address["id"] = $_POST["serviceid"];
+
+      $this->model->updateServiceAddress($address);
+   }
+
+   function SendMailbyAdminEdit()
+   {
+      $servicerequestId = $_POST["servicerequestid"];
+      $reason = $_POST["body"];
+
+      $row = $this->model->getServiceRequests_SP_details($servicerequestId);
+
+      $userid = $row["UserId"];
+      $serviceproviderId = $row["ServiceProviderId"];
+
+      if (isset($userid)) {
+         $row2 = $this->model->getuserdetails($userid);
+         sendMail($row2["Email"], "Service Changed by Admin", $reason . "<br> <br> Please login again and check the new date, time and Address");
+      }
+
+      if (isset($serviceproviderId)) {
+         $row2 = $this->model->getuserdetails($serviceproviderId);
+         sendMail($row2["Email"], "Service Changed by Admin", $reason . "<br> <br> Please login again and check the new date, time and Address");
+      }
+   }
+
+   function ChangeActiveStatus()
+   {
+      $userid = $_POST["Userid"];
+      $activestatus = $_POST["ActiveStatus"];
+
+      $this->model->UpdateActiveStatus($userid, $activestatus);
    }
 }

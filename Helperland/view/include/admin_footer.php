@@ -12,6 +12,9 @@
 <!-- Sweet Alert  -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- Export to Excel Library  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
 <script type="text/javascript" src="assets/js/admin.js"></script>
 
 

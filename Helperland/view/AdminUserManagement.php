@@ -28,9 +28,9 @@
 
             <!-- Form  -->
             <div class="form_box">
-                <form action="#" class="flex-container">
+                <form action="#" class="flex-container" id="UserManagementFilterForm">
                     <div class="mr-2 mt-2">
-                        <select name="user_name" id="user_name" class="user_name">
+                        <select name="user_name" id="user_name_admin" class="user_name">
                             <option value="user_name" disabled selected>Select User Name</option>
                             <option value="Harsh">Harsh</option>
                             <option value="Tatvasoft">Tatvasoft</option>
@@ -39,23 +39,22 @@
                     </div>
 
                     <div class="mr-2 mt-2">
-                        <select name="user_type" id="user_type" class="user_name">
+                        <select name="user_type" id="user_type_um" class="user_name">
                             <option value="user_type" disabled selected>User Type</option>
-                            <option value="Harsh">Harsh</option>
-                            <option value="Tatvasoft">Tatvasoft</option>
-                            <option value="Sparsh">Sparsh</option>
+                            <option value=0>Service Provider</option>
+                            <option value=1>Customer</option>
                         </select>
                     </div>
 
                     <div class="mr-2 mt-2">
                         <span class="pre_no">
-                            <span>+49</span>
+                            <span>+91</span>
                         </span>
-                        <input type="number" placeholder="Phone Number" class="phone_no" style="width: 160px;">
+                        <input type="number" placeholder="Phone Number" class="phone_no" id="phone_no_um" style="width: 160px;">
                     </div>
 
                     <div class="mr-2 mt-2" style="width: 121px;">
-                        <input type="number" placeholder="Postal Code" class="postal_code">
+                        <input type="number" placeholder="Postal Code" class="postal_code" id="postalcode_um">
                     </div>
 
 
@@ -65,7 +64,7 @@
                             <span class="input-group-addon calendra_box">
                                 <span class="calendra_img"> <img src="assets/images/admin-calendar-blue.png"></span>
                             </span>
-                            <input type='text' class="form-control" placeholder="From date" />
+                            <input type='text' class="form-control" id="fromdate_um" placeholder="From date" />
                         </div>
                     </div>
 
@@ -74,30 +73,30 @@
                             <span class="input-group-addon calendra_box">
                                 <span class="calendra_img"> <img src="assets/images/admin-calendar-blue.png"></span>
                             </span>
-                            <input type='text' class="form-control" placeholder="To date" />
+                            <input type='text' class="form-control" id="todate_um" placeholder="To date" />
                         </div>
                     </div>
 
                     <div class="mr-2 mt-2">
-                        <button type="button" class="Search">Search</button>
+                        <button type="button" class="Search" id="search_um">Search</button>
                     </div>
 
                     <div class="mr-2 mt-2">
-                        <button type="button" class="clear">Clear</button>
+                        <button type="button" id="clear_um" class="clear">Clear</button>
                     </div>
 
                 </form>
             </div>
 
             <div class="export">
-                <button type="button" class="Search">Export</button>
+                <button type="button" class="Search" id="export_um">Export</button>
             </div>
 
             <!-- Right Table  -->
             <div class="right_table">
 
                 <table style="width:100%;" id="AdminUserManagementtable">
-                    <tr class="table_heading">
+                    <!-- <tr class="table_heading">
                         <th>UserName</th>
                         <th>Role</th>
                         <th>Date of Registration</th>
@@ -130,238 +129,20 @@
                                     <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Dropdown menu links -->
                                     <a class="dropdown-item" href="#">Edit</a>
                                     <a class="dropdown-item" href="#">Deactive</a>
                                     <a class="dropdown-item" href="#">Service History</a>
                                 </div>
                             </div>
                         </td>
-                    </tr>
-                    <tr class="table_row">
-                        <td>Vishal Shah</td>
-                        <td></td>
-                        <td class="status_box">
-                            <p>
-                                <img src="assets/images/calendar2.png">
-                                <span>13/03/2020</span>
-                            </p>
-                        </td>
-                        <td>Customer</td>
-                        <td>1234567890</td>
-                        <td>123456</td>
-                        <td>
-                            <div class="status">
-                                <p class="active">Active</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Dropdown menu links -->
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Deactive</a>
-                                    <a class="dropdown-item" href="#">Service History</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table_row">
-                        <td>John Smith</td>
-                        <td>Inquiry Manager</td>
-                        <td class="status_box">
-                            <p>
-                                <img src="assets/images/calendar2.png">
-                                <span>13/03/2020</span>
-                            </p>
-                        </td>
-                        <td>Service Provider</td>
-                        <td>1234567890</td>
-                        <td>123456</td>
-                        <td>
-                            <div class="status">
-                                <p class="active">Active</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Dropdown menu links -->
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Deactive</a>
-                                    <a class="dropdown-item" href="#">Service History</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table_row">
-                        <td>John Smith</td>
-                        <td>Content Manager</td>
-                        <td class="status_box">
-                            <p>
-                                <img src="assets/images/calendar2.png">
-                                <span>13/03/2020</span>
-                            </p>
-                        </td>
-                        <td>Service Provider</td>
-                        <td>1234567890</td>
-                        <td>123456</td>
-                        <td>
-                            <div class="status">
-                                <p class="active">Active</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Dropdown menu links -->
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Deactive</a>
-                                    <a class="dropdown-item" href="#">Service History</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table_row">
-                        <td>John Smith</td>
-                        <td></td>
-                        <td class="status_box">
-                            <p>
-                                <img src="assets/images/calendar2.png">
-                                <span>13/03/2020</span>
-                            </p>
-                        </td>
-                        <td>Service Provider</td>
-                        <td>1234567890</td>
-                        <td>123456</td>
-                        <td>
-                            <div class="status_inactive">
-                                <p class="active">Inactive</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Dropdown menu links -->
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Deactive</a>
-                                    <a class="dropdown-item" href="#">Service History</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table_row">
-                        <td>John Smith</td>
-                        <td>Finance Manager</td>
-                        <td class="status_box">
-                            <p>
-                                <img src="assets/images/calendar2.png">
-                                <span>13/03/2020</span>
-                            </p>
-                        </td>
-                        <td>Customer</td>
-                        <td>1234567890</td>
-                        <td>123456</td>
-                        <td>
-                            <div class="status">
-                                <p class="active">Active</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Dropdown menu links -->
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Deactive</a>
-                                    <a class="dropdown-item" href="#">Service History</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table_row">
-                        <td>John Smith</td>
-                        <td></td>
-                        <td class="status_box">
-                            <p>
-                                <img src="assets/images/calendar2.png">
-                                <span>13/03/2020</span>
-                            </p>
-                        </td>
-                        <td>Service Provider</td>
-                        <td>1234567890</td>
-                        <td>123456</td>
-                        <td>
-                            <div class="status_inactive">
-                                <p class="active">Inactive</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Dropdown menu links -->
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Deactive</a>
-                                    <a class="dropdown-item" href="#">Service History</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table_row">
-                        <td>John Smith</td>
-                        <td>Inquiry Manager</td>
-                        <td class="status_box">
-                            <p>
-                                <img src="assets/images/calendar2.png">
-                                <span>13/03/2020</span>
-                            </p>
-                        </td>
-                        <td>Customer</td>
-                        <td>1234567890</td>
-                        <td></td>
-                        <td>
-                            <div class="status">
-                                <p class="active">Active</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/images/show-more-button-with-three-dots.png" width="20px" height="20px">
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <!-- Dropdown menu links -->
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Deactive</a>
-                                    <a class="dropdown-item" href="#">Service History</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    </tr> -->
                 </table>
 
                 <!-- Paginatiion  -->
                 <div class="pages">
                     <p class="show">Show</p>
 
-                    <select name="entries" id="entries" class="entries">
+                    <select name="entries" id="entries_um" class="entries">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -374,18 +155,23 @@
                         <option value="10" selected>10</option>
                     </select>
 
-                    <p class="show" style="margin-left: 5px;">Entries</p>
+                    <p class="show" style="margin-left: 5px;" id="totalrecord_um">Entries Total Record: 55</p>
 
-                    <div class="pagination">
-                        <a href="#"><img src="assets/images/first-page.png"></a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#"><img src="assets/images/first-page.png" style="transform: rotate(180deg);"></a>
+                    <div class="pagination pagejs">
+                        <a onclick="pagination_um('min')"><img src="assets/images/first-page.png"></a>
+                        <a onclick="pagination_um('back')"><img src="assets/images/keyboard-right-arrow.png"></a>
+                        <a onclick="pagination_um(id)" class="active min-pagination" id="1-pagination">1</a>
+                        <a onclick="pagination_um(id)" class="mid1-pagination" id="2-pagination">2</a>
+                        <a onclick="pagination_um(id)" class="mid2-pagination" id="3-pagination">3</a>
+                        <a onclick="pagination_um(id)" id="4-pagination" class="max-pagination">4</a>
+                        <a onclick="pagination_um('next')"><img src="assets/images/keyboard-right-arrow.png" style="transform: rotate(180deg);"></a>
+                        <a onclick="pagination_um('max')"><img src="assets/images/first-page.png" style="transform: rotate(180deg);"></a>
                     </div>
                 </div>
+
+                <!-- Export table  -->
+                <table id="exportusermanagementTable" style="display: none;">
+                </table>
             </div>
 
             <div class="right_reserved">

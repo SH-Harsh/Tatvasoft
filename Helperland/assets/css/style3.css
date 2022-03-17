@@ -305,7 +305,7 @@ ul li {
 
 .pagination a.active {
     background-color: #565656;
-    color: white;
+    color: white !important;
 }
 
 .pagination a:hover:not(.active) {

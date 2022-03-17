@@ -79,10 +79,23 @@ function loadServiceProviderOption() {
     });
 }
 
-function loadadminServiceRequest(validation) {
+function totalrecord_sm(condition){
     $.ajax({
         type: "POST",
-        url: "http://localhost/helperland/index.php?function=loadServiceRequestAdmin",
+        url: "http://localhost/helperland/index.php?function=fetchtotalRecord_SM",
+        data: {
+            reason : condition
+        },
+        success: function (response) {
+            $('#totalrecord_sm').html("Entries Total Record: " + response);
+        }
+    });
+}
+
+function loadadminServiceRequest(validation,offset,limit) {
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=loadServiceRequestAdmin&parameter=" + offset + "-" + limit,
         data: {
             condition: validation
         },
@@ -107,13 +120,27 @@ function loadadminServiceRequest(validation) {
         }
     });
 
-    loadCustomerOption();
-    loadServiceProviderOption()
+    
 }
 
 $(document).ready(function () {
     condition = 'S.Status >= 0';
-    loadadminServiceRequest(condition);
+    loadadminServiceRequest(condition,0,10);
+    totalrecord_sm(condition);
+
+    loadCustomerOption();
+    loadServiceProviderOption();
+});
+
+$('#entries_sm').change(function (e) { 
+    e.preventDefault();
+
+    limit = $('#entries_sm').val();
+
+    condition = condition_sm();
+    loadadminServiceRequest(condition,0,limit);
+
+    
 });
 
 $('.clear').click(function (e) {
@@ -122,8 +149,7 @@ $('.clear').click(function (e) {
     $('#adminServiceRequestForm').trigger('reset');
 });
 
-$('.Search').click(function (e) {
-    e.preventDefault();
+function condition_sm(){
 
     status_type = $('#status_type').val();
     ServiceProvider = $('#serviceProviderOption').val();
@@ -219,7 +245,19 @@ $('.Search').click(function (e) {
 
     // console.log(condition);
 
-    loadadminServiceRequest(condition);
+    return condition;
+}
+
+$('#search_sm').click(function (e) {
+    e.preventDefault();
+
+    condition = condition_sm();
+
+    limit = $('#entries_sm').val();
+    pagination_sm('min');
+
+    loadadminServiceRequest(condition,0,limit);
+    totalrecord_sm(condition)
 
 });
 
@@ -283,13 +321,13 @@ function updateServiceRequestAddress(id) {
 
 }
 
-function sendMailbyAdmin(id,reason){
+function sendMailbyAdmin(id, reason) {
     $.ajax({
         type: "POST",
         url: "http://localhost/helperland/index.php?function=SendMailbyAdminEdit",
         data: {
-            servicerequestid : id,
-            body : reason
+            servicerequestid: id,
+            body: reason
         },
         success: function (response) {
             console.log(response);
@@ -316,8 +354,8 @@ $('#update_editmodal').click(function (e) {
 
     if (date1 == datecheck && time1 == timecheck) {
         updateServiceRequestAddress(servicerequestid);
-        loadadminServiceRequest('S.Status >= 0');
-        sendMailbyAdmin(servicerequestid,$reason);
+        loadadminServiceRequest('S.Status >= 0',0,10);
+        sendMailbyAdmin(servicerequestid, $reason);
         $('#editModalForm').trigger('reset');
     } else {
         $.ajax({
@@ -342,8 +380,8 @@ $('#update_editmodal').click(function (e) {
                         success: function (response) {
 
                             updateServiceRequestAddress(servicerequestid);
-                            loadadminServiceRequest('S.Status >= 0');
-                            sendMailbyAdmin(servicerequestid,$reason);
+                            loadadminServiceRequest('S.Status >= 0',0,10);
+                            sendMailbyAdmin(servicerequestid, $reason);
 
                             $('#editModalForm').trigger('reset');
                         }
@@ -369,6 +407,151 @@ $('#update_editmodal').click(function (e) {
 });
 
 
+function pagination_sm(textno) {
+    limit = $('#entries_sm').val();
+
+    totalentriestext = $('#totalrecord_sm').html();
+    totalentriesarr = totalentriestext.split(": ");
+    totalentries = parseInt(totalentriesarr[1]);
+
+    maxpageno = Math.ceil(totalentries / limit);
+    currentpageno = parseInt($('.pagejs .active').html());
+
+    condition = condition_sm();
+
+    if ($("#" + textno).length != 0) {
+        noarr = textno.split("-");
+        textno = parseInt(noarr[0]);
+    }
+
+    if ($.isNumeric(textno)) {
+
+        $('.pagejs .active').removeClass('active');
+
+        offset = (textno - 1) * limit;
+        loadadminServiceRequest(condition, offset, limit);
+        $('#' + textno + '-pagination').addClass('active');
+    } else if (textno == "next") {
+
+        if ($('.pagejs .active').hasClass('max-pagination')) {
+
+
+            if (currentpageno < maxpageno) {
+                $('.max-pagination').html(currentpageno + 1);
+                $('.max-pagination').attr('id', (currentpageno + 1) + "-pagination");
+
+                $('.min-pagination').html(currentpageno - 2);
+                $('.min-pagination').attr('id', (currentpageno - 2) + "-pagination");
+
+                $('.mid1-pagination').html(currentpageno - 1);
+                $('.mid1-pagination').attr('id', (currentpageno - 1) + "-pagination");
+
+                $('.mid2-pagination').html(currentpageno);
+                $('.mid2-pagination').attr('id', (currentpageno) + "-pagination");
+
+                currentpageno = parseInt($('.pagejs .active').html());
+                currentpageno -= 1;
+            }
+        }
+
+        if (currentpageno < maxpageno) {
+
+            $('.pagejs .active').removeClass('active');
+            currentpageno += 1;
+            offset = (currentpageno - 1) * limit;
+            loadadminServiceRequest(condition, offset, limit);
+            $('#' + currentpageno + '-pagination').addClass('active');
+        }
+
+
+    } else if (textno == "back") {
+
+        if ($('.pagejs .active').hasClass('min-pagination')) {
+            if (currentpageno > 1) {
+                console.log(currentpageno);
+
+                $('.min-pagination').html(currentpageno - 1);
+                $('.min-pagination').attr('id', (currentpageno - 1) + "-pagination");
+
+                $('.max-pagination').html(currentpageno + 2);
+                $('.max-pagination').attr('id', (currentpageno + 2) + "-pagination");
+
+                $('.mid1-pagination').html(currentpageno);
+                $('.mid1-pagination').attr('id', (currentpageno) + "-pagination");
+
+                $('.mid2-pagination').html(currentpageno + 1);
+                $('.mid2-pagination').attr('id', (currentpageno + 1) + "-pagination");
+            }
+        }
+
+
+        if (currentpageno > 1) {
+            $('.pagejs .active').removeClass('active');
+            currentpageno -= 1;
+            offset = (currentpageno - 1) * limit;
+            loadadminServiceRequest(condition, offset, limit);
+            $('#' + currentpageno + '-pagination').addClass('active');
+        }
+    } else if (textno == "max") {
+
+        paginationmaxno = $('.max-pagination').html();
+
+        if (paginationmaxno < maxpageno && currentpageno <= maxpageno) {
+
+            console.log("Hello");
+            $('.min-pagination').html(maxpageno - 3);
+            $('.min-pagination').attr('id', (maxpageno - 3) + "-pagination");
+
+            $('.max-pagination').html(maxpageno);
+            $('.max-pagination').attr('id', (maxpageno) + "-pagination");
+
+            $('.mid1-pagination').html(maxpageno - 2);
+            $('.mid1-pagination').attr('id', (maxpageno - 2) + "-pagination");
+
+            $('.mid2-pagination').html(maxpageno - 1);
+            $('.mid2-pagination').attr('id', (maxpageno - 1) + "-pagination");
+
+        }
+
+        $('.pagejs .active').removeClass('active');
+        offset = (maxpageno - 1) * limit;
+        loadadminServiceRequest(condition, offset, limit);
+        $('#' + maxpageno + '-pagination').addClass('active');
+
+    } else if (textno == "min") {
+
+        if (currentpageno > 1) {
+            $('.min-pagination').html("1");
+            $('.min-pagination').attr('id', 1 + "-pagination");
+
+            $('.max-pagination').html("4");
+            $('.max-pagination').attr('id', 4 + "-pagination");
+
+            $('.mid1-pagination').html("2");
+            $('.mid1-pagination').attr('id', 2 + "-pagination");
+
+            $('.mid2-pagination').html("3");
+            $('.mid2-pagination').attr('id', 3 + "-pagination");
+        }
+
+        $('.pagejs .active').removeClass('active');
+        offset = 0;
+        loadadminServiceRequest(condition, offset, limit);
+        $('#1-pagination').addClass('active');
+
+    } else {
+        console.log("Pagination Error");
+    }
+
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -376,22 +559,66 @@ $('#update_editmodal').click(function (e) {
 
 // Admin User Management
 
-function loadAdminUserManagement() {
+function loadAdminUserManagement(condition, offset, limit) {
     $.ajax({
-        // type: "method",
-        url: "http://localhost/helperland/index.php?function=loadUserManagAdmin",
-        // data: "data",
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=loadUserManagAdmin&parameter=" + offset + "-" + limit,
+        data: {
+            reason: condition
+        },
         success: function (response) {
             $('#AdminUserManagementtable').html(response);
         }
     });
 }
 
+function loadCustomerNameList() {
+    $.ajax({
+        url: "http://localhost/helperland/index.php?function=fetchCustomerNameList",
+        success: function (response) {
+            $('#user_name_admin').html(response);
+        }
+    });
+}
+
+function totalrecord_um(condition){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=fetchtotalRecord_UM",
+        data : {
+            reason: condition
+        },
+        success: function (response) {
+            $('#totalrecord_um').html("Entries Total Record: " + response);
+        }
+    });
+}
+
+//Export table
+
+function loadExportUserManagementTable(condition){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=loadExportUserManagAdmin",
+        data: {
+            reason: condition
+        },
+        success: function (response) {
+            $('#exportusermanagementTable').html(response);
+        }
+    });
+}
+
 $(document).ready(function () {
-    loadAdminUserManagement();
+
+    condition = 'UserTypeId < 2';
+    loadAdminUserManagement(condition, 0, 10);
+    loadCustomerNameList()
+    totalrecord_um(condition);
+    loadExportUserManagementTable(condition)
 });
 
-function UserActiveStatus(userstatus){
+function UserActiveStatus(userstatus) {
     idarr = userstatus.split("/");
     userid = parseInt(idarr[0]);
     isActive = parseInt(idarr[1]);
@@ -400,15 +627,274 @@ function UserActiveStatus(userstatus){
         type: "POST",
         url: "http://localhost/helperland/index.php?function=ChangeActiveStatus",
         data: {
-           Userid : userid,
-           ActiveStatus : isActive 
+            Userid: userid,
+            ActiveStatus: isActive
         },
         success: function (response) {
-            loadAdminUserManagement();
+            loadAdminUserManagement('UserTypeId < 2', 0, 10);
         }
     });
 }
 
+$('#clear_um').click(function (e) {
+    e.preventDefault();
+
+    $('#UserManagementFilterForm').trigger('reset');
+
+});
+
+function condition_um(){
+    username = $('#user_name_admin').val();
+    usertype = $('#user_type_um').val();
+    mobile = $('#phone_no_um').val();
+    zipcode = $('#postalcode_um').val();
+    fromdate = $('#fromdate_um').val();
+    todate = $('#todate_um').val();
+
+    console.log(username, usertype, mobile, zipcode, fromdate, todate);
+
+    condition = "";
+    count = 0;
+
+    if (username == null && usertype == null && mobile == "" && zipcode == "" && fromdate == "" && todate == "") {
+        condition = 'UserTypeId < 2';
+    }
+
+    if (username != null) {
+        if (count == 0) {
+            condition += " UserId = " + username;
+        } else {
+            condition += " AND UserId = " + username;
+        }
+        count = 1;
+    }
+
+    if (usertype != null) {
+        if (count == 0) {
+            condition += " UserTypeId = " + usertype;
+        } else {
+            condition += " AND UserTypeId = " + usertype;
+        }
+        count = 1;
+    }
+
+    if (mobile != "") {
+        if (count == 0) {
+            condition += " Mobile = '" + mobile + "'";
+        } else {
+            condition += " AND Mobile = '" + mobile + "'";
+        }
+        count = 1;
+    }
+
+    if (zipcode != "") {
+        if (count == 0) {
+            condition += " ZipCode = '" + zipcode + "'";
+        } else {
+            condition += " AND ZipCode = '" + zipcode + "'";
+        }
+        count = 1;
+    }
+
+    if (fromdate != "") {
+        if (count == 0) {
+            condition += " CreatedDate >= '" + fromdate + "'";
+        } else {
+            condition += " AND CreatedDate >= '" + fromdate + "'";
+        }
+        count = 1;
+    }
+
+    if (todate != "") {
+        if (count == 0) {
+            condition += " CreatedDate <= '" + todate + "'";
+        } else {
+            condition += " AND CreatedDate <= '" + todate + "'";
+        }
+        count = 1;
+    }
+
+    return condition;
+}
+
+$('#search_um').click(function (e) {
+    e.preventDefault();
+
+    condition = condition_um();
+
+    limit = $('#entries_um').val();
+    pagination_um('min');
+
+    loadAdminUserManagement(condition, 0, limit);
+    totalrecord_um(condition);
+    loadExportUserManagementTable(condition)
+
+});
+
+$('#entries_um').change(function (e) {
+    e.preventDefault();
+
+    limit = $('#entries_um').val();
+    loadAdminUserManagement('UserTypeId < 2', 0, limit);
+
+});
+
+function pagination_um(textno) {
+    limit = $('#entries_um').val();
+
+    totalentriestext = $('#totalrecord_um').html();
+    totalentriesarr = totalentriestext.split(": ");
+    totalentries = parseInt(totalentriesarr[1]);
+
+    maxpageno = Math.ceil(totalentries / limit);
+    currentpageno = parseInt($('.pagejs .active').html());
+
+    condition = condition_um();
+
+    if ($("#" + textno).length != 0) {
+        noarr = textno.split("-");
+        textno = parseInt(noarr[0]);
+    }
+
+    if ($.isNumeric(textno)) {
+
+        $('.pagejs .active').removeClass('active');
+
+        offset = (textno - 1) * limit;
+        loadAdminUserManagement(condition, offset, limit);
+        $('#' + textno + '-pagination').addClass('active');
+    } else if (textno == "next") {
+
+        if ($('.pagejs .active').hasClass('max-pagination')) {
+
+
+            if (currentpageno < maxpageno) {
+                $('.max-pagination').html(currentpageno + 1);
+                $('.max-pagination').attr('id', (currentpageno + 1) + "-pagination");
+
+                $('.min-pagination').html(currentpageno - 2);
+                $('.min-pagination').attr('id', (currentpageno - 2) + "-pagination");
+
+                $('.mid1-pagination').html(currentpageno - 1);
+                $('.mid1-pagination').attr('id', (currentpageno - 1) + "-pagination");
+
+                $('.mid2-pagination').html(currentpageno);
+                $('.mid2-pagination').attr('id', (currentpageno) + "-pagination");
+
+                currentpageno = parseInt($('.pagejs .active').html());
+                currentpageno -= 1;
+            }
+        }
+
+        if (currentpageno < maxpageno) {
+
+            $('.pagejs .active').removeClass('active');
+            currentpageno += 1;
+            offset = (currentpageno - 1) * limit;
+            loadAdminUserManagement(condition, offset, limit);
+            $('#' + currentpageno + '-pagination').addClass('active');
+        }
+
+
+    } else if (textno == "back") {
+
+        if ($('.pagejs .active').hasClass('min-pagination')) {
+            if (currentpageno > 1) {
+                console.log(currentpageno);
+
+                $('.min-pagination').html(currentpageno - 1);
+                $('.min-pagination').attr('id', (currentpageno - 1) + "-pagination");
+
+                $('.max-pagination').html(currentpageno + 2);
+                $('.max-pagination').attr('id', (currentpageno + 2) + "-pagination");
+
+                $('.mid1-pagination').html(currentpageno);
+                $('.mid1-pagination').attr('id', (currentpageno) + "-pagination");
+
+                $('.mid2-pagination').html(currentpageno + 1);
+                $('.mid2-pagination').attr('id', (currentpageno + 1) + "-pagination");
+            }
+        }
+
+
+        if (currentpageno > 1) {
+            $('.pagejs .active').removeClass('active');
+            currentpageno -= 1;
+            offset = (currentpageno - 1) * limit;
+            loadAdminUserManagement(condition, offset, limit);
+            $('#' + currentpageno + '-pagination').addClass('active');
+        }
+    } else if (textno == "max") {
+
+        paginationmaxno = $('.max-pagination').html();
+
+        if (paginationmaxno < maxpageno && currentpageno <= maxpageno) {
+
+            console.log("Hello");
+            $('.min-pagination').html(maxpageno - 3);
+            $('.min-pagination').attr('id', (maxpageno - 3) + "-pagination");
+
+            $('.max-pagination').html(maxpageno);
+            $('.max-pagination').attr('id', (maxpageno) + "-pagination");
+
+            $('.mid1-pagination').html(maxpageno - 2);
+            $('.mid1-pagination').attr('id', (maxpageno - 2) + "-pagination");
+
+            $('.mid2-pagination').html(maxpageno - 1);
+            $('.mid2-pagination').attr('id', (maxpageno - 1) + "-pagination");
+
+        }
+
+        $('.pagejs .active').removeClass('active');
+        offset = (maxpageno - 1) * limit;
+        loadAdminUserManagement(condition, offset, limit);
+        $('#' + maxpageno + '-pagination').addClass('active');
+
+    } else if (textno == "min") {
+
+        if (currentpageno > 1) {
+            $('.min-pagination').html("1");
+            $('.min-pagination').attr('id', 1 + "-pagination");
+
+            $('.max-pagination').html("4");
+            $('.max-pagination').attr('id', 4 + "-pagination");
+
+            $('.mid1-pagination').html("2");
+            $('.mid1-pagination').attr('id', 2 + "-pagination");
+
+            $('.mid2-pagination').html("3");
+            $('.mid2-pagination').attr('id', 3 + "-pagination");
+        }
+
+        $('.pagejs .active').removeClass('active');
+        offset = 0;
+        loadAdminUserManagement(condition, offset, limit);
+        $('#1-pagination').addClass('active');
+
+    } else {
+        console.log("Pagination Error");
+    }
+
+
+}
+
+//Export in Admin User Management
+
+$('#export_um').click(function (e) { 
+    e.preventDefault();
+
+    let data = document.getElementById('exportusermanagementTable');
+    var fp = XLSX.utils.table_to_book(data, {
+        sheet: 'Sheet1'
+    });
+
+    XLSX.write(fp, {
+        bookType: 'xlsx',
+        type: 'base64'
+    });
+    XLSX.writeFile(fp, 'Service History(Admin).xlsx');
+    
+});
 
 
 

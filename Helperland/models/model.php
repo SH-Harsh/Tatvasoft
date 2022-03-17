@@ -1230,7 +1230,35 @@ class EventModal
         }
     }
 
-    function fetchAllServiceRequestDetails($condition)
+    function fetchAllServiceRequestDetails($condition,$offset,$limit)
+    {
+        global $connection;
+
+        $qry = "SELECT S.Status,S.ServiceRequestId,S.ServiceId,S.ServiceStartDate,S.TotalCost,S.ServiceHours,S.ExtraHours,
+                   S.ServiceProviderId,S.UserId,U.Email  FROM servicerequest S LEFT JOIN user U on S.UserId = U.UserId WHERE $condition
+                    LIMIT $offset,$limit;";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            return $result;
+        }
+    }
+
+    function fetchTotalServiceRequestDetails($condition)
+    {
+        global $connection;
+
+        $qry = "SELECT * FROM servicerequest S LEFT JOIN user U on S.UserId = U.UserId WHERE $condition;";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            return $result;
+        }
+    }
+
+    function fetchAllServiceRequestDetails_Option($condition)
     {
         global $connection;
 
@@ -1244,11 +1272,24 @@ class EventModal
         }
     }
 
-    function getAllUserDetails()
+    function getAllUserDetails($condition,$offset,$limit)
     {
         global $connection;
 
-        $qry = "SELECT *FROM user WHERE UserTypeId = 0 OR UserTypeId = 1";
+        $qry = "SELECT *FROM user WHERE $condition LIMIT $offset,$limit";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            return $result;
+        }
+    }
+
+    function getAllUserDetails_UM($condition)
+    {
+        global $connection;
+
+        $qry = "SELECT *FROM user WHERE $condition ORDER BY FirstName";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
@@ -1275,7 +1316,8 @@ class EventModal
         }
     }
 
-    function UpdateActiveStatus($userid, $activestatus){
+    function UpdateActiveStatus($userid, $activestatus)
+    {
         global $connection;
 
         $qry = "UPDATE user SET IsActive = $activestatus WHERE UserId = $userid";

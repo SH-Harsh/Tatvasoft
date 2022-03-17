@@ -2051,9 +2051,22 @@ class EventController
    }
 
    //Admin Section
+
+   function fetchtotalRecord_SM(){
+      $condition = $_POST["reason"];
+
+      $result = $this->model->fetchTotalServiceRequestDetails($condition);
+
+      echo mysqli_num_rows($result);
+   }
+
    function loadServiceRequestAdmin()
    {
       $condition = $_POST["condition"];
+
+      $parameterarr = explode("-", $_GET["parameter"]);
+      $offset = $parameterarr[0];
+      $limit = $parameterarr[1];
 
       $output = "<tr class='table_heading service_req_heading'>
                   <th>Service ID</th>
@@ -2065,7 +2078,7 @@ class EventController
                   <th>Action</th>
             </tr>";
 
-      $result = $this->model->fetchAllServiceRequestDetails($condition);
+      $result = $this->model->fetchAllServiceRequestDetails($condition,$offset,$limit);
 
       $userlist = [];
       $helperslist = [];
@@ -2210,7 +2223,7 @@ class EventController
       $output = "<option value='user_name' disabled selected>Select Customer</option>";
       $condition = 'S.Status >= 0';
 
-      $result = $this->model->fetchAllServiceRequestDetails($condition);
+      $result = $this->model->fetchAllServiceRequestDetails_Option($condition);
 
       $userlist = [];
 
@@ -2241,7 +2254,7 @@ class EventController
       $output = "<option value='user_type' disabled selected>Select Service Provider</option>";
       $condition = 'S.Status >= 0';
 
-      $result = $this->model->fetchAllServiceRequestDetails($condition);
+      $result = $this->model->fetchAllServiceRequestDetails_Option($condition);
 
       $helperslist = [];
 
@@ -2300,10 +2313,15 @@ class EventController
 
    function loadUserManagAdmin()
    {
+      $condition = $_POST["reason"];
+
+      $parameterarr = explode("-", $_GET["parameter"]);
+      $offset = $parameterarr[0];
+      $limit = $parameterarr[1];
+
 
       $output = "<tr class='table_heading'>
                      <th>UserName</th>
-                     <th>Role</th>
                      <th>Date of Registration</th>
                      <th>User Type</th>
                      <th>Phone</th>
@@ -2312,7 +2330,7 @@ class EventController
                      <th>Action</th>
                </tr>";
 
-      $result = $this->model->getAllUserDetails();
+      $result = $this->model->getAllUserDetails($condition,$offset,$limit);
 
       while ($row = mysqli_fetch_assoc($result)) {
 
@@ -2330,7 +2348,6 @@ class EventController
 
          $output .= "<tr class='table_row'>
                         <td>$name</td>
-                        <td></td>
                         <td class='status_box'>
                            <p>
                               <img src='assets/images/calendar2.png'>
@@ -2429,4 +2446,86 @@ class EventController
 
       $this->model->UpdateActiveStatus($userid, $activestatus);
    }
+
+   function fetchCustomerNameList(){
+      $result = $this->model->getAllUserDetails_UM('UserTypeId < 2');
+
+      $output = "<option value='user_name' disabled selected>Select User Name</option>";
+      while($row = mysqli_fetch_assoc($result)){
+         $userid = $row["UserId"];
+         $name = $row["FirstName"]." ".$row["LastName"];
+
+         $output .= "<option value=$userid>$name</option>";
+      }
+
+      echo $output;
+   }
+
+   function fetchtotalRecord_UM(){
+
+      $condition = $_POST["reason"];
+      $result = $this->model->getAllUserDetails_UM($condition);
+
+      echo mysqli_num_rows($result);
+   }
+
+   //Export User management table of Admin
+
+   function loadExportUserManagAdmin()
+   {
+      $condition = $_POST["reason"];
+
+      $output = "<tr class='table_heading'>
+                     <th>UserName</th>
+                     <th>Date of Registration</th>
+                     <th>User Type</th>
+                     <th>Phone</th>
+                     <th>Postal Code</th>
+                     <th>Status</th>
+               </tr>";
+
+      $result = $this->model->getAllUserDetails_UM($condition);
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $name = $row["FirstName"] . " " . $row["LastName"];
+         $phoneno = $row["Mobile"];
+         $zipcode = $row["ZipCode"];
+         $usertype = $row["UserTypeId"];
+         $isActive = $row["IsActive"];
+         $userid = $row["UserId"];
+
+         //Date 
+         $datetime = $row["CreatedDate"];
+         $datetimearr = explode(" ",$datetime);
+         $date = $datetimearr[0];
+
+         $output .= "<tr class='table_row'>
+                        <td>$name</td>
+                        <td>$date</td>";
+
+         if ($usertype == 1) {
+            $output .=     "<td>Customer</td>";
+         } else {
+            $output .=     "<td>Service Provider</td>";
+         }
+
+
+
+         $output .= "   <td>$phoneno</td>
+                        <td>$zipcode</td>";
+
+         if ($isActive == 1) {
+            $output .=       "<td>Active</td>";
+         } else {
+            $output .=       "<td>Inactive</td>";
+         }
+
+
+         $output .= "</tr>";
+      }
+
+      echo $output;
+   }
+
 }

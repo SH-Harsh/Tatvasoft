@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="mr-2 mt-2">
-                        <button type="button" class="Search">Search</button>
+                        <button type="button" class="Search" id="search_sm">Search</button>
                     </div>
 
                     <div class="mr-2 mt-2">
@@ -666,7 +666,7 @@
             <div class="pages">
                 <p class="show">Show</p>
 
-                <select name="entries" id="entries" class="entries">
+                <select name="entries" id="entries_sm" class="entries">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -679,16 +679,17 @@
                     <option value="10" selected>10</option>
                 </select>
 
-                <p class="show" style="margin-left: 5px;">Entries</p>
+                <p class="show" style="margin-left: 5px;" id="totalrecord_sm">Entries Total Record: 20</p>
 
-                <div class="pagination">
-                    <a href="#"><img src="assets/images/first-page.png"></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#"><img src="assets/images/first-page.png" style="transform: rotate(180deg);"></a>
+                <div class="pagination pagejs">
+                    <a onclick="pagination_sm('min')"><img src="assets/images/first-page.png"></a>
+                    <a onclick="pagination_sm('back')"><img src="assets/images/keyboard-right-arrow.png"></a>
+                    <a onclick="pagination_sm(id)" class="active min-pagination" id="1-pagination">1</a>
+                    <a onclick="pagination_sm(id)" class="mid1-pagination" id="2-pagination">2</a>
+                    <a onclick="pagination_sm(id)" class="mid2-pagination" id="3-pagination">3</a>
+                    <a onclick="pagination_sm(id)" id="4-pagination" class="max-pagination">4</a>
+                    <a onclick="pagination_sm('next')"><img src="assets/images/keyboard-right-arrow.png" style="transform: rotate(180deg);"></a>
+                    <a onclick="pagination_sm('max')"><img src="assets/images/first-page.png" style="transform: rotate(180deg);"></a>
                 </div>
             </div>
 

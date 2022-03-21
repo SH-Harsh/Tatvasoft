@@ -79,12 +79,12 @@ function loadServiceProviderOption() {
     });
 }
 
-function totalrecord_sm(condition){
+function totalrecord_sm(condition) {
     $.ajax({
         type: "POST",
         url: "http://localhost/helperland/index.php?function=fetchtotalRecord_SM",
         data: {
-            reason : condition
+            reason: condition
         },
         success: function (response) {
             $('#totalrecord_sm').html("Entries Total Record: " + response);
@@ -92,7 +92,7 @@ function totalrecord_sm(condition){
     });
 }
 
-function loadadminServiceRequest(validation,offset,limit) {
+function loadadminServiceRequest(validation, offset, limit) {
     $.ajax({
         type: "POST",
         url: "http://localhost/helperland/index.php?function=loadServiceRequestAdmin&parameter=" + offset + "-" + limit,
@@ -120,27 +120,27 @@ function loadadminServiceRequest(validation,offset,limit) {
         }
     });
 
-    
+
 }
 
 $(document).ready(function () {
     condition = 'S.Status >= 0';
-    loadadminServiceRequest(condition,0,10);
+    loadadminServiceRequest(condition, 0, 10);
     totalrecord_sm(condition);
 
     loadCustomerOption();
     loadServiceProviderOption();
 });
 
-$('#entries_sm').change(function (e) { 
+$('#entries_sm').change(function (e) {
     e.preventDefault();
 
     limit = $('#entries_sm').val();
 
     condition = condition_sm();
-    loadadminServiceRequest(condition,0,limit);
+    loadadminServiceRequest(condition, 0, limit);
 
-    
+
 });
 
 $('.clear').click(function (e) {
@@ -149,7 +149,7 @@ $('.clear').click(function (e) {
     $('#adminServiceRequestForm').trigger('reset');
 });
 
-function condition_sm(){
+function condition_sm() {
 
     status_type = $('#status_type').val();
     ServiceProvider = $('#serviceProviderOption').val();
@@ -256,7 +256,7 @@ $('#search_sm').click(function (e) {
     limit = $('#entries_sm').val();
     pagination_sm('min');
 
-    loadadminServiceRequest(condition,0,limit);
+    loadadminServiceRequest(condition, 0, limit);
     totalrecord_sm(condition)
 
 });
@@ -354,7 +354,7 @@ $('#update_editmodal').click(function (e) {
 
     if (date1 == datecheck && time1 == timecheck) {
         updateServiceRequestAddress(servicerequestid);
-        loadadminServiceRequest('S.Status >= 0',0,10);
+        loadadminServiceRequest('S.Status >= 0', 0, 10);
         sendMailbyAdmin(servicerequestid, $reason);
         $('#editModalForm').trigger('reset');
     } else {
@@ -380,7 +380,7 @@ $('#update_editmodal').click(function (e) {
                         success: function (response) {
 
                             updateServiceRequestAddress(servicerequestid);
-                            loadadminServiceRequest('S.Status >= 0',0,10);
+                            loadadminServiceRequest('S.Status >= 0', 0, 10);
                             sendMailbyAdmin(servicerequestid, $reason);
 
                             $('#editModalForm').trigger('reset');
@@ -581,11 +581,11 @@ function loadCustomerNameList() {
     });
 }
 
-function totalrecord_um(condition){
+function totalrecord_um(condition) {
     $.ajax({
         type: "POST",
         url: "http://localhost/helperland/index.php?function=fetchtotalRecord_UM",
-        data : {
+        data: {
             reason: condition
         },
         success: function (response) {
@@ -596,7 +596,7 @@ function totalrecord_um(condition){
 
 //Export table
 
-function loadExportUserManagementTable(condition){
+function loadExportUserManagementTable(condition) {
     $.ajax({
         type: "POST",
         url: "http://localhost/helperland/index.php?function=loadExportUserManagAdmin",
@@ -643,7 +643,7 @@ $('#clear_um').click(function (e) {
 
 });
 
-function condition_um(){
+function condition_um() {
     username = $('#user_name_admin').val();
     usertype = $('#user_type_um').val();
     mobile = $('#phone_no_um').val();
@@ -880,7 +880,7 @@ function pagination_um(textno) {
 
 //Export in Admin User Management
 
-$('#export_um').click(function (e) { 
+$('#export_um').click(function (e) {
     e.preventDefault();
 
     let data = document.getElementById('exportusermanagementTable');
@@ -893,9 +893,101 @@ $('#export_um').click(function (e) {
         type: 'base64'
     });
     XLSX.writeFile(fp, 'Service History(Admin).xlsx');
-    
+
 });
 
+//Refund Amount
+
+function RefundDetails(id) {
+    // console.log(id);
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/helperland/index.php?function=fetchrefundmodaldetails",
+        data: {
+            serviceRequestId: id
+        },
+        success: function (response) {
+            Refunddetails = JSON.parse(response);
+
+            console.log(Refunddetails);
+
+            $('#totalAmount_RM').html(Refunddetails["totalcost"] + "€");
+
+            if (Refunddetails["refundAmount"] == null) {
+                $('#refundedAmount_RM').html(0 + "€");
+            } else {
+                $('#refundedAmount_RM').html(Refunddetails["refundAmount"] + "€");
+            }
+
+
+
+            availablebalance = Refunddetails["totalcost"] - Refunddetails["refundAmount"];
+            $('#AvailableBalance_RM').html(availablebalance + "€");
+
+            $('.refund_id').attr('id', id + "-refundid")
+        }
+    });
+}
+
+$('#amount_enter').change(function (e) {
+    e.preventDefault();
+
+    amount = $('#amount_enter').val();
+    format = $('#format_amount_enter').val();
+    if (format == 2) {
+        $('#calculate_value').val(amount);
+    } else {
+        availablebalance = $('#AvailableBalance_RM').html();
+        availablebalance_arr = availablebalance.split('€');
+        calculatevalue_per = parseFloat(availablebalance_arr[0]);
+
+        calculatevalue = (amount / 100) * calculatevalue_per;
+
+        $('#calculate_value').val(calculatevalue);
+    }
+
+});
+
+$('#refund_modal').click(function (e) {
+    e.preventDefault();
+
+    id = $('.refund_id').attr('id');
+    id_arr = id.split("-");
+    refundid = parseInt(id_arr[0]);
+
+    refundAmount = parseFloat($('#calculate_value').val());
+
+    refundedAmount = $('#refundedAmount_RM').html();
+    refundedAmount_arr = refundedAmount.split("€");
+    refundNo = parseFloat(refundedAmount_arr[0]);
+
+    totalrefund = refundAmount + refundNo;
+
+    totalAmount = $('#totalAmount_RM').html();
+    totalAmount_arr = totalAmount.split("€");
+    totalNo = parseFloat(totalAmount_arr[0]);
+
+    if (totalrefund < totalNo) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost/helperland/index.php?function=updaterefundvalue",
+            data: {
+                serviceRequestId: refundid,
+                refunded_amount: totalrefund
+            },
+            success: function (response) {
+                $('#redund_modal').modal('hide');
+                $('#refund_form').trigger('reset');
+            }
+        });
+
+    }else{
+        console.log("Error");
+    }
+
+
+});
 
 
 

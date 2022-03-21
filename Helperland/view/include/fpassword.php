@@ -26,6 +26,10 @@
     <div class="fp_box">
         <form class="form_fp" action="http://localhost/helperland/index.php?function=changepassword&parameter=
                                 <?php echo $_GET["parameter"] ?>" method="POST" onsubmit="return changepassword(this)">
+
+            <div class="alert alert-danger login_error" role="alert" style="display: none;">
+
+            </div>
             <div class="form-group">
                 <label for="password" class="label_fp">New Password</label>
                 <input type="password" class="form-control" id="email" name="password" placeholder="New Password" required>

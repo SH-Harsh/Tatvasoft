@@ -480,6 +480,27 @@ label{
     cursor: pointer;
 }
 
+/* Refund Amount Modal  */
+
+.refund_amount_text{
+    margin-bottom: 0px;
+    color: #565656;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.refund_amount_no{
+    color: #565656;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.format_amount{
+    background-color: #e9eef0 !important;
+}
+
+
+
 /* Forgot Password  */
 
 .fp_box{

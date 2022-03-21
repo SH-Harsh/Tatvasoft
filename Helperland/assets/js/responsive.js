@@ -315,7 +315,7 @@ function emailvalidation(email) {
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
 
-        alert("Please enter the email in correct format");
+        // alert("Please enter the email in correct format");
         return false;
     }
     return true;
@@ -326,7 +326,7 @@ function passwordvalidation(password) {
     if (password.match(/^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$/)) {
         return true;
     } else {
-        alert("Password must be minimum eight characters, at least one letter, one number and one special character");
+        // alert("Password must be minimum eight characters, at least one letter, one number and one special character");
         return false;
     }
 }
@@ -341,6 +341,8 @@ function checkPassword(form) {
     fname = form.fname.value.trim();
     lname = form.lname.value.trim();
 
+    $('.login_error').css('display', 'none');
+
     if (fname == "" || lname == "" || email == "" || password1 == "") {
         alert("Please don't enter the blank value");
         return false;
@@ -348,14 +350,26 @@ function checkPassword(form) {
 
     if (emailvalidation(email)) {
         if (password1 != password2) {
-            alert("\nPassword did not match: Please try again...")
+            // alert("\nPassword did not match: Please try again...")
+            $('.login_error').css('display', 'block');
+            $('.login_error').html('\nPassword did not match: Please try again...');
             return false;
         }
 
         if (passwordvalidation(password1)) {
-            alert("Register Successfull, Please now login")
+            // alert("Register Successfull, Please now login");
+            Swal.fire({
+                icon: 'success',
+                title: 'Register Successfull. Please Now login'
+            })
             return true;
+        } else {
+            $('.login_error').css('display', 'block');
+            $('.login_error').html('Password must be minimum eight characters, at least one letter, one number and one special character');
         }
+    } else {
+        $('.login_error').css('display', 'block');
+        $('.login_error').html('Enter the email in correct format');
     }
 
     return false;
@@ -367,15 +381,24 @@ function checkPassword(form) {
 function loginValidation(form) {
     email = form.login_email.value.trim().toLowerCase();
     password = form.login_password.value.trim();
-    console.log("I am a validation");
+    $('.login_error').css('display', 'none');
 
     if (email == "" || password == "") {
-        alert("Please don't enter the blank value");
+        // alert("Please don't enter the blank value");
         return false;
     }
 
     if (emailvalidation(email)) {
-        return passwordvalidation(password);
+        if (passwordvalidation(password)) {
+            return true;
+        } else {
+            $('.login_error').css('display', 'block');
+            $('.login_error').html('Password must be minimum eight characters, at least one letter, one number and one special character');
+            
+        }
+    } else {
+        $('.login_error').css('display', 'block');
+        $('.login_error').html('Enter the email in correct format');
     }
 
     return false;
@@ -387,11 +410,21 @@ function changepassword(form) {
     password1 = form.password.value.trim();
     password2 = form.cpassword.value.trim();
 
+    $('.login_error').css('display', 'none');
+
     if (password1 != password2) {
-        alert("Enter same password in both fields");
+        // alert("Enter same password in both fields");
+        $('.login_error').css('display', 'block');
+        $('.login_error').html('Enter same password in both fields');
         return false;
     } else {
-        return passwordvalidation(password1);
+        if (passwordvalidation(password1)) {
+            return true;
+        } else {
+            $('.login_error').css('display', 'block');
+            $('.login_error').html('Password must be minimum eight characters, at least one letter, one number and one special character');
+            return false;
+        }
     }
 }
 
@@ -404,13 +437,29 @@ function contactvalidation(form) {
     email = form.email.value.trim().toLowerCase();
     subject = form.subject.value;
     message = form.message.value.trim();
+    $('.login_error').css('display', 'none');
 
     if (fname == "" || lname == "" || phone_no == "" || email == "" || subject == "" || message == "") {
         alert("Please enter all the values")
         return false;
     }
 
-    return emailvalidation(email);
+    if (emailvalidation(email)) {
+        return true;
+    } else {
+        $('.login_error').css('display', 'block');
+        $('.login_error').html('Enter the email in correct format');
+        return false;
+    }
+}
+
+//Contact Us Submitted Successfully
+
+function contactus_successfully() {
+    Swal.fire({
+        icon: 'success',
+        title: 'We will contact you ASAP'
+    })
 }
 
 // Postal Code Validation
@@ -696,16 +745,15 @@ $("#average_rating").rateYo({
 
 //Sorting Option
 
-$('.sorting_click').click(function (e) { 
+$('.sorting_click').click(function (e) {
     e.preventDefault();
-    
+
     // $('.sorting_option').toggle('display','block');
-    
-    property =  $('.sorting_option').css('display');
-    if(property == 'none'){
+
+    property = $('.sorting_option').css('display');
+    if (property == 'none') {
         $('.sorting_option').css('display', 'block');
-    }else{
+    } else {
         $('.sorting_option').css('display', 'none');
     }
 });
-

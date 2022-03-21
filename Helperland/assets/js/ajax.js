@@ -81,6 +81,7 @@ $('#save_address_btn').click(function (e) {
                 $('#addnewaddress_form').trigger("reset");
                 $('.add_new_address').css('display', 'none');
                 $('.add_address').css('display', 'block');
+                $('#add_new_address_error').html(" ");
 
                 $('#user_address_aj').html(response);
 
@@ -940,19 +941,31 @@ $('#updatedetails_submit').click(function (e) {
     year = $('#settings_year').val();
     birthdate = year + "/" + month + "/" + date;
 
+    $('.login_error').css('display', 'none');
+    $('.updated_success_alert').css('display', 'none');
+
     if (fname == "" || lname == "" || Email == "" || Mobile == "") {
-        $('#details_error').html("Please Enter all the values");
-        $('#details_sucess').html(' ');
+        // $('#details_error').html("Please Enter all the values");
+        // $('#details_sucess').html(' ');
+
+        $('.login_error').css('display', 'block');
+        $('.login_error').html('Please Enter all the values');
     } else if (Mobile.length != 10) {
-        $('#details_error').html("Please Enter correct mobile no");
-        $('#details_sucess').html(' ');
+        // $('#details_error').html("Please Enter correct mobile no");
+        // $('#details_sucess').html(' ');
+
+        $('.login_error').css('display', 'block');
+        $('.login_error').html('Please Enter correct mobile no');
     } else if (!String(Email)
         .toLowerCase()
         .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
-        $('#details_error').html("Please Enter correct email Address");
-        $('#details_sucess').html(' ');
+        // $('#details_error').html("Please Enter correct email Address");
+        // $('#details_sucess').html(' ');
+
+        $('.login_error').css('display', 'block');
+        $('.login_error').html('Please Enter correct email Address');
     } else {
         $.ajax({
             type: "POST",
@@ -966,8 +979,13 @@ $('#updatedetails_submit').click(function (e) {
                 date: birthdate
             },
             success: function (response) {
-                $('#details_error').html(" ");
-                $('#details_sucess').html('Updated Successfully');
+                // $('#details_error').html(" ");
+                // $('#details_sucess').html('Updated Successfully');
+
+                $('.login_error').css('display', 'none');
+
+                $('.updated_success_alert').css('display', 'block');
+                $('.updated_success_alert').html('Updated Successfully');
             }
         });
     }
@@ -984,15 +1002,27 @@ $('#setting_update_password').click(function (e) {
     new_password = $('#new_password').val();
     confirm_password = $('#confirm_password').val();
 
+    $('.password_error').css('display', 'none');
+    $('.pass_updated_success_alert').css('display', 'none');
+
     if (old_password == "" || new_password == "" || confirm_password == "") {
-        $('#update_password_sucess').html(" ");
-        $('#update_password_error').html("Please Enter all the values");
+        // $('#update_password_sucess').html(" ");
+        // $('#update_password_error').html("Please Enter all the values");
+
+        $('.password_error').css('display', 'block');
+        $('.password_error').html('Please Enter all details');
     } else if (new_password != confirm_password) {
-        $('#update_password_sucess').html(" ");
-        $('#update_password_error').html("Please enter the same password");
+        // $('#update_password_sucess').html(" ");
+        // $('#update_password_error').html("Please enter the same password");
+
+        $('.password_error').css('display', 'block');
+        $('.password_error').html('Please enter the same password');
     } else if (!new_password.match(/^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$/)) {
-        $('#update_password_sucess').html(" ");
-        $('#update_password_error').html("Password must be minimum eight characters, at least one letter, one number and one special character");
+        // $('#update_password_sucess').html(" ");
+        // $('#update_password_error').html("Password must be minimum eight characters, at least one letter, one number and one special character");
+
+        $('.password_error').css('display', 'block');
+        $('.password_error').html('Password must be minimum eight characters, at least one letter, one number and one special character');
     } else {
         $.ajax({
             type: "POST",
@@ -1011,12 +1041,20 @@ $('#setting_update_password').click(function (e) {
                         success: function (response) {
                             $('#update_password_error').html(" ");
                             $('#update_password_sucess').html("Password Updated");
+
+                            $('.password_error').css('display', 'none');
+                            $('.pass_updated_success_alert').css('display', 'block');
+                            $('.pass_updated_success_alert').html('Updated Successfully');
+
                             $('#password_change_form').trigger("reset");
                         }
                     });
                 } else {
-                    $('#update_password_sucess').html(" ");
-                    $('#update_password_error').html("Incorrect old password");
+                    // $('#update_password_sucess').html(" ");
+                    // $('#update_password_error').html("Incorrect old password");
+
+                    $('.password_error').css('display', 'block');
+                    $('.password_error').html('Incorrect old password');
                 }
             }
         });
@@ -1064,11 +1102,17 @@ $('#submit_setting').click(function (e) {
     id = parseInt(idarr[0]);
 
     if (StreetName == "" || HouseNo == "" || PostalCode == "" || City == "" || PhoneNo == "") {
-        $('.setting_address_error').html("Please Enter all Value");
+        // $('.setting_address_error').html("Please Enter all Value");
+        $('.edit_address_error').css('display', 'block');
+        $('.edit_address_error').html('Please Enter all value');
     } else if (PostalCode.length != 6) {
-        $('.setting_address_error').html("Postal Code must have 6 numbers");
+        // $('.setting_address_error').html("Postal Code must have 6 numbers");
+        $('.edit_address_error').css('display', 'block');
+        $('.edit_address_error').html('Postal Code must have 6 numbers');
     } else if (PhoneNo.length != 10) {
-        $('.setting_address_error').html("Phone No must have 10 numbers");
+        // $('.setting_address_error').html("Phone No must have 10 numbers");
+        $('.edit_address_error').css('display', 'block');
+        $('.edit_address_error').html('Phone No must have 10 numbers');
     } else {
         $.ajax({
             type: "POST",
@@ -1083,8 +1127,13 @@ $('#submit_setting').click(function (e) {
             },
             success: function (response) {
                 setting_load_address();
-                $('.setting_address_error').html(" ");
-                $('.setting_address_sucess').html('Address Updated Successfully');
+                // $('.setting_address_error').html(" ");
+                // $('.setting_address_sucess').html('Address Updated Successfully');
+
+                $("#edit_address").modal("hide");
+                $(".modal-backdrop").remove();
+
+                $('.edit_address_error').css('display', 'none');
             }
         });
     }
@@ -1106,11 +1155,18 @@ $('#submit_add_setting').click(function (e) {
     console.log(streetname, houseno, postalcode, city, phone_no);
 
     if (streetname == "" || houseno == "" || postalcode == "" || city == "" || phone_no == "") {
-        $('#add_new_address_error').html("Please Enter all Value");
+        // $('#add_new_address_error').html("Please Enter all Value");
+        $('.add_address_error').css('display', 'block');
+        $('.add_address_error').html('Please Enter all value');
     } else if (postalcode.length != 6) {
-        $('#add_new_address_error').html("Postal Code must have 6 numbers");
+        // $('#add_new_address_error').html("Postal Code must have 6 numbers");
+        $('.add_address_error').css('display', 'block');
+        $('.add_address_error').html('Postal Code must have 6 numbers');
     } else if (phone_no.length != 10) {
-        $('#add_new_address_error').html("Phone No must have 10 numbers");
+        // $('#add_new_address_error').html("Phone No must have 10 numbers");
+
+        $('.add_address_error').css('display', 'block');
+        $('.add_address_error').html('Phone No must have 10 numbers');
     } else {
         $.ajax({
             type: "POST",
@@ -1124,6 +1180,12 @@ $('#submit_add_setting').click(function (e) {
             },
             success: function (response) {
                 setting_load_address();
+                // $('.add_address_error').css('display', 'block');
+                $('.add_address_error').css('display', 'none');
+                // $('#add_address').modal('toggle');
+                $("#add_address").modal("hide");
+                $(".modal-backdrop").remove();
+
                 $('#addnewaddress_setting_form').trigger("reset");
             }
         });
@@ -1195,21 +1257,33 @@ $('#save_details_sp').click(function (e) {
     City = $('#city_sp').val().trim();
 
     if (fname == "" || lname == "" || email == "" || phoneNo == "" || StreetName == "" || HouseNo == "" || PostalCode == "" || City == "") {
-        $('.save_details_error_sp').html("Please enter all details");
-        $('.save_details_sucess_sp').html("");
+        // $('.save_details_error_sp').html("Please enter all details");
+        // $('.save_details_sucess_sp').html("");
+
+        $('.account_details_error').css('display','block');
+        $('.account_details_error').html("Please enter all details");
     } else if (phoneNo.length != 10) {
-        $('.save_details_error_sp').html("Please enter correct mobile no");
-        $('.save_details_sucess_sp').html("");
+        // $('.save_details_error_sp').html("Please enter correct mobile no");
+        // $('.save_details_sucess_sp').html("");
+
+        $('.account_details_error').css('display','block');
+        $('.account_details_error').html("Please enter correct mobile no");
     } else if (PostalCode.length != 6) {
-        $('.save_details_error_sp').html("Please enter correct postal code");
-        $('.save_details_sucess_sp').html("");
+        // $('.save_details_error_sp').html("Please enter correct postal code");
+        // $('.save_details_sucess_sp').html("");
+
+        $('.account_details_error').css('display','block');
+        $('.account_details_error').html("Please enter correct postal code");
     } else if (!String(email)
         .toLowerCase()
         .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
-        $('.save_details_error_sp').html("Please enter email in correct format");
-        $('.save_details_sucess_sp').html("");
+        // $('.save_details_error_sp').html("Please enter email in correct format");
+        // $('.save_details_sucess_sp').html("");
+
+        $('.account_details_error').css('display','block');
+        $('.account_details_error').html("Please enter email in correct format");
     } else {
         $.ajax({
             type: "POST",
@@ -1229,11 +1303,16 @@ $('#save_details_sp').click(function (e) {
                 city: City
             },
             success: function (response) {
-                $('.save_details_error_sp').html("");
-                $('.save_details_sucess_sp').html("Updated Successfully");
+                // $('.save_details_error_sp').html("");
+                // $('.save_details_sucess_sp').html("Updated Successfully");
+
+                $('.account_details_error').css('display','none');
+                $('.account_details_success_alert').css('display','block');
+                $('.account_details_success_alert').html("Updated Successfully");
             }
         });
     }
+    window.scrollTo(0, 10);
 });
 
 //New Service Request
@@ -2186,4 +2265,3 @@ $('#entries_rating_Sp').change(function (e) {
     $('#pageno_rating_Sp').html("1");
 
 });
-

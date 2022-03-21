@@ -8,7 +8,7 @@
         ?>
 
             <div class="alert alert-danger mr-4" role="alert">
-                Username or password is Invalid
+                <?= $_SESSION["login_error"] ?>
             </div>
 
         <?php
@@ -19,14 +19,23 @@
         <p class="login">Login to your Account</p>
 
         <form onsubmit="return loginValidation(this)" method="POST" action="<?php echo "$base_url?function=login" ?>">
+
+            <div class="alert alert-danger login_error" role="alert" style="display: none;">
+
+            </div>
+
+            
+
             <div class="email_login">
-                <input type="email" name="login_email" placeholder="Email" required 
-                    value="<?php  if (isset($_COOKIE["email"])) { echo $_COOKIE["email"]; }?>">
+                <input type="email" name="login_email" placeholder="Email" required value="<?php if (isset($_COOKIE["email"])) {
+                                                                                                echo $_COOKIE["email"];
+                                                                                            } ?>">
                 <i class="fas fa-user"></i>
             </div>
             <div class="email_login">
-                <input type="password" name="login_password" placeholder="Password" required 
-                value="<?php  if (isset($_COOKIE["password"])) { echo $_COOKIE["password"]; }?>">
+                <input type="password" name="login_password" placeholder="Password" required value="<?php if (isset($_COOKIE["password"])) {
+                                                                                                        echo $_COOKIE["password"];
+                                                                                                    } ?>">
                 <i class="fas fa-lock"></i>
             </div>
             <div class="remember_me">

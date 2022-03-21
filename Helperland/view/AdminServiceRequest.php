@@ -825,4 +825,91 @@
     </div>
 </div>
 
+<!-- Refund Modal  -->
+<div class="modal fade" id="redund_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Refund Amount</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="refund_form">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="refund_amount_text">Paid Amount</p>
+                            <p class="refund_amount_no" id="totalAmount_RM">54,00 €</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="refund_amount_text">Refunded Amount</p>
+                            <p class="refund_amount_no" id="refundedAmount_RM">0,00 €</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="refund_amount_text">In Balance Amount</p>
+                            <p class="refund_amount_no" id="AvailableBalance_RM">54,00 €</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="amount_input" class="refund_amount_text">Amount</label>
+                                <div class="row">
+                                    <div class="col-sm-6" style="padding-right: 0px;">
+                                        <input type="number" class=" form-control" id="amount_enter">
+                                    </div>
+                                    <div class="col-sm-6" style="padding-left: 0px;">
+                                        <select class="form-control format_amount" id="format_amount_enter">
+                                            <option value="1">Percentage</option>
+                                            <option value="2">Normal</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="amount_input" class="refund_amount_text">Calculate</label>
+                                <div class="row">
+                                    <div class="col-sm-6" style="padding-right: 0px;">
+                                        <input type="text" class="form-control" value="Calculate" readonly>
+                                    </div>
+                                    <div class="col-sm-6" style="padding-left: 0px;">
+                                        <input type="text" class="form-control" id="calculate_value" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="refund_amount" class="refund_amount_text">Why do you want to refund amount?</label>
+                        <textarea name="refund_amount" rows="4" placeholder="Why do you want to refund amount?" class="modal_textarea"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="refund_amount" class="refund_amount_text">Call Center EMP Notes?</label>
+                        <textarea name="refund_amount" rows="4" placeholder="Enter Notes" class="modal_textarea"></textarea>
+                    </div>
+
+                    <div class="requestid_editModal refund_id">
+                        <button type="button" class="modal_btn" id="refund_modal" style="padding: 10px 0px;">Refund</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+
 <?php include "view/include/admin_footer.php"  ?>

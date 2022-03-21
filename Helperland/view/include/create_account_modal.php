@@ -11,6 +11,10 @@
         </div>
 
         <form onsubmit="return checkPassword(this)" method="POST" action="<?php echo "$base_url?function=insertaccountdetails"  ?>">
+
+            <div class="alert alert-danger login_error" role="alert" style="display: none;">
+
+            </div>
             <div class="row mb-3">
                 <div class="col">
                     <input type="text" class="form-control" placeholder="First name" name="fname" required>
@@ -29,9 +33,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">+91</div>
                         </div>
-                        <input type="text" class="form-control" name="phone_no" 
-                        placeholder="Mobile No" required maxlength="10" pattern="[7-9]{1}[0-9]{9}" 
-                        title="Enter valid 10 digit number">
+                        <input type="text" class="form-control" name="phone_no" placeholder="Mobile No" required maxlength="10" pattern="[7-9]{1}[0-9]{9}" title="Enter valid 10 digit number">
                     </div>
                 </div>
             </div>

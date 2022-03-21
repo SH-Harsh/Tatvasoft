@@ -180,7 +180,7 @@ class EventController
                   setcookie("password", "$password", time() + (8600 * 30), "/");
                }
             } else {
-               $_SESSION["login_error"] = "Some values are improper";
+               $_SESSION["login_error"] = "Username or password is Invalid";
             }
          }
 
@@ -2200,7 +2200,7 @@ class EventController
                         <a class='dropdown-item edit_reschedule' onclick='ServiceDetails($servicerequestid)'>Edit and Reschedule</a>";
          }
 
-         $output .=                 "<a class='dropdown-item'>Refund</a>
+         $output .=                 "<a class='dropdown-item' data-toggle='modal' data-target='#redund_modal' onclick='RefundDetails($servicerequestid)'>Refund</a>
                                     <a class='dropdown-item'>Cancel</a>
                                     <a class='dropdown-item'>Change SP</a>
                                     <a class='dropdown-item'>Escale</a>
@@ -2526,6 +2526,25 @@ class EventController
       }
 
       echo $output;
+   }
+
+   function fetchrefundmodaldetails(){
+      $id = $_POST["serviceRequestId"];
+
+      $row = $this->model->getServiceRequests_SP_details($id);
+
+      $refunddetails["totalcost"] = $row["TotalCost"];
+      $refunddetails["refundAmount"] = $row["RefundedAmount"];
+
+      echo json_encode($refunddetails);
+   
+   }
+
+   function updaterefundvalue(){
+      $id = $_POST["serviceRequestId"];
+      $refundedAmount = $_POST["refunded_amount"];
+
+      $this->model->updateRefundedValue($id,$refundedAmount);
    }
 
 }

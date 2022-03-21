@@ -611,6 +611,15 @@
                         <div id="details" class="tabcontent" style="display: block;">
 
                             <form>
+
+                                <div class="alert alert-danger login_error" role="alert" style="display: none;">
+
+                                </div>
+
+                                <div class="alert alert-success updated_success_alert" role="alert" style="display: none;">
+
+                                </div>
+
                                 <div class="form-row mt-5">
                                     <div class="col-md-4">
                                         <label for="first_name">First Name</label>
@@ -771,6 +780,9 @@
                                         </div>
                                         <div class="modal-body">
                                             <form action="#">
+                                                <div class="alert alert-danger edit_address_error" role="alert" style="display: none;">
+
+                                                </div>
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <label for="street_name">Street Name</label>
@@ -806,9 +818,9 @@
                                                 </div>
 
                                                 <div>
-                                                    <button type="submit" data-dismiss="modal" id="submit_setting" class="submit_my_settings" style="width: 100%;">Edit</button>
+                                                    <button type="submit" id="submit_setting" class="submit_my_settings" style="width: 100%;">Edit</button>
                                                 </div>
-                                                <div class="edit_address_error text-danger"></div>
+                                                <!-- <div class="edit_address_error text-danger"></div> -->
                                             </form>
                                         </div>
                                     </div>
@@ -827,6 +839,9 @@
                                         </div>
                                         <div class="modal-body">
                                             <form action="#" id="addnewaddress_setting_form">
+                                                <div class="alert alert-danger add_address_error" role="alert" style="display: none;">
+
+                                                </div>
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <label for="street_name">Street Name</label>
@@ -862,7 +877,7 @@
                                                 </div>
 
                                                 <div>
-                                                    <button type="submit" data-dismiss="modal" id="submit_add_setting" class="submit_my_settings" style="width: 100%;">Add</button>
+                                                    <button type="submit" id="submit_add_setting" class="submit_my_settings" style="width: 100%;">Add</button>
                                                 </div>
 
                                             </form>
@@ -898,6 +913,15 @@
                         <!-- Change Password  -->
                         <div id="change_pass" class="tabcontent">
                             <form id="password_change_form">
+
+                                <div class="alert alert-danger password_error" role="alert" style="display: none;">
+
+                                </div>
+
+                                <div class="alert alert-success pass_updated_success_alert" role="alert" style="display: none;">
+
+                                </div>
+
                                 <div class="form-group">
                                     <label for="old_password">Old Password</label>
                                     <input type="password" class="form-control" id="old_password" placeholder="Current Password" style="width: 200px;">
@@ -929,7 +953,7 @@
                                 <p class="block_name">Guarang Patel</p>
 
                                 <div style="width: 100%; display: flex; justify-content: center;">
-                                    
+
                                     <div class="rating_customer"></div>
                                     <span class="ml-2">4</span>
                                 </div>

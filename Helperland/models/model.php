@@ -1326,4 +1326,15 @@ class EventModal
             die("Query Failed" . mysqli_error($connection));
         }
     }
+
+    function updateRefundedValue($id,$refundedAmount){
+
+        global $connection;
+
+        $qry = "UPDATE servicerequest SET RefundedAmount = $refundedAmount WHERE ServiceRequestId = $id";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        }
+    }
 }

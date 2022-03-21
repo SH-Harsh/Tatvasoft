@@ -265,7 +265,18 @@
                             </div>
                         </div>
 
+
+
                         <div id="details" class="tabcontent" style="display: block;">
+
+                            <div class="alert alert-danger account_details_error mt-2" role="alert" style="display: none;">
+
+                            </div>
+
+                            <div class="alert alert-success account_details_success_alert mt-2" role="alert" style="display: none;">
+
+                            </div>
+                            
                             <p class="account_status">Account Status: <span>Active</span></p>
 
                             <p class="account_status">Basic details</p>
@@ -438,6 +449,15 @@
 
                         <div id="change_pass" class="tabcontent">
                             <form id="password_change_form">
+
+                                <div class="alert alert-danger password_error" role="alert" style="display: none;">
+
+                                </div>
+
+                                <div class="alert alert-success pass_updated_success_alert" role="alert" style="display: none;">
+
+                                </div>
+
                                 <div class="form-group">
                                     <label for="old_password">Old Password</label>
                                     <input type="password" class="form-control" id="old_password" placeholder="Current Password" style="width: 200px;">
@@ -452,8 +472,8 @@
                                 </div>
 
                                 <button type="button" class="submit_my_settings" id="setting_update_password">Save</button>
-                                <div id="update_password_sucess" class="text-success"></div>
-                                <div id="update_password_error" class="text-danger"></div>
+                                <!-- <div id="update_password_sucess" class="text-success"></div>
+                                <div id="update_password_error" class="text-danger"></div> -->
                             </form>
                         </div>
 

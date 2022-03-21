@@ -117,6 +117,9 @@ unset($_SESSION["contactus"]);
 
             <div class="flex-container flex-container-center">
                 <form action="<?= "$base_url?function=contactus"   ?>" method="POST" onsubmit="return contactvalidation(this)" enctype="multipart/form-data">
+                    <div class="alert alert-danger login_error" role="alert" style="display: none;">
+
+                    </div>
                     <div class="form-row">
                         <div class="col">
                             <input type="text" class="form-control" placeholder="First name" name="first_name" required>

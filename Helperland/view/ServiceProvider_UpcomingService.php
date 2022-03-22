@@ -74,7 +74,7 @@
                             <tr class="active_left upcoming_service">
                                 <td><a href="#">Upcoming Services</a></td>
                             </tr>
-                            <tr>
+                            <tr class="service_schedule_tab">
                                 <td><a href="#">Service Schedule</a></td>
                             </tr>
                             <tr class="service_history_tab">
@@ -942,6 +942,11 @@
                         </div>
 
 
+                    </section>
+
+                    <!-- Service Schedule -->
+                    <section id="service_schedule" style="display: none;">
+                        <div id="calendra_display"></div>
                     </section>
 
                 </div>

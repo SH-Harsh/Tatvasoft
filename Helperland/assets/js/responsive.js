@@ -94,6 +94,7 @@ function display(id) {
     $('#Service_history').css('display', 'none');
     $('#dashboard').css('display', 'none');
     $('#upcoming_service_list').css('display', 'none');
+    $('#service_schedule').css('display', 'none');
 
     $('.active_left').removeClass('active_left');
 
@@ -144,6 +145,12 @@ $('.my_ratings_tab').click(function () {
     $('.my_ratings_tab').addClass('active_left');
 })
 
+$('.service_schedule_tab').click(function (e) { 
+    display('#service_schedule');
+    $('.service_schedule_tab').addClass('active_left');
+    
+});
+
 $('.dashboard_tab').click(function () {
     display('#dashboard');
     $('.dashboard_tab').addClass('active_left');
@@ -166,7 +173,9 @@ $('.upcoming_service').click(function () {
 // Date time picker 
 
 $(function () {
-    $('#datetimepicker1').datepicker();
+    $('#datetimepicker1').datepicker({
+        format: "yyyy/mm/dd",
+    });
 });
 
 
@@ -202,6 +211,7 @@ function avgrating() {
     val3 = parseInt($('.rating_value2').html());
 
     average = (val1 + val2 + val3) / 3;
+    
     $('#average_rating_value').html(average.toFixed(1));
 
     $("#average_rating").rateYo("option", "rating", average.toFixed(1)); //returns a jQuery Element
@@ -599,7 +609,7 @@ $('#service_duration').on('change', function () {
 
     duration = this.value;
     time_str = duration.split(" ");
-    time = parseInt(time_str[0]);
+    time = parseFloat(time_str[0]);
     totalpayment = time * 100;
     totalhrs = time;
     $('#totalpayment p span').html(totalpayment.toString().concat(" €"));
@@ -704,6 +714,12 @@ function logoutalert() {
     })
 }
 
+//Spinner
+
+$(document).ready(function () {
+    $('.docreadyspinner').removeClass('spinner-border');
+});
+
 // Rating 
 
 $("#rateYo").rateYo({
@@ -757,3 +773,4 @@ $('.sorting_click').click(function (e) {
         $('.sorting_option').css('display', 'none');
     }
 });
+

@@ -23,6 +23,8 @@ $('#check_availability').click(function (e) {
                     var splitted = response.split("|");
                     $('#postalcode_yd').val(splitted[0]);
                     $('#city_yd').val(splitted[1]);
+
+                    $('#postalerror').html(" ");
                 }
             }
         });
@@ -32,21 +34,53 @@ $('#check_availability').click(function (e) {
 $('#continue_schedulePlan').click(function (e) {
     e.preventDefault();
 
-    schedulePlan();
+    var date = $('#date_sr').val();
+    var parts = date.split("/");
+    var conditiondate = new Date(parts[0], parts[1] - 1, parts[2]);
 
-    $.ajax({
-        url: "http://localhost/helperland/index.php?function=loadaddress",
-        success: function (response) {
-            $('#user_address_aj').html(response);
-        }
-    });
+    var today = new Date();
 
-    $.ajax({
-        url: "http://localhost/helperland/index.php?function=favourite_service_provider",
-        success: function (response) {
-            $('#fav_service_provider_box').html(response);
-        }
-    });
+    var currentdate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var checkdate = conditiondate.getFullYear() + '-' + (conditiondate.getMonth() + 1) + '-' + conditiondate.getDate();
+
+    var postalcode = $('#postalcode_yd').val().trim();
+
+    if (checkdate >= currentdate) {
+        // console.log("Allow");
+        $('#date_error_alert').css('display', 'none');
+
+        schedulePlan();
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost/helperland/index.php?function=loadaddress",
+            data: {
+                zipcode: postalcode
+            },
+            success: function (response) {
+                $('#user_address_aj').html(response);
+            }
+        });
+
+        $.ajax({
+            url: "http://localhost/helperland/index.php?function=favourite_service_provider",
+            success: function (response) {
+                $('#fav_service_provider_box').html(response);
+            }
+        });
+
+    } else {
+        // console.log("Not Allow");
+
+        $('#date_error_alert').css('display', 'block');
+        window.scrollTo({
+            top: 300,
+            behavior: 'smooth'
+        });
+
+    }
+
+
 
 });
 
@@ -87,6 +121,19 @@ $('#save_address_btn').click(function (e) {
 
                 $('#postalcode_yd').val(postalcode);
                 $('#city_yd').val(city);
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost/helperland/index.php?function=loadaddress",
+                    data: {
+                        zipcode: postalcode
+                    },
+                    success: function (response) {
+                        $('#user_address_aj').html(response);
+                    }
+                });
+
+
             }
         });
     }
@@ -141,6 +188,9 @@ $('#continue_details').click(function (e) {
 $('#complete_booking').click(function (e) {
     e.preventDefault();
 
+    spinner = '<div class="spinner-border"></div>';
+    $('#complete_booking').html(spinner);
+
     creditcardno = $('#creditcardno').val().trim();
     creditcardexpiry = $('#creditcardexpiry').val().trim();
     creditcardcvc = $('#creditcardcvc').val().trim();
@@ -180,7 +230,7 @@ $('#complete_booking').click(function (e) {
             ServiceProviderid = 0;
         }
 
-        console.log(ServiceProviderid);
+        console.log(duration);
 
         $.ajax({
             type: "POST",
@@ -209,6 +259,8 @@ $('#complete_booking').click(function (e) {
                         addressid: id_arr[0]
                     },
                     success: function (response) {
+
+                        $('#complete_booking').html("Complete Booking");
                         $('.request_id').html("Service Request Id: ".concat(response));
                         $('#complete_booking_modal').modal('show');
 
@@ -258,7 +310,7 @@ function loaddashboard(offset, limit) {
         // type: "method",
         url: "http://localhost/helperland/index.php?function=fetchcurrentservicerequest&parameter=" + offset + "-" + limit,
         success: function (response) {
-            // console.log(response);
+            console.log(response);
             $('.dashboard_table').html(response);
             $('.avg_rating_serprovider').rateYo({
                 rating: 1,
@@ -344,6 +396,7 @@ $('#reschudele_update').click(function () {
             serviceid: id
         },
         success: function (response) {
+            console.log(response);
             if (response == 0) {
                 $.ajax({
                     type: "POST",
@@ -359,7 +412,7 @@ $('#reschudele_update').click(function () {
                         $('#Reschudule').modal('hide');
                         $('.show').remove('.modal-backdrop');
                         loaddashboard(0, 2);
-                        console.log(response);
+                        // console.log(response);
                     }
                 });
             } else {
@@ -1260,19 +1313,19 @@ $('#save_details_sp').click(function (e) {
         // $('.save_details_error_sp').html("Please enter all details");
         // $('.save_details_sucess_sp').html("");
 
-        $('.account_details_error').css('display','block');
+        $('.account_details_error').css('display', 'block');
         $('.account_details_error').html("Please enter all details");
     } else if (phoneNo.length != 10) {
         // $('.save_details_error_sp').html("Please enter correct mobile no");
         // $('.save_details_sucess_sp').html("");
 
-        $('.account_details_error').css('display','block');
+        $('.account_details_error').css('display', 'block');
         $('.account_details_error').html("Please enter correct mobile no");
     } else if (PostalCode.length != 6) {
         // $('.save_details_error_sp').html("Please enter correct postal code");
         // $('.save_details_sucess_sp').html("");
 
-        $('.account_details_error').css('display','block');
+        $('.account_details_error').css('display', 'block');
         $('.account_details_error').html("Please enter correct postal code");
     } else if (!String(email)
         .toLowerCase()
@@ -1282,7 +1335,7 @@ $('#save_details_sp').click(function (e) {
         // $('.save_details_error_sp').html("Please enter email in correct format");
         // $('.save_details_sucess_sp').html("");
 
-        $('.account_details_error').css('display','block');
+        $('.account_details_error').css('display', 'block');
         $('.account_details_error').html("Please enter email in correct format");
     } else {
         $.ajax({
@@ -1306,8 +1359,8 @@ $('#save_details_sp').click(function (e) {
                 // $('.save_details_error_sp').html("");
                 // $('.save_details_sucess_sp').html("Updated Successfully");
 
-                $('.account_details_error').css('display','none');
-                $('.account_details_success_alert').css('display','block');
+                $('.account_details_error').css('display', 'none');
+                $('.account_details_success_alert').css('display', 'block');
                 $('.account_details_success_alert').html("Updated Successfully");
             }
         });
@@ -2265,3 +2318,76 @@ $('#entries_rating_Sp').change(function (e) {
     $('#pageno_rating_Sp').html("1");
 
 });
+
+
+//Calendra View
+
+// document.addEventListener('DOMContentLoaded', function () {
+
+// });
+
+
+
+$(document).ready(function () {
+    // var calendarEl = document.getElementById('calendra_display');
+    // var calendar = new FullCalendar.Calendar(calendarEl, {
+    //     headerToolbar: {
+    //         start: 'prev,next,today',
+    //         center: 'title', // buttons for switching between views
+    //         end: 'prevYear,nextYear'
+    //     },
+    //     themeSystem: 'bootstrap',
+    //     initialView: 'dayGridMonth'
+    // });
+    // calendar.render();
+});
+
+$('.service_schedule_tab').click(function (e) {
+    e.preventDefault();
+
+    var calendarEl = document.getElementById('calendra_display');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+            start: 'prev,next,today',
+            center: 'title', // buttons for switching between views
+            end: 'prevYear,nextYear'
+        },
+        themeSystem: 'bootstrap',
+        initialView: 'dayGridMonth',
+        // events: [
+        //     {
+        //       title  : 'event1',
+        //       start  : '2022-03-04'
+        //     },
+        // ]
+        events: {
+            url: 'http://localhost/helperland/index.php?function=loadsevent',
+        }, 
+    });
+    calendar.render();
+
+});
+
+
+// $(document).ready(function () {
+//     var calendar = $('#calendar').fullCalendar({
+// 		header: {
+// 			left: 'prev,next today',
+// 			center: 'title',
+// 			right: 'month,basicWeek,basicDay'
+// 		},
+// 		navLinks: true, // can click day/week names to navigate views
+// 		editable: true,
+// 		eventLimit: true,
+//         events: "all_events.php",
+//         displayEventTime: false,
+//         eventRender: function (event, element, view) {
+//             if (event.allDay === 'true') {
+//                 event.allDay = true;
+//             } else {
+//                 event.allDay = false;
+//             }
+//         }
+
+//     });
+// });

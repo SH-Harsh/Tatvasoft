@@ -76,6 +76,12 @@
 <!-- Sweet Alert Libray  -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- Full Calendra  -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.js"></script>
+
 <script src="assets/js/responsive.js"></script>
 <script src="assets/js/admin.js"></script>
 <script src="assets/js/faq.js"></script>

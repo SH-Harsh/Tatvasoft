@@ -224,12 +224,12 @@ class EventModal
         }
     }
 
-    function fetchuseraddress()
+    function fetchuseraddress($zipcode)
     {
         global $connection;
         $userid = $_SESSION["userid"];
 
-        $qry = "SELECT *FROM useraddress WHERE UserId = $userid";
+        $qry = "SELECT *FROM useraddress WHERE UserId = $userid AND PostalCode = '$zipcode'";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
@@ -465,8 +465,10 @@ class EventModal
     function checkserviceavailable($datetime)
     {
         global $connection;
+        $userid = $_SESSION["userid"];
 
-        $qry = "SELECT *FROM servicerequest WHERE ServiceStartDate = '$datetime'";
+        // $qry = "SELECT *FROM servicerequest WHERE ServiceStartDate = '$datetime'";
+        $qry = "SELECT *FROM servicerequest WHERE UserId = $userid AND `Status` = 0";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
@@ -844,10 +846,10 @@ class EventModal
         echo $pets;
 
         if ($pets == 0) {
-            $qry = "SELECT *FROM servicerequest WHERE ZipCode = $pincode AND ServiceStartDate >= '$date' 
+            $qry = "SELECT *FROM servicerequest WHERE ZipCode = '$pincode' AND ServiceStartDate >= '$date' 
                      AND ServiceProviderId IS NULL  AND `Status` = 0 LIMIT $offset,$limit";
         } else {
-            $qry = "SELECT *FROM servicerequest WHERE ZipCode = $pincode AND ServiceStartDate >= '$date'
+            $qry = "SELECT *FROM servicerequest WHERE ZipCode = '$pincode' AND ServiceStartDate >= '$date'
                     AND ServiceProviderId IS NULL  AND `Status` = 0 AND HasPets = $pets LIMIT $offset,$limit";
         }
 
@@ -1335,6 +1337,18 @@ class EventModal
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));
+        }
+    }
+
+    function getallevents($userid){
+        global $connection;
+
+        $qry = "SELECT *FROM servicerequest WHERE ServiceProviderId = $userid";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        }else{
+            return $result;
         }
     }
 }

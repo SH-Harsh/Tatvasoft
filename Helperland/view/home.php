@@ -67,6 +67,10 @@ if (isset($_COOKIE["userid"])) {
 
 <section onclick="closeSideMenu()" id="background_body">
 
+    <!-- Spinner  -->
+    <!-- <div id="spinner_loading"></div> -->
+    <!-- <div class="spinner-border docreadyspinner"></div> -->
+
     <!-- Banner Section  -->
     <section id="banner">
         <div class="first_content">

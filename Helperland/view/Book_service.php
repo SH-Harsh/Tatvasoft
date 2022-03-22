@@ -274,6 +274,9 @@
                     <!-- Schedule & Plan with ajax -->
                     <section id="schedule_plan" style="display: none;">
                         <!-- <form id="schedule_plan_form"> -->
+                        <div class="alert alert-danger mt-5" role="alert" id="date_error_alert" style="display: none;">
+                            Date is not Valid.
+                        </div>
                         <div class="row">
                             <div class="col-md-5">
                                 <p class="need_cleaner">When do you need the cleaner?</p>
@@ -285,22 +288,32 @@
                                                 <span class="input-group-addon calendra_box">
                                                     <span class="calendra_img"> <img src="assets/images/admin-calendar-blue.png"></span>
                                                 </span>
-                                                <input type='text' class="form-control" name="date_sr" id="date_sr" placeholder="From date" value="<?= date("d/m/Y") ?>" required />
+                                                <input type='text' class="form-control" name="date_sr" id="date_sr" placeholder="From date" value="<?= date("Y/m/d") ?>" required />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-0">
                                         <select id="service_time" class="form-control" name="time_sr">
                                             <option selected>8:00</option>
+                                            <option>8:30</option>
                                             <option>9:00</option>
+                                            <option>9:30</option>
                                             <option>10:00</option>
+                                            <option>10:30</option>
                                             <option>11:00</option>
+                                            <option>11:30</option>
                                             <option>12:00</option>
+                                            <option>12:30</option>
                                             <option>13:00</option>
+                                            <option>13:30</option>
                                             <option>14:00</option>
+                                            <option>14:30</option>
                                             <option>15:00</option>
+                                            <option>15:30</option>
                                             <option>16:00</option>
+                                            <option>16:30</option>
                                             <option>17:00</option>
+                                            <option>17:30</option>
                                             <option>18:00</option>
                                         </select>
                                     </div>
@@ -315,10 +328,15 @@
 
                                 <select id="service_duration" class="form-control" name="duration_sr" style="width: 100px;">
                                     <option selected>3 hrs</option>
+                                    <option>3.5 hrs</option>
                                     <option>4 hrs</option>
+                                    <option>4.5 hrs</option>
                                     <option>5 hrs</option>
+                                    <option>5.5 hrs</option>
                                     <option>6 hrs</option>
+                                    <option>6.5 hrs</option>
                                     <option>7 hrs</option>
+                                    <option>7.5 hrs</option>
                                     <option>8 hrs</option>
                                 </select>
                             </div>

@@ -162,22 +162,29 @@ class EventController
             $row = $this->model->loginuser($user);
 
             if (isset($row)) {
-               $fname = $row["FirstName"];
-               $lname = $row["LastName"];
-               $name = "$fname " . "$lname";
-               $userid = $row["UserId"];
-               $usertype = $row["UserTypeId"];
-               $email = $user['email'];
-               $password = $user['password'];
-               $_SESSION["userid"] = $userid;
-               $_SESSION["name"] = $name;
-               $_SESSION["usertype"] = $usertype;
 
-               if (isset($_POST["remember"])) {
-                  // setcookie("userid", "$userid", time() + (8600 * 30), "/");
-                  // setcookie("name", "$name", time() + (8600 * 30), "/");
-                  setcookie("email", "$email", time() + (8600 * 30), "/");
-                  setcookie("password", "$password", time() + (8600 * 30), "/");
+               if ($row["IsActive"] == 1) {
+                  $fname = $row["FirstName"];
+                  $lname = $row["LastName"];
+                  $name = "$fname " . "$lname";
+                  $userid = $row["UserId"];
+                  $usertype = $row["UserTypeId"];
+                  $email = $user['email'];
+                  $password = $user['password'];
+                  $_SESSION["userid"] = $userid;
+                  $_SESSION["name"] = $name;
+                  $_SESSION["usertype"] = $usertype;
+
+                  if (isset($_POST["remember"])) {
+                     // setcookie("userid", "$userid", time() + (8600 * 30), "/");
+                     // setcookie("name", "$name", time() + (8600 * 30), "/");
+                     setcookie("email", "$email", time() + (8600 * 30), "/");
+                     setcookie("password", "$password", time() + (8600 * 30), "/");
+                  }
+
+                  // echo "Login Successfull";
+               } else {
+                  $_SESSION["login_error"] = "Account is not activeted";
                }
             } else {
                $_SESSION["login_error"] = "Username or password is Invalid";
@@ -342,7 +349,8 @@ class EventController
 
    function loadaddress()
    {
-      $row = $this->model->fetchuseraddress();
+      $zipcode = $_POST["zipcode"];
+      $row = $this->model->fetchuseraddress($zipcode);
       $useraddress = "";
       while ($address = mysqli_fetch_assoc($row)) {
 
@@ -382,7 +390,7 @@ class EventController
       $servicerequest["userid"] = $_SESSION["userid"];
       $duration_sr = $_POST["duration_sr"];
       $duration_arr = explode(" ", $duration_sr);
-      $servicerequest["duration"] = (int)$duration_arr[0];
+      $servicerequest["duration"] = (float)$duration_arr[0];
       $servicerequest["charge_per_hr"] = 100;
       $extra_service_hr = 0.5;
       $extra_service_cost = 50;
@@ -548,15 +556,24 @@ class EventController
          $datetime = $row["ServiceStartDate"];
          $payment = $row["TotalCost"];
          $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+         // echo $totalhr;
          $serviceproviderid = $row["ServiceProviderId"];
          // echo $serviceproviderid;
+
+         //Hours and minutes
+         $hour = (int)$totalhr;
+         $isminutes = ($totalhr - $hour);
+         if ($isminutes > 0) {
+            $minutes = 30;
+         }
 
          // Date & Time 
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
+
 
 
 
@@ -655,9 +672,59 @@ class EventController
 
       $datetime = $date . " " . $time . ":00";
 
+
+      $row = $this->model->getUpcomingServiceDetails($id);
+      $new_totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+
+      //New time
+
+      $new_starttime = $date . " " . date("G:i:s", strtotime($time));
+      $new_endtime = $date . " " . date("H:i:s", strtotime("+$new_totalhr hour", strtotime($time)));
+
+      $d1_newstartdate = new DateTime($new_starttime);
+      $d2_newenddate = new DateTime($new_endtime);
+
       $result = $this->model->checkserviceavailable($datetime);
-      $no = mysqli_num_rows($result);
-      echo $no;
+
+      $invalid = 0;
+      $valid = 0;
+
+      while ($row2 = mysqli_fetch_assoc($result)) {
+         $id2 = $row2["ServiceRequestId"];
+         $initial_datetime = $row2["ServiceStartDate"];
+         $totalhr = $row2["ServiceHours"] + $row2["ExtraHours"];
+
+         //Hour and minutes
+         $hour = (int) $totalhr;
+         $isminutes = $totalhr - $hour;
+         $minutes = ($isminutes > 0) ? 30 : 0;
+
+         $datetime_arr = explode(" ", $initial_datetime);
+         $initial_date = $datetime_arr[0];
+         $initial_time = $datetime_arr[1];
+         $starttime = date("G:i:s", strtotime($initial_time));
+         $endtime = date("H:i:s", strtotime("+$hour hour +$minutes minutes", strtotime($initial_time)));
+
+         $initial_start_date = $initial_date . " " . date("H:i:s", strtotime($starttime));
+         $initial_end_date = $initial_date . " " . date("H:i:s", strtotime($endtime));
+
+         $d3_initialstartdate = new DateTime($initial_start_date);
+         $d4_initialenddate = new DateTime($initial_end_date);
+
+         if (($d3_initialstartdate > $d2_newenddate) || ($d4_initialenddate < $d1_newstartdate)) {
+            $valid++;
+         } else if ($id == $id2) {
+            $valid++;
+         } else {
+            $invalid++;
+         }
+      }
+
+      if ($invalid == 0) {
+         echo 0;
+      } else {
+         echo 1;
+      }
    }
 
    function deleteservicerequest()
@@ -693,14 +760,22 @@ class EventController
       $servicedetails["State"] = $row["State"];
       $servicedetails["PostalCode"] = $row["PostalCode"];
 
+
+
       // Date and Time 
       $totalhr = $servicedetails["ServiceHours"] + $servicedetails["ExtraHours"];
+
+      //Hour and time
+      $hour = (int) $totalhr;
+      $isminutes = $totalhr - $hour;
+      $minutes = ($isminutes > 0) ? 30 : 0;
+
       $servicedetails["duration"] = $totalhr;
       $datetime_arr = explode(" ", $datetime);
       $servicedetails["date"] = $datetime_arr[0];
       $time = $datetime_arr[1];
       $servicedetails["starttime"] = date("G:i", strtotime($time));
-      $servicedetails["endtime"] = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+      $servicedetails["endtime"] = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
       // Extra Service 
       $servicedetails["ServiceExtraId"] = [];
@@ -785,12 +860,18 @@ class EventController
          $status = $row["Status"];
          // echo $serviceproviderid;
 
+         //Hour and Time
+         $hour = (int)$totalhr;
+         $isminutes = $totalhr - $hour;
+         $minutes = ($isminutes > 0) ? 30 : 0;
+
+
          // Date & Time 
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
          $output .= "<tr>
                         <td>
@@ -915,12 +996,18 @@ class EventController
          $status = $row["Status"];
          // echo $serviceproviderid;
 
+
+         //Hour and Time
+         $hour = (int)$totalhr;
+         $isminutes = $totalhr - $hour;
+         $minutes = ($isminutes > 0) ? 30 : 0;
+
          // Date & Time 
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
          $output .= "<tr>
                                     <td>
@@ -1228,6 +1315,14 @@ class EventController
          $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
          $serviceproviderid = $row["ServiceProviderId"];
 
+         $hour = (int)$totalhr;
+         $isminutes = $totalhr - $hour;
+         if ($isminutes > 0) {
+            $isminutes = 30;
+         } else {
+            $isminutes = 0;
+         }
+
          //Customer details
          $customerid = $row["UserId"];
          // $row1 = $this->model->getAddress_SP($customerid);
@@ -1245,7 +1340,7 @@ class EventController
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$isminutes minutes", strtotime($time)));
 
          $output .= "<tr data-toggle='modal' data-target='#new_service_details' onclick='Accept_Service($servicerequestid)'>
                         <td>
@@ -1303,12 +1398,18 @@ class EventController
       $lname = $row2["LastName"];
       $details["name"] = $fname . " " . $lname;
 
+
+      //Hour and time
+      $hour = (int)$totalhr;
+      $isminutes = $totalhr - $hour;
+      $minutes = ($isminutes > 0) ? 30 : 0;
+
       // Date & Time 
       $datetime_arr = explode(" ", $datetime);
       $details["date"] = $datetime_arr[0];
       $time = $datetime_arr[1];
       $details["starttime"] = date("G:i", strtotime($time));
-      $details["endtime"] = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+      $details["endtime"] = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
       // Extra Service 
       $servicedetails["ServiceExtraId"] = [];
@@ -1373,7 +1474,15 @@ class EventController
       $userid = $_SESSION["userid"];
 
       $currentdatetotalhrs = $row["ServiceHours"] + $row["ExtraHours"];
-      $ServiceDateEnd = date("Y-m-d H:i:s", strtotime("+$currentdatetotalhrs hours", strtotime($ServiceDateStart)));
+
+      $hour = (int) $currentdatetotalhrs;
+      $isminutes = $currentdatetotalhrs - $hour;
+      $minutes = ($isminutes > 0) ? 30 : 0;
+
+      $ServiceDateEnd = date("Y-m-d H:i:s", strtotime("+$hour hours +$minutes minutes", strtotime($ServiceDateStart)));
+
+      $d3_SDS = new DateTime($ServiceDateStart);
+      $d4_SDE = new DateTime($ServiceDateEnd);
 
       $result = $this->model->AcceptServiceValidation($zipcode, $userid);
 
@@ -1383,13 +1492,28 @@ class EventController
       if (mysqli_num_rows($result) > 0) {
          while ($row1 = mysqli_fetch_assoc($result)) {
             // echo $row1["ServiceStartDate"] . "    ";
-            $ServiceStartComp = $row1["ServiceStartDate"];
-            $totalhrs = $row1["ServiceHours"] + $row1["ExtraHours"];
-            $ServiceEndComp = date("Y-m-d H:i:s", strtotime("+$totalhrs hours", strtotime($ServiceStartComp)));
+            $ServiceStartComp2 = $row1["ServiceStartDate"];
+            $ServiceStartComp = date("Y-m-d H:i:s", strtotime("-1 hour", strtotime($ServiceStartComp2)));
 
+            $totalhrs = $row1["ServiceHours"] + $row1["ExtraHours"];
+
+
+            //Hour and time
+            $hour = (int)$totalhrs;
+            $isminutes = $totalhrs - $hour;
+            $minutes = ($isminutes > 0) ? 30 : 0;
+
+            $ServiceEndComp2 = date("Y-m-d H:i:s", strtotime("+$hour hour +$minutes minutes", strtotime($ServiceStartComp)));
+            $ServiceEndComp = date("Y-m-d H:i:s", strtotime("+2 hour", strtotime($ServiceEndComp2)));
+
+            $d1_SS = new DateTime($ServiceStartComp);
+            $d2_SE = new DateTime($ServiceEndComp);
+
+
+            // echo $ServiceStartComp . "   ";
             // echo $ServiceEndComp . "   ";
 
-            if (($ServiceDateStart < $ServiceStartComp && $ServiceDateEnd < $ServiceStartComp) || $ServiceDateStart > $ServiceEndComp) {
+            if (($d3_SDS <= $d1_SS && $d4_SDE <= $d1_SS) || $d3_SDS >= $d2_SE) {
                if (isset($row["ServiceProviderId"])) {
                   $onecount++;
                } else {
@@ -1403,6 +1527,7 @@ class EventController
          $zerocount++;
       }
 
+      // echo "hello  ";
       if ($onecount > 0) {
          echo "1";
       } else {
@@ -1467,6 +1592,15 @@ class EventController
          $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
          $serviceproviderid = $row["ServiceProviderId"];
 
+         //Hours and Minutes
+         $hour = (int)$totalhr;
+         $isminutes = $totalhr - $hour;
+         if ($isminutes > 0) {
+            $minutes = 30;
+         } else {
+            $minutes = 0;
+         }
+
          //Customer details
          $customerid = $row["UserId"];
          // $row1 = $this->model->getAddress_SP($customerid);
@@ -1484,7 +1618,7 @@ class EventController
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
          $output .= "<tr data-toggle='modal' data-target='#upcoming_service_details' onclick='SetUpcomingServiceModal($servicerequestid)'>
                         <td>
@@ -1532,6 +1666,11 @@ class EventController
       $details["comment"] = $row["Comments"];
       $details["HasPets"] = $row["HasPets"];
 
+      //Hour and time
+      $hour = (int)$totalhr;
+      $isminutes = $totalhr - $hour;
+      $minutes = ($isminutes > 0) ? 30 : 0;
+
 
       //Customer details
       $customerid = $row["UserId"];
@@ -1550,7 +1689,7 @@ class EventController
       $details["date"] = $datetime_arr[0];
       $time = $datetime_arr[1];
       $details["starttime"] = date("G:i", strtotime($time));
-      $details["endtime"] = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+      $details["endtime"] = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
       date_default_timezone_set('Asia/Calcutta');
       $todayDate = date("Y/m/d G:i:s");
@@ -1683,12 +1822,18 @@ class EventController
          $lname = $row2["LastName"];
          $name = $fname . " " . $lname;
 
+
+         //Hour and time
+         $hour = (int)$totalhr;
+         $isminutes = $totalhr - $hour;
+         $minutes = ($isminutes > 0) ? 30 : 0;
+
          // Date & Time 
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
          $output .= "<tr data-toggle='modal' data-target='#service_history_details' onclick='SetServiceHistoryModal_SP($servicerequestid)'>
                         <td>
@@ -1751,12 +1896,18 @@ class EventController
          $lname = $row2["LastName"];
          $name = $fname . " " . $lname;
 
+
+         //Hour and time
+         $hour = (int)$totalhr;
+         $isminutes = $totalhr - $hour;
+         $minutes = ($isminutes > 0) ? 30 : 0;
+
          // Date & Time 
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
          $output .= "<tr>
                         <td>$serviceid</td>
@@ -1881,12 +2032,18 @@ class EventController
          $datetime = $row["ServiceStartDate"];
          $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
 
+
+         //Hour and time
+         $hour = (int)$totalhr;
+         $isminutes = $totalhr - $hour;
+         $minutes = ($isminutes > 0) ? 30 : 0;
+
          // Date & Time 
          $datetime_arr = explode(" ", $datetime);
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
 
          // $userdetails = $this->model->getuserdetails($CustomerId);
@@ -1982,14 +2139,20 @@ class EventController
          $totalcleaning = $this->model->totalcleaningbyProvider($userid, $serviceproviderid);
          $result2 = $this->model->averageratingSp($userid, $serviceproviderid);
 
-         $count = 0;
-         $sum = 0;
-         while ($row2 = mysqli_fetch_assoc($result2)) {
-            $sum += $row2["Ratings"];
-            $count++;
+         if (mysqli_num_rows($result2) > 0) {
+
+            $count = 0;
+            $sum = 0;
+            while ($row2 = mysqli_fetch_assoc($result2)) {
+               $sum += $row2["Ratings"];
+               $count++;
+            }
+
+            $avgrating = $sum / $count;
+         } else {
+            $avgrating = 0;
          }
 
-         $avgrating = $sum / $count;
 
          $output .= "<div class='block_box'>
                         <div class='block_logo'>
@@ -2052,7 +2215,8 @@ class EventController
 
    //Admin Section
 
-   function fetchtotalRecord_SM(){
+   function fetchtotalRecord_SM()
+   {
       $condition = $_POST["reason"];
 
       $result = $this->model->fetchTotalServiceRequestDetails($condition);
@@ -2078,7 +2242,7 @@ class EventController
                   <th>Action</th>
             </tr>";
 
-      $result = $this->model->fetchAllServiceRequestDetails($condition,$offset,$limit);
+      $result = $this->model->fetchAllServiceRequestDetails($condition, $offset, $limit);
 
       $userlist = [];
       $helperslist = [];
@@ -2092,6 +2256,11 @@ class EventController
          $totalhr = $row["ServiceHours"] + $row["ExtraHours"];
          $serviceproviderid = $row["ServiceProviderId"];
          $status = $row["Status"];
+
+         //Hour and time
+         $hour = (int)$totalhr;
+         $isminutes = $totalhr - $hour;
+         $minutes = ($isminutes > 0) ? 30 : 0;
 
          //Customer details
          $customerid = $row["UserId"];
@@ -2115,7 +2284,7 @@ class EventController
          $date = $datetime_arr[0];
          $time = $datetime_arr[1];
          $starttime = date("G:i", strtotime($time));
-         $endtime = date("H:i", strtotime("+$totalhr hour", strtotime($time)));
+         $endtime = date("H:i", strtotime("+$hour hour +$minutes minutes", strtotime($time)));
 
 
          $output .= "<tr class='table_row service_req_row'>
@@ -2330,7 +2499,7 @@ class EventController
                      <th>Action</th>
                </tr>";
 
-      $result = $this->model->getAllUserDetails($condition,$offset,$limit);
+      $result = $this->model->getAllUserDetails($condition, $offset, $limit);
 
       while ($row = mysqli_fetch_assoc($result)) {
 
@@ -2343,7 +2512,7 @@ class EventController
 
          //Date 
          $datetime = $row["CreatedDate"];
-         $datetimearr = explode(" ",$datetime);
+         $datetimearr = explode(" ", $datetime);
          $date = $datetimearr[0];
 
          $output .= "<tr class='table_row'>
@@ -2447,13 +2616,14 @@ class EventController
       $this->model->UpdateActiveStatus($userid, $activestatus);
    }
 
-   function fetchCustomerNameList(){
+   function fetchCustomerNameList()
+   {
       $result = $this->model->getAllUserDetails_UM('UserTypeId < 2');
 
       $output = "<option value='user_name' disabled selected>Select User Name</option>";
-      while($row = mysqli_fetch_assoc($result)){
+      while ($row = mysqli_fetch_assoc($result)) {
          $userid = $row["UserId"];
-         $name = $row["FirstName"]." ".$row["LastName"];
+         $name = $row["FirstName"] . " " . $row["LastName"];
 
          $output .= "<option value=$userid>$name</option>";
       }
@@ -2461,7 +2631,8 @@ class EventController
       echo $output;
    }
 
-   function fetchtotalRecord_UM(){
+   function fetchtotalRecord_UM()
+   {
 
       $condition = $_POST["reason"];
       $result = $this->model->getAllUserDetails_UM($condition);
@@ -2497,7 +2668,7 @@ class EventController
 
          //Date 
          $datetime = $row["CreatedDate"];
-         $datetimearr = explode(" ",$datetime);
+         $datetimearr = explode(" ", $datetime);
          $date = $datetimearr[0];
 
          $output .= "<tr class='table_row'>
@@ -2528,7 +2699,8 @@ class EventController
       echo $output;
    }
 
-   function fetchrefundmodaldetails(){
+   function fetchrefundmodaldetails()
+   {
       $id = $_POST["serviceRequestId"];
 
       $row = $this->model->getServiceRequests_SP_details($id);
@@ -2537,14 +2709,39 @@ class EventController
       $refunddetails["refundAmount"] = $row["RefundedAmount"];
 
       echo json_encode($refunddetails);
-   
    }
 
-   function updaterefundvalue(){
+   function updaterefundvalue()
+   {
       $id = $_POST["serviceRequestId"];
       $refundedAmount = $_POST["refunded_amount"];
 
-      $this->model->updateRefundedValue($id,$refundedAmount);
+      $this->model->updateRefundedValue($id, $refundedAmount);
    }
 
+   function loadsevent()
+   {
+      $userid = $_SESSION["userid"];
+
+      $result = $this->model->getallevents($userid);
+
+      $data = array();
+
+      while ($row = mysqli_fetch_assoc($result)) {
+
+         $Servicedate = $row["ServiceStartDate"];
+         $Servicedatearr = explode(" ",$Servicedate);
+
+         $timearr = explode(".",$Servicedatearr[1]);
+
+
+         $data[] = array(
+            'id'   => $row["UserId"],
+            'title'   => 'Service time:- '.$timearr[0],
+            'start'   => $Servicedatearr[0],
+         );
+      }
+
+      echo json_encode($data);
+   }
 }

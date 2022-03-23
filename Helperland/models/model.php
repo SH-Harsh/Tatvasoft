@@ -224,12 +224,26 @@ class EventModal
         }
     }
 
-    function fetchuseraddress($zipcode)
+    function fetchuseraddress_booknow($zipcode)
     {
         global $connection;
         $userid = $_SESSION["userid"];
 
         $qry = "SELECT *FROM useraddress WHERE UserId = $userid AND PostalCode = '$zipcode'";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            return $result;
+        }
+    }
+    
+    function fetchuseraddress()
+    {
+        global $connection;
+        $userid = $_SESSION["userid"];
+
+        $qry = "SELECT *FROM useraddress WHERE UserId = $userid";
         $result = mysqli_query($connection, $qry);
         if (!$result) {
             die("Query Failed" . mysqli_error($connection));

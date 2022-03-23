@@ -729,7 +729,7 @@ $("#rateYo").rateYo({
 
     onSet: function (rating, rateYoInstance) {
         $('.rating_value').html(rating);
-        avgrating()
+        avgrating();
     },
 });
 $("#rateYo1").rateYo({
@@ -739,7 +739,7 @@ $("#rateYo1").rateYo({
 
     onSet: function (rating, rateYoInstance) {
         $('.rating_value1').html(rating);
-        avgrating()
+        avgrating();
     },
 });
 $("#rateYo2").rateYo({
@@ -749,7 +749,7 @@ $("#rateYo2").rateYo({
 
     onSet: function (rating, rateYoInstance) {
         $('.rating_value2').html(rating);
-        avgrating()
+        avgrating();
     },
 });
 

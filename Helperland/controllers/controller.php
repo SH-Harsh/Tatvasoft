@@ -350,7 +350,7 @@ class EventController
    function loadaddress()
    {
       $zipcode = $_POST["zipcode"];
-      $row = $this->model->fetchuseraddress($zipcode);
+      $row = $this->model->fetchuseraddress_booknow($zipcode);
       $useraddress = "";
       while ($address = mysqli_fetch_assoc($row)) {
 
@@ -565,6 +565,8 @@ class EventController
          $isminutes = ($totalhr - $hour);
          if ($isminutes > 0) {
             $minutes = 30;
+         }else{
+            $minutes = 0;
          }
 
          // Date & Time 

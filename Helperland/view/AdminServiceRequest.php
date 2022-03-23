@@ -3,6 +3,11 @@
 <!-- Navigation bar  -->
 <?php include "view/include/admin_navigation.php" ?>
 
+<!-- Spinner  -->
+<div class="spinner" id="admin_spinner">
+</div>  
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2 left_menu_box">
@@ -724,17 +729,27 @@
                     <div class="mt-2 ml-2">
                         <select name="time" id="edittime_modal" class="time">
                             <option value="user_type" disabled selected>Select Time</option>
-                            <option value="8:00">8:00</option>
-                            <option value="9:00">9:00</option>
-                            <option value="10:00">10:00</option>
-                            <option value="11:00">11:00</option>
-                            <option value="12:00">12:00</option>
-                            <option value="13:00">13:00</option>
-                            <option value="14:00">14:00</option>
-                            <option value="15:00">15:00</option>
-                            <option value="16:00">16:00</option>
-                            <option value="17:00">17:00</option>
-                            <option value="18:00">18:00</option>
+                            <option selected>8:00</option>
+                            <option>8:30</option>
+                            <option>9:00</option>
+                            <option>9:30</option>
+                            <option>10:00</option>
+                            <option>10:30</option>
+                            <option>11:00</option>
+                            <option>11:30</option>
+                            <option>12:00</option>
+                            <option>12:30</option>
+                            <option>13:00</option>
+                            <option>13:30</option>
+                            <option>14:00</option>
+                            <option>14:30</option>
+                            <option>15:00</option>
+                            <option>15:30</option>
+                            <option>16:00</option>
+                            <option>16:30</option>
+                            <option>17:00</option>
+                            <option>17:30</option>
+                            <option>18:00</option>
                         </select>
                     </div>
                 </div>
@@ -829,6 +844,9 @@
 <div class="modal fade" id="redund_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
+            <div class="alert alert-danger m-2" role="alert" id="refund_amount_error" style="display: none;">
+                Insufficient Available Amount
+            </div>
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Refund Amount</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -902,11 +920,6 @@
                     </div>
                 </form>
             </div>
-
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
         </div>
     </div>
 </div>

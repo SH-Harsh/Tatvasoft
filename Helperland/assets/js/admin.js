@@ -338,6 +338,10 @@ function sendMailbyAdmin(id, reason) {
 $('#update_editmodal').click(function (e) {
     e.preventDefault();
 
+    window.scrollTo(0, 0);
+
+    $('#admin_spinner').css('display', 'block');
+
     id = $('.requestid_editModal').attr('id');
     idarr = id.split("-");
     servicerequestid = parseInt(idarr[0]);
@@ -379,6 +383,8 @@ $('#update_editmodal').click(function (e) {
                         },
                         success: function (response) {
 
+                            $('#admin_spinner').css('display', 'none');
+
                             updateServiceRequestAddress(servicerequestid);
                             loadadminServiceRequest('S.Status >= 0', 0, 10);
                             sendMailbyAdmin(servicerequestid, $reason);
@@ -390,6 +396,8 @@ $('#update_editmodal').click(function (e) {
                     // $('#reschudele_error').css('display', 'block');
                     $('.bg-modal').css('display', 'none');
                     $('.bg-modal-fp').css('display', 'none');
+
+                    $('#admin_spinner').css('display', 'none');
 
                     Swal.fire({
                         icon: 'error',
@@ -632,6 +640,8 @@ function UserActiveStatus(userstatus) {
         },
         success: function (response) {
             loadAdminUserManagement('UserTypeId < 2', 0, 10);
+
+            pagination_um('min');
         }
     });
 }
@@ -901,6 +911,8 @@ $('#export_um').click(function (e) {
 function RefundDetails(id) {
     // console.log(id);
 
+    $('#refund_amount_error').css('display', 'none');
+
     $.ajax({
         type: "POST",
         url: "http://localhost/helperland/index.php?function=fetchrefundmodaldetails",
@@ -952,6 +964,7 @@ $('#amount_enter').change(function (e) {
 $('#refund_modal').click(function (e) {
     e.preventDefault();
 
+
     id = $('.refund_id').attr('id');
     id_arr = id.split("-");
     refundid = parseInt(id_arr[0]);
@@ -969,6 +982,9 @@ $('#refund_modal').click(function (e) {
     totalNo = parseFloat(totalAmount_arr[0]);
 
     if (totalrefund < totalNo) {
+
+        $('#refund_amount_error').css('display', 'none');
+
         $.ajax({
             type: "POST",
             url: "http://localhost/helperland/index.php?function=updaterefundvalue",
@@ -983,7 +999,7 @@ $('#refund_modal').click(function (e) {
         });
 
     }else{
-        console.log("Error");
+        $('#refund_amount_error').css('display', 'block');
     }
 
 
@@ -995,28 +1011,28 @@ $('#refund_modal').click(function (e) {
 
 // Navbar Change 
 
-// function changeBg(){
-//     var scrollValue = window.scrollY;
-//     // console.log(scrollValue);
+function changeBg(){
+    var scrollValue = window.scrollY;
+    // console.log(scrollValue);
 
-//     var navbar = document.getElementById("header");
-//     $('#header').css('background-color','transparent');
+    var navbar = document.getElementById("header");
+    $('#header').css('background-color','transparent');
 
-//     if(scrollValue > 80){
-//         navbar.classList.add('bgcolor');
-//         $('.logo img').css('height', '74px');
-//         $('.logo img').css('width', '100px');
-//         $('.nav_option ul li').css('margin', '15px 10px 0px');
-//         $('.arrow_down_nav').css('margin', '5px 20px 5px -22px');
-//         // $('#header').css('background-color','#525252');
-//         $('#header').css('background-color','rgba(82,82,82,0.9)');
-//     }else{
-//         navbar.classList.remove('bgcolor');
-//         $('.logo img').css('height', '102px');
-//         $('.logo img').css('width', '138px');
-//         $('.nav_option ul li').css('margin', '43px 10px 0px');
-//         $('#header').css('background-color','transparent');
-//     }
-// }
+    if(scrollValue > 80){
+        navbar.classList.add('bgcolor');
+        $('.logo img').css('height', '74px');
+        $('.logo img').css('width', '100px');
+        $('.nav_option ul li').css('margin', '15px 10px 0px');
+        $('.arrow_down_nav').css('margin', '5px 20px 5px -22px');
+        // $('#header').css('background-color','#525252');
+        $('#header').css('background-color','rgba(82,82,82,0.9)');
+    }else{
+        navbar.classList.remove('bgcolor');
+        $('.logo img').css('height', '102px');
+        $('.logo img').css('width', '138px');
+        $('.nav_option ul li').css('margin', '43px 10px 0px');
+        $('#header').css('background-color','transparent');
+    }
+}
 
-// window.addEventListener('scroll',changeBg);
+window.addEventListener('scroll',changeBg);

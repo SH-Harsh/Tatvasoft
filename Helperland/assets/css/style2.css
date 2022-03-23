@@ -1711,3 +1711,16 @@ td a {
 .request_id{
     font-size: 14px !important;
 }
+
+
+/* Spinner  */
+
+.spinner{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9999;
+    background: #ECF1F2 url('../images/Spinner.gif') no-repeat 50% 50%;
+    opacity: 0.9;
+    display: none;
+}

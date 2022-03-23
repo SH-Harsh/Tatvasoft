@@ -56,6 +56,8 @@
 
 <section onclick="closeSideMenu()" id="background_body">
 
+    <div class="spinner" id="reschdule_spinner">
+    </div>
 
     <section class="welcome_user">
         <p class="welcome">Welcome, <span style="font-weight: bold;"><?= $name; ?></span></p>

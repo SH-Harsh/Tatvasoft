@@ -45,7 +45,7 @@ $('#continue_schedulePlan').click(function (e) {
 
     var postalcode = $('#postalcode_yd').val().trim();
 
-    if (checkdate >= currentdate) {
+    if (checkdate > currentdate) {
         // console.log("Allow");
         $('#date_error_alert').css('display', 'none');
 
@@ -310,7 +310,7 @@ function loaddashboard(offset, limit) {
         // type: "method",
         url: "http://localhost/helperland/index.php?function=fetchcurrentservicerequest&parameter=" + offset + "-" + limit,
         success: function (response) {
-            console.log(response);
+            // console.log(response);
             $('.dashboard_table').html(response);
             $('.avg_rating_serprovider').rateYo({
                 rating: 1,
@@ -382,6 +382,9 @@ function rescheduleclick(id) {
 
 $('#reschudele_update').click(function () {
 
+    $('#reschdule_spinner').css('display', 'block');
+
+
     id = $('.test').attr('id');
 
     date1 = $('#rescheduledate').val();
@@ -409,14 +412,18 @@ $('#reschudele_update').click(function () {
                     success: function (response) {
                         $('#reschudele_error').css('display', 'none');
 
+                        $('#reschdule_spinner').css('display', 'none');
                         $('#Reschudule').modal('hide');
                         $('.show').remove('.modal-backdrop');
                         loaddashboard(0, 2);
                         // console.log(response);
+
+
                     }
                 });
             } else {
                 $('#reschudele_error').css('display', 'block');
+                $('#reschdule_spinner').css('display', 'none');
             }
         }
     });

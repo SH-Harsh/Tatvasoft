@@ -28,6 +28,9 @@
 
             <!-- Form  -->
             <div class="form_box">
+                <div class="alert alert-danger" role="alert" id="adminUserManagment_error" style="display: none;">
+                    Enter the details in correct format
+                </div>
                 <form action="#" class="flex-container" id="UserManagementFilterForm">
                     <div class="mr-2 mt-2">
                         <select name="user_name" id="user_name_admin" class="user_name">

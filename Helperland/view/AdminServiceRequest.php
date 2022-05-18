@@ -5,7 +5,7 @@
 
 <!-- Spinner  -->
 <div class="spinner" id="admin_spinner">
-</div>  
+</div>
 
 
 <div class="container-fluid">
@@ -29,6 +29,9 @@
 
             <!-- Form  -->
             <div class="form_box">
+                <div class="alert alert-danger" role="alert" id="adminServiceRequest_error" style="display: none;">
+                    Enter the details in correct format
+                </div>
                 <form class="flex-container" id="adminServiceRequestForm">
 
 
@@ -709,7 +712,11 @@
 <!-- Modal Section  -->
 
 <div class="bg-modal" id="AdminEditModal">
+
     <div class="modal-content_not">
+        <div class="alert alert-danger mr-4" role="alert" id="admin_edit_error" style="display: none;">
+            Please Enter all details
+        </div>
         <p class="edit_service">Edit Service Requests</p>
 
         <form action="#" id="editModalForm">

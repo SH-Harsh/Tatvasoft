@@ -65,9 +65,9 @@
                 <div class="col-lg-2 left-menu">
                     <div style="background-color: #1d7a8c; height: 100%;">
                         <table class="menu_table">
-                            <tr>
+                            <!-- <tr>
                                 <td><a href="#">Dashboard</a></td>
-                            </tr>
+                            </tr> -->
                             <tr class="new_service_request">
                                 <td><a href="#">New Service Requests</a></td>
                             </tr>

@@ -81,6 +81,13 @@ if(isset($_SESSION["Logout"])){
         </script>";
 }
 unset($_SESSION["Logout"]);
+
+if (isset($_SESSION["error_message"])) {
+    echo "<script>
+            accounterror();
+        </script>";
+}
+unset($_SESSION["error_message"]);
 ?>
 
 </body>

@@ -133,9 +133,13 @@ class EventController
             $user["isActive"] = 0;
          }
 
+         $emailAlreadyExists = $this->model->checkEmailAlreadyExists($user["email"]);
+
 
          if ($user["fname"] == "" || $user["lname"] == "" || $user["email"] == "" || $user["phone_no"] == "" || $user["password1"] == "") {
             $_SESSION["error_message"] = "Some values are empty please register with proper details";
+         } else if ($emailAlreadyExists > 0) {
+            $_SESSION["error_message"] = "Email Already Exists";
          } else {
             $this->model->insertuserdetails($user);
          }
@@ -565,7 +569,7 @@ class EventController
          $isminutes = ($totalhr - $hour);
          if ($isminutes > 0) {
             $minutes = 30;
-         }else{
+         } else {
             $minutes = 0;
          }
 
@@ -677,6 +681,7 @@ class EventController
 
       $row = $this->model->getUpcomingServiceDetails($id);
       $new_totalhr = $row["ServiceHours"] + $row["ExtraHours"];
+      $userid = $row["UserId"];
 
       //New time
 
@@ -686,7 +691,7 @@ class EventController
       $d1_newstartdate = new DateTime($new_starttime);
       $d2_newenddate = new DateTime($new_endtime);
 
-      $result = $this->model->checkserviceavailable($datetime);
+      $result = $this->model->checkserviceavailable_admin($datetime, $userid);
 
       $invalid = 0;
       $valid = 0;
@@ -942,7 +947,7 @@ class EventController
                   </tr>";
          } else {
             $output .= "<td>
-                           <button type='button' class='RateSp'>Rate SP</button>
+                           <button type='button' class='RateSp' style='background-color: #e63946;'>Rate SP</button>
                         </td>
                   </tr>";
          }
@@ -1305,8 +1310,19 @@ class EventController
                </tr>";
 
 
+      //Block User Details
+      $allblockuserid = $this->model->fetchallblockuserid($userid);
+      // print_r($allblockuserid);
 
-      $result = $this->model->getnewservicerequest_sp($pincode, $pets, $offset, $limit);
+      $inblockcondition = "(";
+      $inblockcondition .= implode(",", $allblockuserid);
+      $inblockcondition .= ")";
+      // echo $inblockcondition;
+
+
+      $result = $this->model->getnewservicerequest_sp($pincode, $pets, $offset, $limit, $inblockcondition);
+
+
 
       while ($row = mysqli_fetch_assoc($result)) {
 
@@ -1461,7 +1477,16 @@ class EventController
 
       $pets = $_GET["parameter"];
 
-      $no = $this->model->getnewservicerequestTotalEntries_sp($pincode, $pets);
+      //Block User Details
+      $allblockuserid = $this->model->fetchallblockuserid($userid);
+      // print_r($allblockuserid);
+
+      $inblockcondition = "(";
+      $inblockcondition .= implode(",", $allblockuserid);
+      $inblockcondition .= ")";
+      // echo $inblockcondition;
+
+      $no = $this->model->getnewservicerequestTotalEntries_sp($pincode, $pets, $inblockcondition);
 
       echo $no;
    }
@@ -1529,7 +1554,7 @@ class EventController
          $zerocount++;
       }
 
-      // echo "hello  ";
+
       if ($onecount > 0) {
          echo "1";
       } else {
@@ -2732,15 +2757,26 @@ class EventController
       while ($row = mysqli_fetch_assoc($result)) {
 
          $Servicedate = $row["ServiceStartDate"];
-         $Servicedatearr = explode(" ",$Servicedate);
+         $Servicedatearr = explode(" ", $Servicedate);
 
-         $timearr = explode(".",$Servicedatearr[1]);
+         $timearr = explode(".", $Servicedatearr[1]);
+
+         $status = $row["Status"];
+
+         if ($status == 2) {
+            $color = 'red';
+         } else if ($status == 1) {
+            $color = 'green';
+         } else {
+            $color = 'blue';
+         }
 
 
          $data[] = array(
             'id'   => $row["UserId"],
-            'title'   => 'Service time:- '.$timearr[0],
+            'title'   => 'Service time:- ' . $timearr[0],
             'start'   => $Servicedatearr[0],
+            'backgroundColor' => $color
          );
       }
 

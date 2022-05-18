@@ -488,6 +488,9 @@
                                     <div class="alert alert-danger m-2" id="reschudele_error" role="alert" style="display: none;">
                                         Another service request has been assigned to the service provider
                                     </div>
+                                    <div class="alert alert-danger m-2" id="reschudele_date_error" role="alert" style="display: none;">
+                                        Date is not valid
+                                    </div>
                                     <div class="modal-header">
 
                                         <h5 class="modal-title" id="exampleModalLabel">Reschedule Service Request

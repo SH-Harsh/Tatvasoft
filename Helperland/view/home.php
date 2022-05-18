@@ -2,14 +2,14 @@
 if (isset($_SESSION["error_message"])) {
 ?>
 
-    <div class="alert alert-danger alert-dismissible">
+    <!-- <div class="alert alert-danger alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Danger!</strong> Some values are invalid please register with proper details
-    </div>
+    </div> -->
 
 <?php
 }
-unset($_SESSION["error_message"]);
+// unset($_SESSION["error_message"]);
 ?>
 
 <?php

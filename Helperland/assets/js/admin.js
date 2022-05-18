@@ -151,6 +151,8 @@ $('.clear').click(function (e) {
 
 function condition_sm() {
 
+    $('#adminServiceRequest_error').css('display', 'none');
+
     status_type = $('#status_type').val();
     ServiceProvider = $('#serviceProviderOption').val();
     Customer = $('#CustomerOption').val();
@@ -199,12 +201,20 @@ function condition_sm() {
     }
 
     if (zipcode != "") {
-        if (count == 0) {
-            condition += " S.ZipCode  = " + zipcode;
+
+        if (zipcode.toString().length == 6) {
+            if (count == 0) {
+                condition += " S.ZipCode  = " + zipcode;
+            } else {
+                condition += " AND S.ZipCode  = " + zipcode;
+            }
+            count = 1;
         } else {
-            condition += " AND S.ZipCode  = " + zipcode;
+            $('#adminServiceRequest_error').css('display', 'block');
+            condition = 'S.Status >= 0';
+            count = 1;
         }
-        count = 1;
+        // console.log(zipcode.toString().length);
     }
 
     if (serviceid != "") {
@@ -235,15 +245,28 @@ function condition_sm() {
     }
 
     if (email != "") {
-        if (count == 0) {
-            condition += " U.Email  = '" + email + "'";
+
+        if (String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            )) {
+            if (count == 0) {
+                condition += " U.Email  = '" + email + "'";
+            } else {
+                condition += " AND U.Email  = '" + email + "'";
+            }
+            count = 1;
         } else {
-            condition += " AND U.Email  = '" + email + "'";
+            $('#adminServiceRequest_error').css('display', 'block');
+            condition = 'S.Status >= 0';
+            count = 1;
         }
-        count = 1;
+
+
     }
 
-    // console.log(condition);
+    console.log(condition);
 
     return condition;
 }
@@ -297,27 +320,36 @@ function updateServiceRequestAddress(id) {
     zipcode = $('#zipcode_editmodal').val();
     city = $('#city_editmodal').val();
 
-    $.ajax({
-        type: "POST",
-        url: "http://localhost/helperland/index.php?function=updateServiceAddress_Modal",
-        data: {
-            streetName: streetname,
-            houseNo: houseno,
-            Zipcode: zipcode,
-            City: city,
-            serviceid: id
-        },
-        success: function (response) {
+    if (streetname == "" || houseno == "" || zipcode == "" || city == "") {
+        $('#admin_edit_error').css('display', 'block');
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost/helperland/index.php?function=updateServiceAddress_Modal",
+            data: {
+                streetName: streetname,
+                houseNo: houseno,
+                Zipcode: zipcode,
+                City: city,
+                serviceid: id
+            },
+            success: function (response) {
 
-            $('.bg-modal').css('display', 'none');
-            $('.bg-modal-fp').css('display', 'none');
+                $('.bg-modal').css('display', 'none');
+                $('.bg-modal-fp').css('display', 'none');
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Updated Successfully',
-            })
-        }
-    });
+                $('#admin_edit_error').css('display', 'none');
+                $('#editModalForm').trigger('reset');
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Updated Successfully',
+                })
+            }
+        });
+    }
+
+
 
 }
 
@@ -360,7 +392,8 @@ $('#update_editmodal').click(function (e) {
         updateServiceRequestAddress(servicerequestid);
         loadadminServiceRequest('S.Status >= 0', 0, 10);
         sendMailbyAdmin(servicerequestid, $reason);
-        $('#editModalForm').trigger('reset');
+
+        $('#admin_spinner').css('display', 'none');
     } else {
         $.ajax({
             type: "POST",
@@ -383,13 +416,15 @@ $('#update_editmodal').click(function (e) {
                         },
                         success: function (response) {
 
-                            $('#admin_spinner').css('display', 'none');
+                            
 
                             updateServiceRequestAddress(servicerequestid);
                             loadadminServiceRequest('S.Status >= 0', 0, 10);
                             sendMailbyAdmin(servicerequestid, $reason);
 
                             $('#editModalForm').trigger('reset');
+
+                            $('#admin_spinner').css('display', 'none');
                         }
                     });
                 } else {
@@ -654,6 +689,8 @@ $('#clear_um').click(function (e) {
 });
 
 function condition_um() {
+
+    $('#adminUserManagment_error').css('display', 'none');
     username = $('#user_name_admin').val();
     usertype = $('#user_type_um').val();
     mobile = $('#phone_no_um').val();
@@ -689,21 +726,37 @@ function condition_um() {
     }
 
     if (mobile != "") {
-        if (count == 0) {
-            condition += " Mobile = '" + mobile + "'";
+
+        if (mobile.toString().length == 10) {
+            if (count == 0) {
+                condition += " Mobile = '" + mobile + "'";
+            } else {
+                condition += " AND Mobile = '" + mobile + "'";
+            }
+            count = 1;
         } else {
-            condition += " AND Mobile = '" + mobile + "'";
+            $('#adminUserManagment_error').css('display', 'block');
+            condition = 'UserTypeId < 2';
+            count = 1;
         }
-        count = 1;
+
     }
 
     if (zipcode != "") {
-        if (count == 0) {
-            condition += " ZipCode = '" + zipcode + "'";
+
+        if (zipcode.toString().length == 6) {
+            if (count == 0) {
+                condition += " ZipCode = '" + zipcode + "'";
+            } else {
+                condition += " AND ZipCode = '" + zipcode + "'";
+            }
+            count = 1;
         } else {
-            condition += " AND ZipCode = '" + zipcode + "'";
+            $('#adminUserManagment_error').css('display', 'block');
+            condition = 'UserTypeId < 2';
+            count = 1;
         }
-        count = 1;
+
     }
 
     if (fromdate != "") {
@@ -723,6 +776,8 @@ function condition_um() {
         }
         count = 1;
     }
+
+    console.log(condition);
 
     return condition;
 }
@@ -998,7 +1053,7 @@ $('#refund_modal').click(function (e) {
             }
         });
 
-    }else{
+    } else {
         $('#refund_amount_error').css('display', 'block');
     }
 
@@ -1008,31 +1063,30 @@ $('#refund_modal').click(function (e) {
 
 
 
-
 // Navbar Change 
 
-function changeBg(){
+function changeBg() {
     var scrollValue = window.scrollY;
     // console.log(scrollValue);
 
     var navbar = document.getElementById("header");
-    $('#header').css('background-color','transparent');
+    $('#header').css('background-color', 'transparent');
 
-    if(scrollValue > 80){
+    if (scrollValue > 80) {
         navbar.classList.add('bgcolor');
         $('.logo img').css('height', '74px');
         $('.logo img').css('width', '100px');
         $('.nav_option ul li').css('margin', '15px 10px 0px');
         $('.arrow_down_nav').css('margin', '5px 20px 5px -22px');
         // $('#header').css('background-color','#525252');
-        $('#header').css('background-color','rgba(82,82,82,0.9)');
-    }else{
+        $('#header').css('background-color', 'rgba(82,82,82,0.9)');
+    } else {
         navbar.classList.remove('bgcolor');
         $('.logo img').css('height', '102px');
         $('.logo img').css('width', '138px');
         $('.nav_option ul li').css('margin', '43px 10px 0px');
-        $('#header').css('background-color','transparent');
+        $('#header').css('background-color', 'transparent');
     }
 }
 
-window.addEventListener('scroll',changeBg);
+window.addEventListener('scroll', changeBg);

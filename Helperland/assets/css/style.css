@@ -481,6 +481,7 @@ footer {
 .faq_img {
     width: 100%;
     height: 370px;
+    object-fit: cover;
 }
 
 .one_time_box {

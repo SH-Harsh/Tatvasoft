@@ -41,6 +41,20 @@ class EventModal
         }
     }
 
+    function checkEmailAlreadyExists($email){
+
+        global $connection;
+
+        $qry = "SELECT *FROM user WHERE Email = '$email'";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        }else{
+            return mysqli_num_rows($result);
+        }
+
+    }
+
 
     function insertuserdetails($user)
     {
@@ -342,6 +356,33 @@ class EventModal
         return $validserviceprovider;
     }
 
+    function fetchallblockuserid($userid){
+        global $connection;
+
+        $blockuserid = [];
+        $qry = "SELECT TargetUserId  FROM favoriteandblocked WHERE UserId = $userid AND IsBlocked = 1";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($blockuserid, $row["TargetUserId"]);
+            }
+        }
+
+        $qry1 = "SELECT UserId  FROM favoriteandblocked WHERE TargetUserId = $userid AND IsBlocked = 1";
+        $result1 = mysqli_query($connection, $qry1);
+        if (!$result1) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            while ($row = mysqli_fetch_assoc($result1)) {
+                array_push($blockuserid, $row["UserId"]);
+            }
+        }
+        return $blockuserid;
+
+    }
+
     function fetchServiceProviderName($id)
     {
         global $connection;
@@ -480,6 +521,21 @@ class EventModal
     {
         global $connection;
         $userid = $_SESSION["userid"];
+
+        // $qry = "SELECT *FROM servicerequest WHERE ServiceStartDate = '$datetime'";
+        $qry = "SELECT *FROM servicerequest WHERE UserId = $userid AND `Status` = 0";
+        $result = mysqli_query($connection, $qry);
+        if (!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            return $result;
+        }
+    }
+
+    function checkserviceavailable_admin($datetime,$userid)
+    {
+        global $connection;
+        // $userid = $_SESSION["userid"];
 
         // $qry = "SELECT *FROM servicerequest WHERE ServiceStartDate = '$datetime'";
         $qry = "SELECT *FROM servicerequest WHERE UserId = $userid AND `Status` = 0";
@@ -852,19 +908,20 @@ class EventModal
         }
     }
 
-    function getnewservicerequest_sp($pincode, $pets, $offset, $limit)
+    function getnewservicerequest_sp($pincode, $pets, $offset, $limit, $inblockcondition)
     {
         global $connection;
 
         $date = date("Y/m/d h:i:s");
-        echo $pets;
+
+        // print_r($allblockuserid);
 
         if ($pets == 0) {
             $qry = "SELECT *FROM servicerequest WHERE ZipCode = '$pincode' AND ServiceStartDate >= '$date' 
-                     AND ServiceProviderId IS NULL  AND `Status` = 0 LIMIT $offset,$limit";
+                     AND ServiceProviderId IS NULL  AND `Status` = 0 AND UserId NOT IN $inblockcondition LIMIT $offset,$limit";
         } else {
             $qry = "SELECT *FROM servicerequest WHERE ZipCode = '$pincode' AND ServiceStartDate >= '$date'
-                    AND ServiceProviderId IS NULL  AND `Status` = 0 AND HasPets = $pets LIMIT $offset,$limit";
+                    AND ServiceProviderId IS NULL  AND `Status` = 0 AND UserId NOT IN $inblockcondition AND HasPets = $pets LIMIT $offset,$limit";
         }
 
         $result = mysqli_query($connection, $qry);
@@ -888,7 +945,7 @@ class EventModal
         }
     }
 
-    function getnewservicerequestTotalEntries_sp($pincode, $pets)
+    function getnewservicerequestTotalEntries_sp($pincode, $pets, $inblockcondition)
     {
         global $connection;
 
@@ -896,10 +953,10 @@ class EventModal
 
         if ($pets == 0) {
             $qry = "SELECT *FROM servicerequest WHERE ZipCode = $pincode AND ServiceStartDate >= '$date' 
-                    AND ServiceProviderId IS NULL AND `Status` = 0";
+                    AND ServiceProviderId IS NULL AND `Status` = 0 AND UserId NOT IN $inblockcondition";
         } else {
             $qry = "SELECT *FROM servicerequest WHERE ZipCode = $pincode AND ServiceStartDate >= '$date' 
-                    AND ServiceProviderId IS NULL AND `Status` = 0 AND HasPets = $pets";
+                    AND ServiceProviderId IS NULL AND `Status` = 0 AND HasPets = $pets AND UserId NOT IN $inblockcondition";
         }
 
         $result = mysqli_query($connection, $qry);

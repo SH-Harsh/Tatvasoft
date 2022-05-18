@@ -774,3 +774,13 @@ $('.sorting_click').click(function (e) {
     }
 });
 
+//Create Account Error
+
+function accounterror(){
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Email Already Exists'
+    })
+}
+
